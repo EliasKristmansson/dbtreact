@@ -1,3 +1,26 @@
+Av någon anledning följde inte en mapp med i första pushen så man måste lägga till launch settings själv. Lägg till en mapp i projektet som heter ".vscode". Skapa en fil i den som heter launch.json och kopiera in denna kod för att göra appen körbar. 
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "edge",
+      "request": "launch",
+      "name": "Edge",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
