@@ -1,6 +1,20 @@
-﻿import React from "react";
+﻿import React, { useState } from "react";
+import Folder from "./Folder";
 
 export default function Sidebar() {
+  const [folders, setFolders] = useState([
+    { title: "Prio", projects: ["Projekt 1", "Projekt 2", "Projekt 3"] },
+    { title: "Sötvatten", projects: ["Projekt 4", "Projekt 5"] },
+    { title: "Marint", projects: ["Projekt 6"] },
+  ]);
+
+  const addFolder = () => {
+    const newTitle = prompt("Namn på ny mapp:");
+    if (newTitle) {
+      setFolders([...folders, { title: newTitle, projects: [] }]);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -8,29 +22,15 @@ export default function Sidebar() {
         <button className="filter-btn">Filter</button>
       </div>
       <div className="divider-line"></div>
-      <div className="folder">
-        <h4>Prio</h4>
-        <ul>
-          <li>Projekt 1</li>
-          <li>Projekt 2</li>
-          <li>Projekt 3</li>
-        </ul>
-      </div>
-      <div className="divider-line"></div>
-      <div className="folder">
-        <h4>Sötvatten</h4>
-        <ul>
-          <li>Projekt 4</li>
-          <li>Projekt 5</li>
-        </ul>
-      </div>
-      <div className="folder">
-        <h4>Marint</h4>
-        <ul>
-          <li>Projekt 6</li>
-        </ul>
-      </div>
-      <div className="divider-line"></div>
+
+      {folders.map((folder, idx) => (
+        <React.Fragment key={idx}>
+          <Folder title={folder.title} projects={folder.projects} />
+          <div className="divider-line"></div>
+        </React.Fragment>
+      ))}
+
+      <button onClick={addFolder} className="add-folder-btn">+ Ny mapp</button>
     </div>
   );
 }
