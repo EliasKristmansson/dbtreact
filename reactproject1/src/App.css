@@ -11,17 +11,26 @@ body {
 }
 
 .topbar {
-  display: flex;
-  background-color: #1a2b4c;
-  padding: 10px;
-  gap: 10px;
+    background-color: #1a2b4c;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.topbar-content {
+    display: flex;
+    padding-left: 270px; /* adjust this value to match workspace margin */
+    gap: 1px;
 }
 
 .tab {
-  background-color: #243c5a;
-  padding: 10px 20px;
-  border-radius: 8px;
+    background-color: #243c5a;
+    padding: 10px 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: white;
 }
+
 
 .main-content {
   display: flex;
