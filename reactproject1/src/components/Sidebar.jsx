@@ -1,4 +1,5 @@
 ﻿import * as React from "react"
+import FolderPrio from "FolderPrio"
 
 export default function SideBar() {
 	return (
