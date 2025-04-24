@@ -15,6 +15,8 @@ body {
     height: 80px;
     display: flex;
     align-items: flex-end;
+    border-bottom: 1px solid white;
+    box-sizing:border-box;
 }
 
 .topbar-content {
@@ -40,6 +42,7 @@ body {
 .sidebar {
   background-color: #101d33;
   border-right: solid 0.5px;
+  box-sizing:border-box;
   border-color: #fff; 
   width: 250px;
   padding: 10px;
