@@ -6,7 +6,7 @@ import Workspace from "./components/Workspace";
 export default function App() {
   return (
     <div className="app">
-      <Topbar />
+      <Topbar projectName="Projekt Streamline" priority="high" />
       <div className="main-content">
         <Sidebar />
         <Workspace />
