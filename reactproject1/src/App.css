@@ -30,10 +30,16 @@ body {
 
 .sidebar {
   background-color: #101d33;
+  border: solid 0.5px;
+  border-color: #fff; 
   width: 250px;
   padding: 10px;
 }
-
+.divider-line {
+  border-top: 0.3px solid rgba(255, 255, 255, 0.2); /* vit med låg opacitet */
+  width: 100%;
+  margin: 1rem 0;
+}
 .sidebar-header {
   display: flex;
   gap: 5px;

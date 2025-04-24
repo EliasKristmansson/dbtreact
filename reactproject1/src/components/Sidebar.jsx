@@ -7,6 +7,7 @@ export default function Sidebar() {
         <input type="text" placeholder="Sök..." className="search" />
         <button className="filter-btn">Filter</button>
       </div>
+      <div className="divider-line"></div>
       <div className="folder">
         <h4>Prio</h4>
         <ul>
@@ -15,6 +16,7 @@ export default function Sidebar() {
           <li>Projekt 3</li>
         </ul>
       </div>
+      <div className="divider-line"></div>
       <div className="folder">
         <h4>Sötvatten</h4>
         <ul>
@@ -28,6 +30,7 @@ export default function Sidebar() {
           <li>Projekt 6</li>
         </ul>
       </div>
+      <div className="divider-line"></div>
     </div>
   );
 }
