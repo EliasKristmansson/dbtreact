@@ -28,8 +28,7 @@ body {
 .topbar-content-right {
     align-items: center;
     display: flex;
-    padding-left: 270px; /* adjust this value to match workspace margin */
-    gap: 1px;
+    padding-left: 200px; /* adjust this value to match workspace margin */
 }
 
 .tab {
@@ -64,6 +63,21 @@ body {
     .priority-indicator.high {
         background-color: #e74c3c; /* red */
     }
+
+.project-other {
+    color: #ccc;
+    font-size: 0.85rem;
+    margin: 25px;
+    white-space: nowrap;
+}
+
+.project-meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* optional if screen gets small */
+}
+
+
 
 .main-content {
   display: flex;

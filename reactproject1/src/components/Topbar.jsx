@@ -13,6 +13,13 @@ export default function Topbar({ projectName, priority = "medium" }) {
             <div className="topbar-content-right">
                 <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`}></div>
                 <h2 className="project-name">{projectName}</h2>
+
+                <div className="project-meta">
+                    <p className="project-other">Deadline: </p>
+                    <p className="project-other">0/100 prover klara</p>
+                    <p className="project-other">0 Kommentarer </p>
+                </div>
+
             </div>
         </div>
     );
