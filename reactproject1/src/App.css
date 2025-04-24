@@ -14,10 +14,19 @@ body {
     background-color: #1a2b4c;
     height: 80px;
     display: flex;
-    align-items: flex-end;
+    border-bottom: 1px solid white;
+    box-sizing:border-box;
 }
 
 .topbar-content {
+    align-items: flex-end;
+    display: flex;
+    padding-left: 270px; /* adjust this value to match workspace margin */
+    gap: 1px;
+}
+
+.topbar-content-right {
+    align-items: center;
     display: flex;
     padding-left: 270px; /* adjust this value to match workspace margin */
     gap: 1px;
@@ -31,6 +40,30 @@ body {
     color: white;
 }
 
+.project-name {
+    color: white;
+    margin: 0;
+}
+
+/* Priority Indicator Styles */
+.priority-indicator {
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+    .priority-indicator.low {
+        background-color: #6cba6d; /* green */
+    }
+
+    .priority-indicator.medium {
+        background-color: #f0c330; /* yellow */
+    }
+
+    .priority-indicator.high {
+        background-color: #e74c3c; /* red */
+    }
 
 .main-content {
   display: flex;
@@ -40,6 +73,7 @@ body {
 .sidebar {
   background-color: #101d33;
   border-right: solid 0.5px;
+  box-sizing:border-box;
   border-color: #fff; 
   width: 250px;
   padding: 10px;

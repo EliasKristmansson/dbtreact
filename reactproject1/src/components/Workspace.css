@@ -1,0 +1,43 @@
+.workspace {
+	padding: 2rem;
+  }
+  
+  .workspace-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  .add-btn {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+  }
+  
+  .table-container {
+	overflow-x: auto;
+	margin-top: 1rem;
+  }
+  
+  .project-table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+  
+  .project-table th,
+  .project-table td {
+	border: 1px solid #ccc;
+	padding: 0.5rem;
+	text-align: center;
+	min-width: 120px;
+  }
+  
+  .project-table input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 4px;
+  }
+  
