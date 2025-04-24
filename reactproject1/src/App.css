@@ -39,7 +39,7 @@ body {
 
 .sidebar {
   background-color: #101d33;
-  border: solid 0.5px;
+  border-right: solid 0.5px;
   border-color: #fff; 
   width: 250px;
   padding: 10px;
