@@ -1,68 +1,105 @@
-#root {
-    width: 100%;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.topbar {
+  display: flex;
+  background-color: #1a2b4c;
+  padding: 10px;
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.tab {
+  background-color: #243c5a;
+  padding: 10px 20px;
+  border-radius: 8px;
 }
 
-.card {
-  padding: 2em;
+.main-content {
+  display: flex;
+  flex: 1;
 }
 
-.read-the-docs {
-  color: #888;
+.sidebar {
+  background-color: #101d33;
+  width: 250px;
+  padding: 10px;
 }
 
-.headerDiv {
-    background-color: #292A2B;
-    width: 100%;
-    height: 15%;
-    box-sizing: border-box;
-    border-bottom: 1px solid #605F60;
+.sidebar-header {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
-.projectWindow {
-    background-color: #292A2B;
-    height: 85%;
-    width: 15%;
-    display: inline-block;
-    box-sizing: border-box;
-    border-right: 1px solid #605F60;
+.search {
+  flex: 1;
+  padding: 5px;
 }
 
-.projectWindow .projectWindowText {
-    color: white;
-    font-size: 1em;
+.filter-btn {
+  background-color: #243c5a;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
-.mainWindow {
-    display: inline-block;
-    background-color: #383838;
-    height: 85%;
-    width: 85%;
+.folder h4 {
+  margin-bottom: 5px;
+}
+
+.folder ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.folder li {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.workspace {
+  background-color: #223b60;
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  padding: 5px 15px;
+  background-color: #305780;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.project-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2d4f73;
+}
+
+.project-table th,
+.project-table td {
+  border: 1px solid #3c668f;
+  padding: 8px;
+  text-align: left;
 }

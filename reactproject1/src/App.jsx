@@ -1,17 +1,16 @@
-﻿import { useState } from 'react'
-import './App.css'
-import Header from './components/Header'
-import SideBar from './components/Sidebar'
-import MainWindow from './components/MainWindow'
+﻿import React from "react";
+import Sidebar from "./components/Sidebar";
+import Topbar from "./components/Topbar";
+import Workspace from "./components/Workspace";
 
-function App() {
-    return (
-        <>
-            <Header/>
-            <SideBar/>
-            <MainWindow/>
-        </>
-    )
+export default function App() {
+  return (
+    <div className="app">
+      <Topbar />
+      <div className="main-content">
+        <Sidebar />
+        <Workspace />
+      </div>
+    </div>
+  );
 }
-
-export default App
