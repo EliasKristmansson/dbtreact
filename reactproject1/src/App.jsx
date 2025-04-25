@@ -32,6 +32,7 @@ export default function App() {
         priority="high"
         tabs={tabs}
         onTabClose={handleTabClose}
+
       />
 
       <div className="main-content">
