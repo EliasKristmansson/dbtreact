@@ -34,15 +34,21 @@ body {
 
 
 .tab {
-  background-color: #243c5a;
-  padding: 10px 10px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  color: white; 
-  display: flex;
+    background-color: #243c5a;
+    padding: 8px 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
-
-
+    .tab:hover {
+        background-color: #2d4a6d;
+    }
 
 .project-name {
     color: white;
@@ -83,14 +89,14 @@ body {
 }
 
 .close-button {
-    color:white;
+    color: #ccc;
     background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 2px;
     transition: color 0.2s;
-    margin-left: 1rem; /* space from meta section */
 }
 
     .close-button:hover {
