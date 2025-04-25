@@ -1,43 +1,146 @@
 .workspace {
 	padding: 2rem;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #fafafa;
+	color: #333;
   }
   
   .workspace-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
   }
   
   .add-btn {
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 1.2rem;
 	font-size: 1rem;
-	background-color: #007bff;
+	background-color: #333;
 	color: white;
 	border: none;
-	border-radius: 5px;
+	border-radius: 6px;
+	cursor: pointer;
+  }
+  
+  .add-btn:hover {
+	background-color: #111;
   }
   
   .table-container {
 	overflow-x: auto;
-	margin-top: 1rem;
+	background-color: transparent;
+	border-radius: 0;
+	box-shadow: none;
   }
+  
   
   .project-table {
 	width: 100%;
-	border-collapse: collapse;
+	border-collapse: separate;
+	border-spacing: 0;
   }
   
-  .project-table th,
+  .project-table th {
+	text-align: left;
+	padding: 0.4rem 0.5rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	border-bottom: 1px solid #ddd;
+	background-color: #f2f2f2;
+	white-space: nowrap;
+	min-width: 100px; /* mindre */
+	background-color: #e6f0ff;
+  color: #222;
+  }
+  
+  
   .project-table td {
-	border: 1px solid #ccc;
-	padding: 0.5rem;
-	text-align: center;
-	min-width: 120px;
+	text-align: left;
+	padding: 0.01rem 0.4rem;
+	border-bottom: 1px solid #eee;
+	vertical-align: middle;
+	white-space: nowrap;
+	min-width: 100px; /* mindre */
+	background-color: #f4f9ff;
   }
   
-  .project-table input {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 4px;
+  
+  .project-table tr td {
+	background-color: #f4f9ff; /* ljusblå bakgrund hela tiden */
   }
+  
+  
+  
+  .project-table input,
+  .project-table textarea {
+	width: 100%;
+	padding: 0.3rem 0.4rem;
+	font-size: 0.85rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+	box-sizing: border-box;
+  }
+  
+  .project-table input:focus,
+  .project-table textarea:focus {
+	border-color: #666;
+	outline: none;
+  }
+  
+  .project-table textarea {
+	resize: vertical;
+	min-height: 40px;
+	max-height: 100px;
+  }
+  
+  .project-table button {
+	padding: 0.4rem 0.7rem;
+	border: none;
+	background-color: #ff4d4d;
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+  }
+  
+  .project-table button:hover {
+	background-color: #e03a3a;
+  }
+  
+  .filter-buttons {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+  }
+  
+  .filter-buttons button {
+	padding: 0.45rem 1.2rem;
+	background-color: #eaeaea;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.9rem;
+  }
+  
+  .filter-buttons button:hover {
+	background-color: #dcdcdc;
+  }
+  
+  .filter-buttons .active-filter {
+	background-color: #333;
+	color: white;
+	border-color: #333;
+	font-weight: 600;
+  }
+
+  .project-table td input[type="number"] {
+	padding: 0.3rem;
+	font-size: 0.85rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+  }
+  
   
