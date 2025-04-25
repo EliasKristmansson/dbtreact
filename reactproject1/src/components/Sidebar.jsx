@@ -1,7 +1,7 @@
 ﻿import React, { useState } from "react";
 import Folder from "./Folder";
 
-export default function Sidebar() {
+export default function Sidebar({ onFilterClick }) {
   const [folders, setFolders] = useState([
     { title: "Prio", projects: ["Projekt 1", "Projekt 2", "Projekt 3"] },
     { title: "Sötvatten", projects: ["Projekt 4", "Projekt 5"] },
@@ -19,7 +19,7 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-header">
         <input type="text" placeholder="Sök..." className="search" />
-        <button className="filter-btn">Filter</button>
+        <button className="filter-btn" onClick={onFilterClick}>Filter</button>
       </div>
       <div className="divider-line"></div>
 
