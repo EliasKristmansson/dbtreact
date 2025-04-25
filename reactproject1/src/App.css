@@ -31,13 +31,18 @@ body {
     padding-left: 200px; /* adjust this value to match workspace margin */
 }
 
+
+
 .tab {
-    background-color: #243c5a;
-    padding: 10px 20px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    color: white;
+  background-color: #243c5a;
+  padding: 10px 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: white; 
+  display: flex;
 }
+
+
 
 .project-name {
     color: white;

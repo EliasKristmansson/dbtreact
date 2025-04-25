@@ -20,7 +20,7 @@ export default function Topbar({ projectName, priority = "medium", onClose }) {
                 </div>
                 <div className="tab">
                     Projekt 3
-                    <button onClick={onClose} className="close-button" aria-label="Close">
+                    <button onClick={onClose} className="close-button" aria-label="Close" X size={20}>
                         <X size={20} />
                     </button>
                 </div>
