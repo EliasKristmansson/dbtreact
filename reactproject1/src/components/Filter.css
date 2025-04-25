@@ -33,8 +33,16 @@
   gap: 0.5rem;
 }
 
-.filter-panel input,
-.filter-panel select {
+.filter-panel input{
+  width: 95%; /* Gör alla inputfält lika breda */
+  padding: 0.5rem;
+  background: #2d3b55;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
+.filter-panel select{
   width: 100%; /* Gör alla inputfält lika breda */
   padding: 0.5rem;
   background: #2d3b55;
