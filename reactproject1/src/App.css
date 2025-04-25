@@ -11,24 +11,25 @@ body {
 }
 
 .topbar {
-    background-color: #1a2b4c;
-    height: 80px;
-    display: flex;
-    border-bottom: 1px solid white;
-    box-sizing:border-box;
+  background-color: #1a2b4c;
+  height: 80px;
+  display: flex;
+  border-bottom: 1px solid white;
+  box-sizing: border-box;
 }
 
 .topbar-content {
-    align-items: flex-end;
-    display: flex;
-    padding-left: 270px; /* adjust this value to match workspace margin */
-    gap: 1px;
+  align-items: flex-end;
+  display: flex;
+  padding-left: 270px; /* justera detta värde för att matcha workspace margin */
+  gap: 1px;
+  flex-grow: 1;
 }
 
 .topbar-content-right {
-    align-items: center;
-    display: flex;
-    padding-left: 200px; /* adjust this value to match workspace margin */
+  align-items: center;
+  display: flex;
+  padding-left: 200px; /* justera detta värde för att matcha workspace margin */
 }
 
 .sidebar {
@@ -72,19 +73,38 @@ body {
 
 .tab {
   background-color: #243c5a;
-  padding: 10px 10px;
+  padding: 8px 12px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  color: white; 
+  color: white;
   display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: space-between; /* Detta ser till att texten och stängknappen ligger på samma rad */
+  width: auto; /* Lägger till för att tabbarna ska kunna justera sig själva när en stängs */
 }
 
+.tab:hover {
+  background-color: #2d4a6d;
+}
 
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
 
 .project-name {
-    color: white;
-    margin: 0;
+  color: white;
+  margin: 0;
 }
+
 
 /* Priority Indicator Styles */
 .priority-indicator {
@@ -120,14 +140,14 @@ body {
 }
 
 .close-button {
-    color:white;
+    color: #ccc;
     background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 2px;
     transition: color 0.2s;
-    margin-left: 1rem; /* space from meta section */
 }
 
     .close-button:hover {
