@@ -1,12 +1,11 @@
 import React from "react";
-import "../App.css"; // eller var din CSS ligger
+import "../App.css";
 import { X } from "lucide-react";
 
-export default function Topbar({ projectName, priority = "medium", tabs, onTabClose }) {
+export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, onTabClose }) {
   return (
     <div className="topbar">
       <div className="topbar-content">
-        {/* Rendera alla tabbar dynamiskt */}
         {tabs.map((tab) => (
           <div key={tab.id} className="tab">
             {tab.name}
@@ -22,13 +21,14 @@ export default function Topbar({ projectName, priority = "medium", tabs, onTabCl
       </div>
 
       <div className="topbar-content-right">
-        <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`}></div>
+      <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`} />
         <h2 className="project-name">{projectName}</h2>
+        
 
         <div className="project-meta">
-          <p className="project-other">Deadline: </p>
+          <p className="project-other">Deadline: <span>{deadline}</span></p>
           <p className="project-other">0/100 prover klara</p>
-          <p className="project-other">0 Kommentarer </p>
+          <p className="project-other">0 Kommentarer</p>
         </div>
       </div>
     </div>

@@ -29,6 +29,7 @@ export default function App() {
     <div className="app">
       <Topbar
         projectName="Projekt Streamline"
+        deadline="30 april 2025" // <- valfri sträng här!
         priority="high"
         tabs={tabs}
         onTabClose={handleTabClose}

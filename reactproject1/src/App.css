@@ -27,9 +27,11 @@ body {
 }
 
 .topbar-content-right {
-  align-items: center;
   display: flex;
-  padding-left: 200px; /* justera detta värde för att matcha workspace margin */
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding-left: 200px;
 }
 
 .sidebar {
@@ -103,6 +105,9 @@ body {
 .project-name {
   color: white;
   margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 
@@ -129,7 +134,7 @@ body {
 .project-other {
     color: #ccc;
     font-size: 0.85rem;
-    margin: 25px;
+    margin: 10px;
     white-space: nowrap;
 }
 
