@@ -11,11 +11,11 @@ body {
 }
 
 .topbar {
-  background-color: #1a2b4c;
-  height: 80px;
-  display: flex;
-  border-bottom: 1px solid white;
-  box-sizing: border-box;
+    background-color: #F8F8F8;
+    height: 80px;
+    display: flex;
+    border-bottom: 1px solid #888686;
+    box-sizing: border-box;
 }
 
 .topbar-content {
@@ -32,14 +32,6 @@ body {
   justify-content: flex-start;
   gap: 1rem;
   padding-left: 200px;
-}
-
-.sidebar {
-  background-color: #1e1e1e;
-  color: white;
-  width: 300px;
-  padding: 10px;
-  font-family: sans-serif;
 }
 
 
@@ -60,7 +52,7 @@ body {
   height: 20px;
   gap:15px;
   align-items: center;
-  
+  color:black;
 }
 
 
@@ -74,36 +66,28 @@ body {
 }
 
 .tab {
-  background-color: #243c5a;
-  padding: 8px 12px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-  display: flex;
-  justify-content: space-between; /* Detta ser till att texten och stängknappen ligger på samma rad */
-  width: auto; /* Lägger till för att tabbarna ska kunna justera sig själva när en stängs */
+    background-color: #D7D7D7;
+    padding: 8px 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    display: flex;
+    justify-content: space-between; /* Detta ser till att texten och stängknappen ligger på samma rad */
+    width: auto; /* Lägger till för att tabbarna ska kunna justera sig själva när en stängs */
 }
 
-.tab:hover {
-  background-color: #2d4a6d;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-}
+    .tab:hover {
+        background-color: #C0C2C1;
+    }
 
 .project-name {
-  color: white;
+  color: black;
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
@@ -132,7 +116,7 @@ body {
     }
 
 .project-other {
-    color: #ccc;
+    color: black;
     font-size: 0.85rem;
     margin: 10px;
     white-space: nowrap;
@@ -145,7 +129,7 @@ body {
 }
 
 .close-button {
-    color: #ccc;
+    color: black;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -156,7 +140,7 @@ body {
 }
 
     .close-button:hover {
-        color: red;
+        color: grey;
     }
 
 
@@ -167,17 +151,18 @@ body {
 }
 
 .sidebar {
-  background-color: #101d33;
-  border-right: solid 0.5px;
-  box-sizing:border-box;
-  border-color: #fff; 
-  width: 250px;
-  padding: 10px;
+    background-color: #D7D7D7;
+    border-right: solid 0.5px;
+    box-sizing: border-box;
+    border-color: #fff;
+    width: 250px;
+    padding: 10px;
 }
 .divider-line {
-  border-top: 0.3px solid rgba(255, 255, 255, 0.2); /* vit med låg opacitet */
+  border-top: 0.3px solid grey; /* vit med låg opacitet */
   width: 100%;
   margin: 1rem 0;
+  
 }
 .sidebar-header {
   display: flex;
@@ -199,6 +184,10 @@ body {
   border-radius: 4px;
 }
 
+.folder {
+    color: black;
+}
+
 .folder h4 {
   margin-bottom: 5px;
 }
@@ -215,10 +204,10 @@ body {
 }
 
 .workspace {
-  background-color: #223b60;
-  flex: 1;
-  padding: 20px;
-  overflow: auto;
+    background-color: #F8F8F8;
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
 }
 
 .workspace-header {
