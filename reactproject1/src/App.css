@@ -244,3 +244,26 @@ body {
   padding: 8px;
   text-align: left;
 }
+
+.empty-workspace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px); /* Tar upp hela höjden utom topbaren */
+}
+
+.new-project-btn {
+  padding: 1rem 2rem;
+  background-color: #3c70a4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-project-btn:hover {
+  background-color: #2d4a6d;
+}
