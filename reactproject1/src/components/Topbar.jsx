@@ -1,20 +1,8 @@
-import React, { useState } from "react";
-import "../App.css"; // or wherever your CSS
+import React from "react";
+import "../App.css"; // eller var din CSS ligger
 import { X } from "lucide-react";
 
-export default function Topbar({ projectName, priority = "medium" }) {
-  // Håll reda på vilka flikar som är öppna
-  const [tabs, setTabs] = useState([
-    { id: 1, name: "Projekt 1" },
-    { id: 2, name: "Projekt 2" },
-    { id: 3, name: "Projekt 3" },
-  ]);
-
-  // Hantera stängning av flik
-  const handleTabClose = (id) => {
-    setTabs(tabs.filter((tab) => tab.id !== id));
-  };
-
+export default function Topbar({ projectName, priority = "medium", tabs, onTabClose }) {
   return (
     <div className="topbar">
       <div className="topbar-content">
@@ -23,7 +11,7 @@ export default function Topbar({ projectName, priority = "medium" }) {
           <div key={tab.id} className="tab">
             {tab.name}
             <button
-              onClick={() => handleTabClose(tab.id)}
+              onClick={() => onTabClose(tab.id)}
               className="close-button"
               aria-label="Close"
             >

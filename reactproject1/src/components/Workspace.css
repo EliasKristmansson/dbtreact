@@ -41,3 +41,27 @@
 	padding: 4px;
   }
   
+
+
+  .new-project {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .new-project-btn {
+	padding: 1.5rem 3rem;
+	font-size: 1.25rem;
+	background-color: #2f76c7;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-weight: bold;
+	transition: background 0.2s ease;
+  }
+  
+  .new-project-btn:hover {
+	background-color: #1f5ca1;
+  }
