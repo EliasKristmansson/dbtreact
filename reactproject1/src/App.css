@@ -77,6 +77,21 @@ body {
     flex-wrap: wrap; /* optional if screen gets small */
 }
 
+.close-button {
+    color:white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+    margin-left: 1rem; /* space from meta section */
+}
+
+    .close-button:hover {
+        color: red;
+    }
+
 
 
 .main-content {

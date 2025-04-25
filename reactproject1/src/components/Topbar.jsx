@@ -1,13 +1,29 @@
 import React from "react";
-import "../App.css"; // or wherever your CSS lives
+import "../App.css"; // or wherever your CSS 
+import { X } from "lucide-react";
 
-export default function Topbar({ projectName, priority = "medium" }) {
+export default function Topbar({ projectName, priority = "medium", onClose }) {
     return (
         <div className="topbar">
             <div className="topbar-content">
-                <div className="tab">Projekt 1</div>
-                <div className="tab">Projekt 2</div>
-                <div className="tab">Projekt 3</div>
+                <div className="tab">
+                    Projekt 1
+                    <button onClick={onClose} className="close-button" aria-label="Close">
+                        <X size={20} />
+                    </button>
+                </div>
+                <div className="tab">
+                    Projekt 2
+                    <button onClick={onClose} className="close-button" aria-label="Close">
+                        <X size={20} />
+                    </button>
+                </div>
+                <div className="tab">
+                    Projekt 3
+                    <button onClick={onClose} className="close-button" aria-label="Close">
+                        <X size={20} />
+                    </button>
+                </div>
             </div>
 
             <div className="topbar-content-right">
