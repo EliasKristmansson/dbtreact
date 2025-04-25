@@ -16,10 +16,7 @@ const Filter = ({ isOpen, onClose, onFilter }) => {
           Projektnamn:
           <input type="text" placeholder="Skriv projektnamn..." />
         </label>
-        <label>
-          Märkning:
-          <input type="text" placeholder="Skriv märkning..." />
-        </label>
+        
         <label>
           Prioritet:
           <select>
@@ -30,12 +27,8 @@ const Filter = ({ isOpen, onClose, onFilter }) => {
           </select>
         </label>
         <label>
-          Inkommet (datum):
+          Deadline (datum):
           <input type="date" />
-        </label>
-        <label>
-          Kommentar:
-          <input type="text" placeholder="Sök kommentar..." />
         </label>
 
         <div className="filter-actions">
