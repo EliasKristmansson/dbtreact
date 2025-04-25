@@ -19,13 +19,6 @@ export default function Folder({ title, projects, addProject }) {
           <Project key={idx} name={proj} />
         ))}
       </ul>
-      <input
-        type="text"
-        value={newProject}
-        onChange={(e) => setNewProject(e.target.value)}
-        placeholder="Lägg till projekt..."
-      />
-      <button onClick={handleAddProject}>Lägg till</button>
     </div>
   );
 }

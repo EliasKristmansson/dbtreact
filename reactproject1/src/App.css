@@ -32,6 +32,45 @@ body {
   padding-left: 200px; /* justera detta värde för att matcha workspace margin */
 }
 
+.sidebar {
+  background-color: #1e1e1e;
+  color: white;
+  width: 300px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+
+.search {
+  flex: 1;
+  padding: 5px;
+
+  background-color: #eaeaea;
+  border: none;
+  border-radius: 4px;
+  color: rgb(28, 28, 28);
+}
+
+
+.sidebar-container {
+  margin-bottom: 15px;
+  display: inline-flex;
+  height: 20px;
+  gap:15px;
+  align-items: center;
+  
+}
+
+
+.sidebar-icons {
+  display: flex;
+  height:15px;
+  gap: 10px;
+  margin-bottom: 0px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
 .tab {
   background-color: #243c5a;
   padding: 8px 12px;
@@ -152,6 +191,7 @@ body {
   color: white;
   padding: 5px 10px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .folder h4 {
