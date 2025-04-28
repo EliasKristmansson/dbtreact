@@ -283,3 +283,21 @@ body {
 .chevron {
   margin-right: 5px;
 }
+
+/* Add these styles to your App.css */
+.logo-container {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-logo {
+    height: 40px; /* Adjust based on your logo's aspect ratio */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Adjust the topbar-content padding to accommodate the logo */
+.topbar-content {
+    padding-left: 20px; /* Reduced from 270px to account for logo */
+}
