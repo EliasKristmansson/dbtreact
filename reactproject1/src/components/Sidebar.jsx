@@ -2,7 +2,7 @@
 import Folder from "./Folder";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt } from "react-icons/fa";
 
-export default function Sidebar() {
+export default function Sidebar({ onFilterClick }) {
   const [folders, setFolders] = useState([
     { title: "Prio", projects: ["Projekt 1", "Projekt 2", "Projekt 3"] },
     { title: "Sötvatten", projects: ["Projekt 4", "Projekt 5"] },
@@ -16,9 +16,8 @@ export default function Sidebar() {
     }
   };
 
-  return (    
+  return (
     <div className="sidebar">
-
       <div className="sidebar-container">
         <p>Projektfönster</p>
         <div className="sidebar-icons">
@@ -27,15 +26,13 @@ export default function Sidebar() {
           <FaSyncAlt title="Uppdatera" onClick={() => console.log("Refresh")} />
           <FaCompressAlt title="Stäng öppna mappar" onClick={() => console.log("Minimera")} />
         </div>
-		  </div>
+      </div>
     
       <div className="sidebar-header">
         <input type="text" placeholder="Sök..." className="search" />
-        <button className="filter-btn">Filter</button>
+        <button className="filter-btn" onClick={onFilterClick}>Filter</button>
       </div>
      
-     {/*  <button onClick={addFolder} className="add-folder-btn">+ Ny mapp</button>
-      */}
       <div className="divider-line"></div>
 
       {folders.map((folder, idx) => (
