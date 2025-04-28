@@ -1,7 +1,9 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
+    font-family: "Figtree", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+    color: white;
 }
 
 .app {
