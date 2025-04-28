@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Workspace.css";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 
-export default function Workspace({ tabs, onNewProjectClick }) {
+export default function Workspace() {
   const [rows, setRows] = useState([
     {
       märkning: "",
@@ -17,8 +17,9 @@ export default function Workspace({ tabs, onNewProjectClick }) {
     }
   ]);
 
-  const [sortBy, setSortBy] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc"); // or "desc"
+  const [filter, setFilter] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [pendingCommentIndex, setPendingCommentIndex] = useState(null);
 
   const handleChange = (index, field, value) => {
     const updatedRows = [...rows];
@@ -65,39 +66,48 @@ export default function Workspace({ tabs, onNewProjectClick }) {
     setRows(rows.filter((_, index) => index !== indexToRemove));
   };
 
-  const sortRows = () => {
-    if (!sortBy) return;
-    const sorted = [...rows].sort((a, b) => {
-      const valA = a[sortBy]?.toLowerCase?.() ?? a[sortBy];
-      const valB = b[sortBy]?.toLowerCase?.() ?? b[sortBy];
-      if (valA < valB) return sortOrder === "asc" ? -1 : 1;
-      if (valA > valB) return sortOrder === "asc" ? 1 : -1;
-      return 0;
-    });
-    setRows(sorted);
-  };
+  const filteredRows = rows.filter((row) => {
+    if (filter === "intePlockade") return !row.plockat;
+    if (filter === "flaggade") return !row.andelPlockat;
+    if (filter === "kommenterade") return row.kommentarer?.trim();
+    return true;
+  });
 
   return (
     <div className="workspace">
       <div className="workspace-header">
         <h2>Projekt 1</h2>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="">Sortera efter...</option>
-            <option value="märkning">Märkning</option>
-            <option value="inkommet">Inkommet</option>
-            <option value="plockat">Plockat</option>
-            <option value="datum">Provtaget datum</option>
-            <option value="antalDjur">Antal djur</option>
-            <option value="hemtagna">Prover hemtagna</option>
-            <option value="åter">Prover åter</option>
-          </select>
-          <button onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
-            {sortOrder === "asc" ? "⬆️" : "⬇️"}
-          </button>
-          <button className="add-btn" onClick={sortRows}>Sortera</button>
-          <button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
-        </div>
+
+        {/* 🔍 Filter buttons */}
+        <div className="filter-buttons" style={{ margin: "1rem 0", display: "flex", gap: "1rem" }}>
+  <button
+    className={filter === "intePlockade" ? "active-filter" : ""}
+    onClick={() => setFilter("intePlockade")}
+  >
+    Inte plockade
+  </button>
+  <button
+    className={filter === "flaggade" ? "active-filter" : ""}
+    onClick={() => setFilter("flaggade")}
+  >
+    Flaggade
+  </button>
+  <button
+    className={filter === "kommenterade" ? "active-filter" : ""}
+    onClick={() => setFilter("kommenterade")}
+  >
+    Kommenterade
+  </button>
+  <button
+    className={filter === "" ? "active-filter" : ""}
+    onClick={() => setFilter("")}
+  >
+    Rensa filter
+  </button>
+</div>
+
+
+        <button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
       </div>
 
       <div className="table-container">
@@ -117,23 +127,72 @@ export default function Workspace({ tabs, onNewProjectClick }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, index) => (
+            {filteredRows.map((row, index) => (
               <tr key={index}>
                 <td><input type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
                 <td><input type="date" value={row.inkommet} onChange={(e) => handleChange(index, "inkommet", e.target.value)} /></td>
                 <td><input type="date" value={row.plockat} onChange={(e) => handleChange(index, "plockat", e.target.value)} /></td>
                 <td><input type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
                 <td><input type="date" value={row.datum} onChange={(e) => handleChange(index, "datum", e.target.value)} /></td>
-                <td><input type="number" value={row.antalDjur} onChange={(e) => handleChange(index, "antalDjur", e.target.value)} /></td>
+                <td>
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.25rem" }}>
+    <input
+      type="text"
+      placeholder="123"
+      value={row.antalDjur?.split('/')[0] || ""}
+      onChange={(e) => {
+        const andra = row.antalDjur?.split('/')[1] || "";
+        handleChange(index, "antalDjur", `${e.target.value}/${andra}`);
+      }}
+      style={{ width: 60, textAlign: "right" }}
+    />
+    <span style={{ opacity: 0.6 }}>/</span>
+    <input
+      type="text"
+      placeholder="456"
+      value={row.antalDjur?.split('/')[1] || ""}
+      onChange={(e) => {
+        const första = row.antalDjur?.split('/')[0] || "";
+        handleChange(index, "antalDjur", `${första}/${e.target.value}`);
+      }}
+      style={{ width: 60, textAlign: "left" }}
+    />
+  </div>
+</td>
+
+
+
                 <td><input type="date" value={row.hemtagna} onChange={(e) => handleChange(index, "hemtagna", e.target.value)} /></td>
                 <td><input type="date" value={row.åter} onChange={(e) => handleChange(index, "åter", e.target.value)} /></td>
-                <td><input type="text" value={row.kommentarer} onChange={(e) => handleChange(index, "kommentarer", e.target.value)} /></td>
+                <td>
+                  <textarea
+                    value={row.kommentarer}
+                    onChange={(e) => handleChange(index, "kommentarer", e.target.value)}
+                    onBlur={() => handleSaveComment(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSaveComment(index);
+                      }
+                    }}
+                    rows="2"
+                    placeholder="Skriv kommentar..."
+                  />
+                </td>
                 <td><button onClick={() => removeRow(index)}>🗑️</button></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* ✅ Confirm Modal */}
+      <ConfirmModal
+        isOpen={showModal}
+        message="Vill du spara kommentaren?"
+        onConfirm={confirmCommentSave}
+        onCancel={cancelCommentSave}
+      />
     </div>
   );
 }
