@@ -272,3 +272,14 @@ body {
     cursor: pointer;
 }
 
+.collapse-button{
+  color:black;
+}
+.collapse-container {
+  display:flex;
+  align-items: center;
+}
+
+.chevron {
+  margin-right: 5px;
+}
