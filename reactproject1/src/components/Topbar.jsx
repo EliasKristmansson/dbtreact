@@ -2,16 +2,23 @@
 import "../App.css";
 import { X } from "lucide-react";
 
-export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, onTabClose }) {
+export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, activeTabId, onTabClick, onTabClose }) {
   return (
     <div className="topbar">
       <div className="topbar-content">
         {tabs.map((tab) => (
-          <div key={tab.id} className="tab">
+          <div
+            key={tab.id}
+            className={`tab ${tab.id === activeTabId ? "active-tab" : ""}`}
+            onClick={() => onTabClick(tab.id)}
+          >
             {tab.name}
-                <button
-            title="Stäng projekt"
-              onClick={() => onTabClose(tab.id)}
+            <button
+              title="Stäng projekt"
+              onClick={(e) => {
+                e.stopPropagation();
+                onTabClose(tab.id);
+              }}
               className="close-button"
               aria-label="Close"
             >
@@ -22,9 +29,8 @@ export default function Topbar({ projectName, deadline = "Ingen deadline", prior
       </div>
 
       <div className="topbar-content-right">
-      <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`} />
+        <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`} />
         <h2 className="project-name">{projectName}</h2>
-        
 
         <div className="project-meta">
           <p className="project-other">Deadline: <span>{deadline}</span></p>

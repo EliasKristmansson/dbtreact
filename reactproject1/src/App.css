@@ -262,3 +262,13 @@ body {
 .new-project-btn:hover {
   background-color: #2d4a6d;
 }
+
+.tab.active-tab {
+    background-color: #bbb;
+    font-weight: 700;
+}
+
+.tab:hover {
+    cursor: pointer;
+}
+
