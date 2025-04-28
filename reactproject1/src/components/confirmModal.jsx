@@ -1,6 +1,6 @@
-src/components/ConfirmModal.jsx
+// src/components/ConfirmModal.jsx
 import React from "react";
-import "./confirmModal.css";
+import "./ConfirmModal.css";
 
 export default function ConfirmModal({ isOpen, onConfirm, onCancel, message }) {
   if (!isOpen) return null;

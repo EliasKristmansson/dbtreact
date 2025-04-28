@@ -1,3 +1,5 @@
+/* ====== Workspace.css (senaste och uppdaterade versionen) ====== */
+
 .workspace {
 	padding: 2rem;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -7,9 +9,8 @@
   
   .workspace-header {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-wrap: wrap;
+	flex-direction: column;
+	gap: 1rem;
 	margin-bottom: 1rem;
   }
   
@@ -21,6 +22,7 @@
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
+	transition: background-color 0.2s;
   }
   
   .add-btn:hover {
@@ -34,48 +36,39 @@
 	box-shadow: none;
   }
   
-  
   .project-table {
 	width: 100%;
-	border-collapse: separate;
-	border-spacing: 0;
+	border-collapse: collapse;
+	table-layout: fixed;
   }
   
   .project-table th {
-	text-align: left;
-	padding: 0.4rem 0.5rem;
-	font-size: 0.85rem;
-	font-weight: 600;
-	border-bottom: 1px solid #ddd;
-	background-color: #f2f2f2;
-	white-space: nowrap;
-	min-width: 100px; /* mindre */
 	background-color: #e6f0ff;
-  color: #222;
+	color: #222;
+	font-size: 0.9rem;
+	font-weight: 600;
+	padding: 0.6rem 0.5rem; /* lite mer padding så texten andas */
+	text-align: center;
   }
-  
   
   .project-table td {
-	text-align: left;
-	padding: 0.01rem 0.4rem;
 	border-bottom: 1px solid #eee;
+	padding: 0.4rem 0.5rem;
+	text-align: center; /* Centrera ALL text */
 	vertical-align: middle;
 	white-space: nowrap;
-	min-width: 100px; /* mindre */
 	background-color: #f4f9ff;
+	min-width: 120px; /* bredare kolumner för att undvika ihoptryckt text */
   }
-  
   
   .project-table tr td {
-	background-color: #f4f9ff; /* ljusblå bakgrund hela tiden */
+	background-color: #f4f9ff; /* alltid blå bakgrund, ingen hover-effekt */
   }
-  
-  
   
   .project-table input,
   .project-table textarea {
 	width: 100%;
-	padding: 0.3rem 0.4rem;
+	padding: 0.25rem 0.4rem;
 	font-size: 0.85rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
@@ -95,19 +88,28 @@
 	max-height: 100px;
   }
   
+  .project-table td input[type="number"] {
+	padding: 0.3rem;
+	font-size: 0.85rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+  }
+  
   .project-table button {
-	padding: 0.4rem 0.7rem;
+	padding: 0.3rem 0.5rem;
+	background: none; /* 🚫 ingen bakgrundsfärg */
+	color: #666; /* 🔵 neutral grå färg på ikonen */
 	border: none;
-	background-color: #ff4d4d;
-	color: white;
 	border-radius: 4px;
 	cursor: pointer;
-	font-size: 0.9rem;
+	font-size: 1.2rem; /* lite större ikon om du vill */
+	transition: color 0.2s;
   }
   
   .project-table button:hover {
-	background-color: #e03a3a;
+	color: #111; /* 🔵 blir mörkare vid hover */
   }
+  
   
   .filter-buttons {
 	display: flex;
@@ -117,30 +119,83 @@
   }
   
   .filter-buttons button {
-	padding: 0.45rem 1.2rem;
-	background-color: #eaeaea;
+	padding: 0.5rem 1.2rem;
+	background-color: #f0f0f0;
 	border: 1px solid #ccc;
 	border-radius: 6px;
 	cursor: pointer;
-	font-size: 0.9rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: #333;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   
   .filter-buttons button:hover {
-	background-color: #dcdcdc;
+	background-color: #d0d0d0;
+	border-color: #999;
+	color: #111;
   }
   
+  /* När en filter-knapp är aktiv */
   .filter-buttons .active-filter {
-	background-color: #333;
+	background-color: #007bff;
 	color: white;
-	border-color: #333;
-	font-weight: 600;
+	border-color: #007bff;
+	font-weight: 700;
   }
-
-  .project-table td input[type="number"] {
+  
+  
+  
+  
+  .project-table .antal-djur-inputs {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem; /* 🔵 lägger mellanrum mellan inputs och / */
+	padding: 0 0.5rem; /* 🔵 lägger luft till vänster och höger */
+  }
+  .project-table .antal-djur-inputs input {
+	width: 50px;
+	text-align: center;
 	padding: 0.3rem;
-	font-size: 0.85rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	background-color: #fff;
   }
+
+  .row-wrapper {
+	position: relative;
+  }
+  
+  .flag-container {
+	width: 30px; /* smal cell för bara flag-knappen */
+	text-align: center;
+  }
+  
+  .flag-button {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: none;
+	background-color: #3d3636;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+  
+  .flag-button.green {
+	background-color: green;
+  }
+  .flag-button.yellow {
+	background-color: gold;
+  }
+  .flag-button.red {
+	background-color: red;
+  }
+  
+  .flag-button:hover {
+	transform: scale(1.2); /* lite växande hover-effekt */
+  }
+  
   
   
