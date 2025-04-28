@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import "../App.css";
 import { X } from "lucide-react";
 
@@ -9,7 +9,8 @@ export default function Topbar({ projectName, deadline = "Ingen deadline", prior
         {tabs.map((tab) => (
           <div key={tab.id} className="tab">
             {tab.name}
-            <button
+                <button
+            title="Stäng projekt"
               onClick={() => onTabClose(tab.id)}
               className="close-button"
               aria-label="Close"

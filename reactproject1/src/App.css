@@ -154,9 +154,8 @@ body {
 
 .sidebar {
     background-color: #D7D7D7;
-    border-right: solid 0.5px;
+    border-right: 1px solid #888686;
     box-sizing: border-box;
-    border-color: #fff;
     width: 250px;
     padding: 10px;
 }
