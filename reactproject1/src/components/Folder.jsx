@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import Project from "./Project.jsx";
+import Project from "./Project";
+import {FaChevronDown,FaChevronRight} from "react-icons/fa";
 
-export default function Folder({ title, projects, addProject }) {
-  const [newProject, setNewProject] = useState("");
-
-  const handleAddProject = () => {
-    if (newProject) {
-      addProject(newProject); // Anropar addProject från Sidebar-komponenten
-      setNewProject(""); // Tömmer inputfältet efter tillägg
-    }
-  };
+export default function Folder({ title, projects }) {
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="folder">
-      <h4>{title}</h4>
-      <ul>
-        {projects.map((proj, idx) => (
-          <Project key={idx} name={proj} />
-        ))}
-      </ul>
+    <div className="collapse-button">
+      <div className="collapse-container" onClick={() => setIsOpen(!isOpen)}>
+        <span className="chevron">{isOpen ? <FaChevronDown/>: <FaChevronRight/>}</span>
+        <h4 className="folder-title">{title}</h4>
+      </div>
+
+      {/* Mapp-innehåll */}
+      {isOpen && (
+        <div className="project">
+          {projects.map((proj, idx) => (
+            <Project key={idx} name={proj} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
