@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
+import ConfirmModal from "./components/confirmModal";
 
 export default function App() {
   const [showFilter, setShowFilter] = useState(false);
