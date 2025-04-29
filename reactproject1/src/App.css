@@ -351,3 +351,55 @@ body {
     height: 100%;
     z-index: 10;
 }
+
+
+.sidebar {
+    background-color: #D7D7D7;
+    border-right: 1px solid #888686;
+    box-sizing: border-box;
+    padding: 10px;
+    position: relative;
+    transition: width 0.3s ease;
+}
+
+.sidebar-title,
+.sidebar-icons,
+.sidebar-header,
+.folders-container {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar.minimized {
+    width: 50px; /* Adjust width for minimized state */
+}
+
+.sidebar-title,
+.sidebar-icons,
+.sidebar-header,
+.folders-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+    .sidebar-title.minimized,
+    .sidebar-icons.minimized,
+    .sidebar-header.minimized,
+    .folders-container.minimized {
+        opacity: 0;
+        visibility: hidden; /* Hide content when minimized */
+    }
+
+.folders-container {
+    margin-top: 20px;
+}
+
+.resizer {
+    width: 5px;
+    cursor: ew-resize;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 10;
+}

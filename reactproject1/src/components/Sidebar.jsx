@@ -1,6 +1,6 @@
 ﻿import React, { useState, useRef } from "react";
 import Folder from "./Folder";
-import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt } from "react-icons/fa";
+import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
 export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen }) {
     const [folders, setFolders] = useState([
@@ -9,6 +9,7 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
         { title: "Marint", projects: ["Projekt 6"] },
     ]);
 
+    const [isMinimized, setIsMinimized] = useState(false);
     const sidebarRef = useRef(null);
     const isResizing = useRef(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
@@ -22,10 +23,14 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
     const resizeSidebar = (e) => {
         if (!isResizing.current) return;
         const newWidth = e.clientX;
-        if (newWidth >= 180 && newWidth <= 500) { // Set min/max width
+        if (newWidth >= 180 && newWidth <= 500) {
             setSidebarWidth(newWidth);
+            if (isMinimized && newWidth > 50) {
+                setIsMinimized(false);
+            }
         }
     };
+
 
     const stopResizing = () => {
         isResizing.current = false;
@@ -63,40 +68,74 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
         onProjectOpen(projectName);
     };
 
+    const minimizeSideBar = () => {
+        if (isMinimized) {
+            setSidebarWidth(250);
+        } else {
+            setSidebarWidth(0);
+        }
+        setIsMinimized(!isMinimized);
+    };
+
     return (
-        <div className="sidebar" ref={sidebarRef} style={{ width: `${sidebarWidth}px` }}>
+        <div
+            className="sidebar"
+            ref={sidebarRef}
+            style={{ width: `${sidebarWidth}px` }}
+            onClick={() => {
+                if (isMinimized) {
+                    setSidebarWidth(250);
+                    setIsMinimized(false);
+                }
+            }}
+        >
+
 
           <div className="sidebar-header">
             <div className="sidebar-title">
-              <p>Projektfönster</p> 
-              <div className="sidebar-icons">
+                {/* Title and icons that should be minimized */}
+              <p className={`sidebar-title ${isMinimized ? "minimized" : ""}`}>Projektfönster</p> 
+              <div className={`sidebar-icons ${isMinimized ? "minimized" : ""}`}>
                 <FaFileAlt title="Lägg till projekt" onClick={addProject} />
                 <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
                 <FaSyncAlt title="Uppdatera" onClick={() => console.log("Refresh")} />
                 <FaCompressAlt title="Stäng öppna mappar" onClick={() => console.log("Minimera")} />
+                    <FaRegEye title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"} onClick={minimizeSideBar} />
               </div>
             </div>
-            <div className="sidebar-search">
-              <input type="text" placeholder="Sök..." className="search" />
-              <button className="filter-btn" onClick={onFilterClick}>Filter</button>
+            {/* Search and filter buttons */}
+            <div className={`sidebar-search ${isMinimized ? "minimized" : ""}`}>
+              <input type="text" placeholder="Sök..." className={`search ${isMinimized ? "minimized" : ""}`} />
+              <button className={`filter-btn ${isMinimized ? "minimized" : ""}`} onClick={onFilterClick}>Filter</button>
             </div>
             <div className="divider-line"></div>
           </div>
 
            
           <div className="folder-container">
-            {folders.map((folder, idx) => (
-                <React.Fragment key={idx}>
-                    <Folder
-                        title={folder.title}
-                        projects={folder.projects}
-                        onProjectDoubleClick={handleProjectDoubleClick}
-                    />
-                </React.Fragment>
-            ))}
-          </div>
-            {/* Add the resizer */}
-            <div className="resizer" onMouseDown={startResizing}></div>
+            {/* Folder list */}
+            <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
+                {folders.map((folder, idx) => (
+                    <React.Fragment key={idx}>
+                        <Folder
+                            title={folder.title}
+                            projects={folder.projects}
+                            onProjectDoubleClick={handleProjectDoubleClick}
+                        />
+                    </React.Fragment>
+                ))}
+          </div>            </div>
+
+            <div
+                className="resizer"
+                onMouseDown={startResizing}
+                onClick={() => {
+                    if (isMinimized) {
+                        setSidebarWidth(250);
+                        setIsMinimized(false);
+                    }
+                }}
+            ></div>
         </div>
     );
 }
