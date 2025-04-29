@@ -195,16 +195,17 @@ body {
   padding: 0;
 }
 
-    .folder ul {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 10px;
-    }
+.folder ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
 
-    .folder li {
-        margin-left: 10px;
-        cursor: pointer;
-    }
+.folder li {
+    margin-left: 10px;
+    cursor: pointer;
+    list-style: none;
+}
 
 .workspace {
     background-color: #F8F8F8;
@@ -235,12 +236,12 @@ body {
     background-color: #2d4f73;
 }
 
-    .project-table th,
-    .project-table td {
-        border: 1px solid #3c668f;
-        padding: 8px;
-        text-align: left;
-    }
+.project-table th,
+.project-table td {
+    border: 1px solid #3c668f;
+    padding: 8px;
+    text-align: left;
+}
 
 .empty-workspace {
     display: flex;
@@ -310,6 +311,19 @@ body {
   color:black;
   font-size: 0.8rem;
 }
+
 .project {
-  color:red;
+  border-left: 0.5px solid #555454; 
+  margin-left: 10px;           
+      
+}
+
+.project li{
+  padding: 3px;
+  border-start-start-radius: 3px;
+  border-end-start-radius: 3px;
+}
+.project li:hover{
+  background-color: #b9b9b9;
+  
 }
