@@ -7,9 +7,9 @@ body {
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .topbar {
@@ -21,50 +21,49 @@ body {
 }
 
 .topbar-content {
-  align-items: flex-end;
-  display: flex;
-  padding-left: 270px; /* justera detta värde för att matcha workspace margin */
-  gap: 1px;
-  flex-grow: 1;
+    align-items: flex-end;
+    display: flex;
+    padding-left: 270px; /* justera detta värde för att matcha workspace margin */
+    gap: 1px;
+    flex-grow: 1;
 }
 
 .topbar-content-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  padding-left: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-left: 200px;
 }
 
 
 .search {
-  flex: 1;
-  padding: 5px;
-
-  background-color: #eaeaea;
-  border: none;
-  border-radius: 4px;
-  color: rgb(28, 28, 28);
+    flex: 1;
+    padding: 5px;
+    background-color: #eaeaea;
+    border: none;
+    border-radius: 4px;
+    color: rgb(28, 28, 28);
 }
 
 
 .sidebar-container {
-  margin-bottom: 15px;
-  display: inline-flex;
-  height: 20px;
-  gap:15px;
-  align-items: center;
-  color:black;
+    margin-bottom: 15px;
+    display: inline-flex;
+    height: 20px;
+    gap: 15px;
+    align-items: center;
+    color: black;
 }
 
 
 .sidebar-icons {
-  display: flex;
-  height:15px;
-  gap: 10px;
-  margin-bottom: 0px;
-  font-size: 15px;
-  cursor: pointer;
+    display: flex;
+    height: 15px;
+    gap: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .tab {
@@ -89,11 +88,11 @@ body {
     }
 
 .project-name {
-  color: black;
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  white-space: nowrap;
+    color: black;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 
@@ -148,8 +147,8 @@ body {
 
 
 .main-content {
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 1;
 }
 
 .sidebar {
@@ -159,50 +158,51 @@ body {
     width: 250px;
     padding: 10px;
 }
+
 .divider-line {
-  border-top: 0.3px solid grey; /* vit med låg opacitet */
-  width: 100%;
-  margin: 1rem 0;
-  
+    border-top: 0.3px solid grey; /* vit med låg opacitet */
+    width: 100%;
+    margin: 1rem 0;
 }
+
 .sidebar-header {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
 .search {
-  flex: 1;
-  padding: 5px;
+    flex: 1;
+    padding: 5px;
 }
 
 .filter-btn {
-  background-color: #243c5a;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
+    background-color: #243c5a;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .folder {
     color: black;
 }
 
-.folder h4 {
-  margin-bottom: 5px;
-}
+    .folder h4 {
+        margin-bottom: 5px;
+    }
 
-.folder ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 10px;
-}
+    .folder ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 10px;
+    }
 
-.folder li {
-  margin-left: 10px;
-  cursor: pointer;
-}
+    .folder li {
+        margin-left: 10px;
+        cursor: pointer;
+    }
 
 .workspace {
     background-color: #F8F8F8;
@@ -212,56 +212,56 @@ body {
 }
 
 .workspace-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .add-btn {
-  padding: 5px 15px;
-  background-color: #305780;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
+    padding: 5px 15px;
+    background-color: #305780;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .project-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #2d4f73;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2d4f73;
 }
 
-.project-table th,
-.project-table td {
-  border: 1px solid #3c668f;
-  padding: 8px;
-  text-align: left;
-}
+    .project-table th,
+    .project-table td {
+        border: 1px solid #3c668f;
+        padding: 8px;
+        text-align: left;
+    }
 
 .empty-workspace {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 80px); /* Tar upp hela höjden utom topbaren */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* Tar upp hela höjden utom topbaren */
 }
 
 .new-project-btn {
-  padding: 1rem 2rem;
-  background-color: #3c70a4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    padding: 1rem 2rem;
+    background-color: #3c70a4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.new-project-btn:hover {
-  background-color: #2d4a6d;
-}
+    .new-project-btn:hover {
+        background-color: #2d4a6d;
+    }
 
 .tab.active-tab {
     background-color: #bbb;
@@ -272,16 +272,17 @@ body {
     cursor: pointer;
 }
 
-.collapse-button{
-  color:black;
+.collapse-button {
+    color: black;
 }
+
 .collapse-container {
-  display:flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .chevron {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 /* Add these styles to your App.css */
@@ -289,12 +290,14 @@ body {
     padding: 0 20px;
     display: flex;
     align-items: center;
+    filter: invert(0%) sepia(95%) saturate(21%) hue-rotate(2deg) brightness(92%) contrast(108%);
 }
 
 .topbar-logo {
     height: 40px; /* Adjust based on your logo's aspect ratio */
     width: auto;
     object-fit: contain;
+    filter: invert(100%);
 }
 
 /* Adjust the topbar-content padding to accommodate the logo */
