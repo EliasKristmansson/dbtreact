@@ -325,3 +325,23 @@ body {
   background-color: #b9b9b9;
   
 }
+
+.sidebar {
+    background-color: #D7D7D7;
+    border-right: 1px solid #888686;
+    box-sizing: border-box;
+    width: 250px; /* Default width */
+    padding: 10px;
+    position: relative;
+}
+
+.resizer {
+    width: 5px;
+    cursor: ew-resize;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 10;
+}
