@@ -376,11 +376,13 @@ body {
 .sidebar-title,
 .sidebar-icons,
 .sidebar-header,
+.sidebar-search,
 .folders-container {
     opacity: 1;
     visibility: visible;
 }
 
+    .sidebar-search.minimized,
     .sidebar-title.minimized,
     .sidebar-icons.minimized,
     .sidebar-header.minimized,
