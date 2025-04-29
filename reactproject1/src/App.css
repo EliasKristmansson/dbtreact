@@ -23,7 +23,6 @@ body {
 .topbar-content {
     align-items: flex-end;
     display: flex;
-    padding-left: 270px; /* justera detta värde för att matcha workspace margin */
     gap: 1px;
     flex-grow: 1;
 }
@@ -33,7 +32,6 @@ body {
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
-    padding-left: 200px;
 }
 
 
@@ -100,7 +98,6 @@ body {
 .priority-indicator {
     width: 14px;
     height: 14px;
-    margin-right: 10px;
     border-radius: 50%;
 }
 
@@ -289,7 +286,7 @@ body {
 
 /* Add these styles to your App.css */
 .logo-container {
-    padding: 0 20px;
+    width:250px;
     display: flex;
     align-items: center;
     filter: invert(0%) sepia(95%) saturate(21%) hue-rotate(2deg) brightness(92%) contrast(108%);
@@ -298,13 +295,14 @@ body {
 .topbar-logo {
     height: 40px; /* Adjust based on your logo's aspect ratio */
     width: auto;
+    margin:auto;
     object-fit: contain;
     filter: invert(100%);
 }
 
 /* Adjust the topbar-content padding to accommodate the logo */
 .topbar-content {
-    padding-left: 20px; /* Reduced from 270px to account for logo */
+    /* Reduced from 270px to account for logo */
 }
 
 .folder{
