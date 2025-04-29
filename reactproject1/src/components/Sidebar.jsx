@@ -65,23 +65,26 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
 
     return (
         <div className="sidebar" ref={sidebarRef} style={{ width: `${sidebarWidth}px` }}>
-            <div className="sidebar-container">
-                <p>Projektfönster</p>
-                <div className="sidebar-icons">
-                    <FaFileAlt title="Lägg till projekt" onClick={addProject} />
-                    <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
-                    <FaSyncAlt title="Uppdatera" onClick={() => console.log("Refresh")} />
-                    <FaCompressAlt title="Stäng öppna mappar" onClick={() => console.log("Minimera")} />
-                </div>
-            </div>
 
-            <div className="sidebar-header">
-                <input type="text" placeholder="Sök..." className="search" />
-                <button className="filter-btn" onClick={onFilterClick}>Filter</button>
+          <div className="sidebar-header">
+            <div className="sidebar-title">
+              <p>Projektfönster</p> 
+              <div className="sidebar-icons">
+                <FaFileAlt title="Lägg till projekt" onClick={addProject} />
+                <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
+                <FaSyncAlt title="Uppdatera" onClick={() => console.log("Refresh")} />
+                <FaCompressAlt title="Stäng öppna mappar" onClick={() => console.log("Minimera")} />
+              </div>
             </div>
-
+            <div className="sidebar-search">
+              <input type="text" placeholder="Sök..." className="search" />
+              <button className="filter-btn" onClick={onFilterClick}>Filter</button>
+            </div>
             <div className="divider-line"></div>
+          </div>
 
+           
+          <div className="folder-container">
             {folders.map((folder, idx) => (
                 <React.Fragment key={idx}>
                     <Folder
@@ -91,7 +94,7 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
                     />
                 </React.Fragment>
             ))}
-
+          </div>
             {/* Add the resizer */}
             <div className="resizer" onMouseDown={startResizing}></div>
         </div>
