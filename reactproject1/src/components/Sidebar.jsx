@@ -67,7 +67,6 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
             projects={folder.projects} 
             onProjectDoubleClick={handleProjectDoubleClick}
           />
-          <div className="divider-line"></div>
         </React.Fragment>
       ))}
     </div>

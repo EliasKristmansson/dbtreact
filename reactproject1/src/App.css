@@ -162,13 +162,13 @@ body {
 .divider-line {
   border-top: 0.3px solid grey; /* vit med låg opacitet */
   width: 100%;
-  margin: 1rem 0;
+  margin: 0.8rem 0;
   
 }
 .sidebar-header {
   display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
+  gap: 1px;
+  
 }
 
 .search {
@@ -190,13 +190,14 @@ body {
 }
 
 .folder h4 {
-  margin-bottom: 5px;
+  margin: 0px;
+  padding: 0;
 }
 
 .folder ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .folder li {
@@ -272,16 +273,16 @@ body {
     cursor: pointer;
 }
 
-.collapse-button{
-  color:black;
-}
+
 .collapse-container {
+  margin: 0;
   display:flex;
   align-items: center;
 }
 
 .chevron {
-  margin-right: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Add these styles to your App.css */
@@ -300,4 +301,12 @@ body {
 /* Adjust the topbar-content padding to accommodate the logo */
 .topbar-content {
     padding-left: 20px; /* Reduced from 270px to account for logo */
+}
+
+.folder{
+  color:black;
+  font-size: 0.8rem;
+}
+.project {
+  color:red;
 }
