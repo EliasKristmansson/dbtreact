@@ -400,7 +400,8 @@ body {
 .sidebar-icons,
 .sidebar-header,
 .sidebar-search,
-.folders-container {
+.folders-container,
+.stats-button{
     opacity: 1;
     visibility: visible;
 }
@@ -409,7 +410,8 @@ body {
     .sidebar-title.minimized,
     .sidebar-icons.minimized,
     .sidebar-header.minimized,
-    .folders-container.minimized {
+    .folders-container.minimized,
+    .stats-button.minimized {
         opacity: 0;
         visibility: hidden; /* Hide content when minimized */
     }
