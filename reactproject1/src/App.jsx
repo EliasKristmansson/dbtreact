@@ -16,6 +16,7 @@ export default function App() {
       { id: 6, name: "Projekt 6", folder: "Marint" },
     ]);
     const [nextId, setNextId] = useState(7);
+    const [folders, setFolders] = useState(["Prio", "Sötvatten", "Marint"]);
 
     const [tabs, setTabs] = useState([]);
     const [projectRows, setProjectRows] = useState({});
@@ -34,6 +35,8 @@ export default function App() {
         setProjectRows(prev => ({ ...prev, [newId]: [] }));
         setActiveTabId(newId);
         setNextId(prev => prev + 1);
+
+        setFolders(prev => prev.includes(folder) ? prev : [...prev, folder]);
     };
 
     // 🔸 Öppna ett existerande projekt eller skapa en ny tab för det
@@ -73,7 +76,12 @@ export default function App() {
       }
   };
   
-  
+      const handleAddFolder = (newFolderName) => {
+        if (!folders.includes(newFolderName)) {
+            setFolders(prev => [...prev, newFolderName]);
+        }
+    };
+
   
 
     // 🔸 Stäng tab (inte från allProjects)
@@ -149,6 +157,7 @@ export default function App() {
         <>
             <Sidebar
               allProjects={allProjects}
+              folders={folders}
                 onFilterClick={() => setShowFilter(true)}
                 onProjectCreate={handleProjectCreate}
                 onProjectDelete={handleProjectDelete}

@@ -3,7 +3,7 @@ import Folder from "./Folder";
 import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics}) {
+export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics, folders}) {
     const grouped = allProjects.reduce((acc, project) => {
         if (!acc[project.folder]) acc[project.folder] = [];
         acc[project.folder].push(project);
@@ -14,7 +14,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
     const sidebarRef = useRef(null);
     const isResizing = useRef(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
-    
+
     const handleDelete = (folderTitle, projectIndex) => {
         if (window.confirm("Vill du ta bort detta projekt?")) {
             onProjectDelete(folderTitle, projectIndex);
@@ -26,7 +26,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
         document.addEventListener("mousemove", resizeSidebar);
         document.addEventListener("mouseup", stopResizing);
     };
-    
+
     const resizeSidebar = (e) => {
         if (!isResizing.current) return;
         const newWidth = e.clientX;
@@ -54,14 +54,14 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
     const addProject = () => {
         const folderName = prompt("Ange namn på mapp:");
         if (!folderName) return;
-    
+
         const projectName = prompt("Namn på nytt projekt:");
         if (projectName) {
             onProjectCreate(projectName, folderName); // <-- Viktigt!
         }
     };
     
-
+  
     return (
         <div
             className="sidebar"
@@ -76,7 +76,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
         >
             <div className="sidebar-header">
                 <div className="sidebar-title">
-                    <p className={`sidebar-title ${isMinimized ? "minimized" : ""}`}>Projektfönster</p> 
+                    <p className={`sidebar-title ${isMinimized ? "minimized" : ""}`}>Projektfönster</p>
                     <div className={`sidebar-icons ${isMinimized ? "minimized" : ""}`}>
                         <FaFileAlt title="Lägg till projekt" onClick={addProject} />
                         <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
@@ -102,15 +102,18 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
 
             <div className="folder-container">
                 <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-                {Object.entries(grouped).map(([folderTitle, projects], idx) => (
-                <Folder
-                    key={idx}
-                    title={folderTitle}
-                    projects={projects.map((p) => p.name)}
-                    onProjectDoubleClick={onProjectOpen}
-                    onProjectDelete={(projectIndex) => handleDelete(folderTitle, projectIndex)}
-                />
-                ))}
+                {folders.map((folderTitle) => {
+                    const projects = allProjects.filter(p => p.folder === folderTitle);
+                    return (
+                        <Folder
+                            key={folderTitle}
+                            title={folderTitle}
+                            projects={projects.map(p => p.name)}
+                            onProjectDoubleClick={onProjectOpen}
+                            onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
+                        />
+                    );
+                })}
                 </div>
             </div>
 
@@ -125,13 +128,11 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
                 }}
             ></div>
 
-            <div className="sidebar-footer">
-            <button className="stats-button" onClick={onShowStatistics}>
-                📊 Visa statistik
-            </button>
+            <div className={`sidebar-footer ${isMinimized ? "minimized" : ""}`}>
+                <button className={`stats-button ${isMinimized ? "minimized" : ""}`} onClick={onShowStatistics}>
+                    📊 Visa statistik
+                </button>
             </div>
-
-
         </div>
     );
 }
