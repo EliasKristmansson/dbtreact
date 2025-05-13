@@ -124,6 +124,21 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 
 	const showEmpty = tabs.length === 0;
 
+  const markProjectAsDone = () => {
+    const currentTab = tabs.find(tab => tab.id === activeTabId);
+    const completionData = {
+      date: new Date().toISOString(),
+      name: currentTab?.name || "Okänt projekt",
+    };
+  
+    const prev = JSON.parse(localStorage.getItem("completedProjects") || "[]");
+    localStorage.setItem("completedProjects", JSON.stringify([...prev, completionData]));
+  
+    alert(`Projekt "${completionData.name}" markerat som klart och sparat i statistiken!`);
+  };
+  
+  
+
 	return (
 		<div className="workspace">
 			{showEmpty ? (
@@ -139,6 +154,8 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 							<button onClick={() => handleSetFilter("kommenterade")}>Kommenterade</button>
 							<button className="rensa-filter-btn" onClick={() => handleSetFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
+              <button className="complete-project-btn" onClick={markProjectAsDone}>✔ Projekt klart</button>
+
 						</div>
 					</div>
 

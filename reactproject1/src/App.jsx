@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
+import Statistik from "./components/Statistik";
+
 
 export default function App() {
     const [allProjects, setAllProjects] = useState([
@@ -19,6 +21,7 @@ export default function App() {
     const [projectRows, setProjectRows] = useState({});
     const [activeTabId, setActiveTabId] = useState(null);
     const [showFilter, setShowFilter] = useState(false);
+    const [viewMode, setViewMode] = useState("workspace"); // or "statistics"
     
 
     // 🔸 Skapa ett nytt projekt (lägger till i både allProjects och tabs)
@@ -141,24 +144,31 @@ export default function App() {
                 onTabClose={handleTabClose}
             />
 
-            <div className="main-content">
-                <Sidebar
-                    allProjects={allProjects}
-                    onFilterClick={() => setShowFilter(true)}
-                    onProjectCreate={handleProjectCreate}
-                    onProjectDelete={handleProjectDelete}
-                    onProjectOpen={handleProjectOpen}
-                />
-                <Workspace
-                    activeTabId={activeTabId}
-                    projectRows={projectRows}
-                    onChangeRow={handleRowChange}
-                    onAddRow={handleAddRow}
-                    onRemoveRow={handleRemoveRow}
-                    onNewProjectClick={handleNewProject}
-                    tabs={tabs}
-                />
-            </div>
+<div className="main-content">
+    {viewMode === "workspace" ? (
+        <>
+            <Sidebar
+              allProjects={allProjects}
+                onFilterClick={() => setShowFilter(true)}
+                onProjectCreate={handleProjectCreate}
+                onProjectDelete={handleProjectDelete}
+                onProjectOpen={handleProjectOpen}
+                onShowStatistics={() => setViewMode("statistics")}
+            />
+            <Workspace
+                activeTabId={activeTabId}
+                projectRows={projectRows}
+                onChangeRow={handleRowChange}
+                onAddRow={handleAddRow}
+                onRemoveRow={handleRemoveRow}
+                onNewProjectClick={handleNewProject}
+                tabs={tabs}
+            />
+        </>
+    ) : (
+        <Statistik onBack={() => setViewMode("workspace")} />
+    )}
+</div>
 
             <Filter
                 isOpen={showFilter}

@@ -1,8 +1,9 @@
 ﻿import React, { useState, useRef } from "react";
 import Folder from "./Folder";
+import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete }) {
+export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics}) {
     const grouped = allProjects.reduce((acc, project) => {
         if (!acc[project.folder]) acc[project.folder] = [];
         acc[project.folder].push(project);
@@ -123,6 +124,14 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
                     }
                 }}
             ></div>
+
+                <div className="sidebar-footer">
+                <button className="stats-button" onClick={onShowStatistics}>
+                    📊 Visa statistik
+                </button>
+                </div>
+
+
         </div>
     );
 }

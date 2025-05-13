@@ -1,0 +1,20 @@
+.sidebar-footer {
+	padding: 10px;
+	text-align: center;
+  }
+  
+  .stats-button {
+	background-color: #2196f3;
+	color: white;
+	padding: 8px 14px;
+	border: none;
+	border-radius: 6px;
+	font-size: 1rem;
+	cursor: pointer;
+	width: 90%;
+  }
+  
+  .stats-button:hover {
+	background-color: #1976d2;
+  }
+  
