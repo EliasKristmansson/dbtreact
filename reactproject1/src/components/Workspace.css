@@ -229,18 +229,18 @@
   .flag-container {
 	width: 30px; /* smal cell för bara flag-knappen */
 	text-align: center;
+	border: 1px;
   }
   
   .flag-button {
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	border: none;
 	background-color: #3d3636;
 	cursor: pointer;
+	box-shadow: 0 0 0 1px #ccc; /* Skapar en tunn visuell kant */
 	transition: background-color 0.3s, transform 0.2s;
 }
-
   
   .flag-button.green {
 	background-color: green;
