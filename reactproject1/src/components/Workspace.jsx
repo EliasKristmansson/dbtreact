@@ -98,11 +98,18 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 	};
 
 	const filteredRows = rows.filter(row => {
-		if (filter === "intePlockade") return !row.plockat;
-		if (filter === "flaggade") return !row.andelPlockat;
-		if (filter === "kommenterade") return row.kommentarer?.trim();
-		return true;
-	});
+    switch (filter) {
+      case "intePlockade":
+        return !row.plockat?.trim();
+      case "flaggade":
+        return ["green", "yellow", "red"].includes(row.flag);
+      case "kommenterade":
+        return !!row.kommentarer?.trim();
+      default:
+        return true;
+    }
+  });
+  
 
 	const showEmpty = tabs.length === 0;
 
