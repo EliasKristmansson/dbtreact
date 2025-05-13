@@ -108,6 +108,28 @@ body {
     white-space: nowrap;
 }
 
+.project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 6px;
+    transition: background-color 0.2s;
+  }
+  
+  .project-item:hover {
+    background-color: #eee;
+  }
+  
+  .delete-icon {
+    color: rgb(24, 24, 24);
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .delete-icon:hover {
+    color: rgb(24, 24, 24);
+  }
+
 
 /* Priority Indicator Styles */
 .priority-indicator {
