@@ -19,6 +19,7 @@ export default function App() {
         3: [],
     });
 
+    // Close a tab and handle active tab selection
     const handleTabClose = (id) => {
         setTabs((prevTabs) => prevTabs.filter((tab) => tab.id !== id));
         setProjectRows((prevRows) => {
@@ -32,6 +33,7 @@ export default function App() {
         }
     };
 
+    // Create an empty new project (called from Workspace)
     const handleNewProject = () => {
         const newId = nextId;
         const newTab = { id: newId, name: "Projektnamn" };
@@ -41,6 +43,7 @@ export default function App() {
         setNextId((prev) => prev + 1);
     };
 
+    // Create a new project with a specific name (called from Sidebar)
     const handleProjectCreate = (projectName) => {
         const newId = nextId;
         const newTab = { id: newId, name: projectName };
@@ -50,13 +53,16 @@ export default function App() {
         setNextId((prev) => prev + 1);
     };
 
+    // Open an existing project or create it if it doesn't exist
     const handleProjectOpen = (projectName) => {
         // Check if project is already open
         const existingTab = tabs.find(tab => tab.name === projectName);
 
         if (existingTab) {
+            // If already open, just switch to that tab
             setActiveTabId(existingTab.id);
         } else {
+            // If not open, create a new tab for it
             const newId = nextId;
             const newTab = { id: newId, name: projectName };
             setTabs((prevTabs) => [...prevTabs, newTab]);
@@ -66,6 +72,7 @@ export default function App() {
         }
     };
 
+    // Handle changes to project rows
     const handleRowChange = (tabId, newRows) => {
         setProjectRows((prev) => ({
             ...prev,
@@ -73,6 +80,7 @@ export default function App() {
         }));
     };
 
+    // Add a new row to a project
     const handleAddRow = (tabId) => {
         setProjectRows((prev) => ({
             ...prev,
@@ -93,6 +101,7 @@ export default function App() {
         }));
     };
 
+    // Remove a row from a project
     const handleRemoveRow = (tabId, indexToRemove) => {
         setProjectRows((prev) => ({
             ...prev,
@@ -100,6 +109,7 @@ export default function App() {
         }));
     };
 
+    // Get the currently active tab
     const activeTab = tabs.find((tab) => tab.id === activeTabId);
 
     return (

@@ -31,7 +31,6 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
         }
     };
 
-
     const stopResizing = () => {
         isResizing.current = false;
         document.removeEventListener("mousemove", resizeSidebar);
@@ -57,13 +56,22 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
 
         const projectName = prompt("Namn på nytt projekt:");
         if (projectName) {
+            // Update the local folder state
             const updatedFolders = [...folders];
             updatedFolders[idx].projects.push(projectName);
             setFolders(updatedFolders);
+            
+            // Create the project in App.jsx and open it
             onProjectCreate(projectName);
+            
+            // Optionally also open the newly created project
+            // Uncomment if you want projects to be automatically opened when created
+            // onProjectOpen(projectName);
         }
     };
 
+    // We're now passing onProjectOpen directly to the Folder component
+    // This function is kept for backward compatibility
     const handleProjectDoubleClick = (projectName) => {
         onProjectOpen(projectName);
     };
@@ -90,7 +98,6 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
             }}
         >
 
-
           <div className="sidebar-header">
             <div className="sidebar-title">
                 {/* Title and icons that should be minimized */}
@@ -113,18 +120,19 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
 
            
           <div className="folder-container">
-            {/* Folder list */}
+            {/* Folder list - updated to pass onProjectOpen to each Folder */}
             <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
                 {folders.map((folder, idx) => (
                     <React.Fragment key={idx}>
                         <Folder
                             title={folder.title}
                             projects={folder.projects}
-                            onProjectDoubleClick={handleProjectDoubleClick}
+                            onProjectDoubleClick={onProjectOpen}
                         />
                     </React.Fragment>
                 ))}
-          </div>            </div>
+            </div>
+          </div>
 
             <div
                 className="resizer"
