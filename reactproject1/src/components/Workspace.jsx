@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Workspace.css";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./confirmModal";
 
 export default function Workspace({ tabs, onNewProjectClick }) {
 	const [rows, setRows] = useState([
@@ -18,9 +18,26 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 		}
 	]);
 
+  const confirmDelete = () => {
+    setRows(rows.filter((_, index) => index !== pendingDeleteIndex));
+    setPendingDeleteIndex(null);
+    setShowDeleteModal(false);
+  };
+  
+  const cancelDelete = () => {
+    setPendingDeleteIndex(null);
+    setShowDeleteModal(false);
+  };
+  
+
+
 	const [filter, setFilter] = useState("");
 	const [showModal, setShowModal] = useState(false);
 	const [pendingCommentIndex, setPendingCommentIndex] = useState(null);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
+
 
 	const handleChange = (index, field, value) => {
 		const updatedRows = [...rows];
@@ -179,7 +196,10 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 											/>
 										</td>
 										<td>
-											<button onClick={() => removeRow(index)}>🗑️</button>
+                    <button onClick={() => {setPendingDeleteIndex(index);setShowDeleteModal(true);}}> 🗑️</button>
+
+
+
 										</td>
 									</tr>
 								))}
@@ -190,10 +210,22 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 			)}
 			{showModal && (
 				<ConfirmModal
-					onConfirm={confirmCommentSave}
-					onCancel={cancelCommentSave}
-				/>
+        isOpen={showModal}
+        message="Är du säker på att du vill spara kommentaren?"
+        onConfirm={confirmCommentSave}
+        onCancel={cancelCommentSave}
+      />
+      
 			)}
+        {showDeleteModal && (
+  <ConfirmModal
+    isOpen={showDeleteModal}
+    message="Är du säker på att du vill ta bort raden?"
+    onConfirm={confirmDelete}
+    onCancel={cancelDelete}
+  />
+)}
+
 		</div>
 	);
 }

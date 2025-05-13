@@ -3,7 +3,7 @@ import React from "react";
 import "./ConfirmModal.css";
 
 export default function ConfirmModal({ isOpen, onConfirm, onCancel, message }) {
-  if (!isOpen) return null;
+  //if (!isOpen) return null;
 
   return (
     <div className="modal-backdrop">
