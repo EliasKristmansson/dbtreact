@@ -5,84 +5,103 @@ import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
 
 export default function App() {
-    const [showFilter, setShowFilter] = useState(false);
-    const [tabs, setTabs] = useState([
-        { id: 1, name: "Projekt 1" },
-        { id: 2, name: "Projekt 2" },
-        { id: 3, name: "Projekt 3" },
+    const [allProjects, setAllProjects] = useState([
+      { id: 1, name: "Projekt 1", folder: "Prio" },
+      { id: 2, name: "Projekt 2", folder: "Prio" },
+      { id: 3, name: "Projekt 3", folder: "Prio" },
+      { id: 4, name: "Projekt 4", folder: "Sötvatten" },
+      { id: 5, name: "Projekt 5", folder: "Sötvatten" },
+      { id: 6, name: "Projekt 6", folder: "Marint" },
     ]);
-    const [nextId, setNextId] = useState(4);
-    const [activeTabId, setActiveTabId] = useState(1);
-    const [projectRows, setProjectRows] = useState({
-        1: [],
-        2: [],
-        3: [],
-    });
+    const [nextId, setNextId] = useState(7);
 
-    // Close a tab and handle active tab selection
+    const [tabs, setTabs] = useState([]);
+    const [projectRows, setProjectRows] = useState({});
+    const [activeTabId, setActiveTabId] = useState(null);
+    const [showFilter, setShowFilter] = useState(false);
+    
+
+    // 🔸 Skapa ett nytt projekt (lägger till i både allProjects och tabs)
+    const handleProjectCreate = (projectName, folder = "Okategoriserad") => {
+        const newId = nextId;
+        const newProject = { id: newId, name: projectName, folder };
+
+        setAllProjects(prev => [...prev, newProject]); // Lägg till i register
+        setTabs(prev => [...prev, newProject]);        // Lägg till som tab
+        setProjectRows(prev => ({ ...prev, [newId]: [] }));
+        setActiveTabId(newId);
+        setNextId(prev => prev + 1);
+    };
+
+    // 🔸 Öppna ett existerande projekt eller skapa en ny tab för det
+    const handleProjectOpen = (projectName) => {
+        const project = allProjects.find(p => p.name === projectName);
+        if (!project) return;
+
+        const existingTab = tabs.find(t => t.id === project.id);
+        if (existingTab) {
+            setActiveTabId(existingTab.id);
+        } else {
+            setTabs(prev => [...prev, project]);
+            setActiveTabId(project.id);
+        }
+
+        // För säkerhets skull: om projektRows inte finns för projektet
+        if (!projectRows[project.id]) {
+            setProjectRows(prev => ({ ...prev, [project.id]: [] }));
+        }
+    };
+
+    const handleProjectDelete = (folderName, projectIndex) => {
+      // Filtrera fram alla projekt i just den foldern
+      const projectsInFolder = allProjects.filter(p => p.folder === folderName);
+  
+      // Hämta det faktiska projektet vi vill ta bort
+      const projectToDelete = projectsInFolder[projectIndex];
+      if (!projectToDelete) return;
+  
+      // Uppdatera allProjects (ta bort projektet)
+      const updatedProjects = allProjects.filter(p => p !== projectToDelete);
+      setAllProjects(updatedProjects);
+  
+      // Stäng tabben om den är öppen
+      if (projectToDelete.id !== undefined) {
+          handleTabClose(projectToDelete.id);
+      }
+  };
+  
+  
+  
+
+    // 🔸 Stäng tab (inte från allProjects)
     const handleTabClose = (id) => {
-        setTabs((prevTabs) => prevTabs.filter((tab) => tab.id !== id));
-        setProjectRows((prevRows) => {
-            const newRows = { ...prevRows };
+        setTabs(prev => prev.filter(t => t.id !== id));
+        setProjectRows(prev => {
+            const newRows = { ...prev };
             delete newRows[id];
             return newRows;
         });
-        if (activeTabId === id && tabs.length > 1) {
-            const remainingTabs = tabs.filter((tab) => tab.id !== id);
-            setActiveTabId(remainingTabs[0]?.id || null);
+        if (activeTabId === id) {
+            const remaining = tabs.filter(t => t.id !== id);
+            setActiveTabId(remaining[0]?.id || null);
         }
     };
 
-    // Create an empty new project (called from Workspace)
+    // 🔸 Skapa tomt projekt från Workspace
     const handleNewProject = () => {
-        const newId = nextId;
-        const newTab = { id: newId, name: "Projektnamn" };
-        setTabs((prevTabs) => [...prevTabs, newTab]);
-        setProjectRows((prev) => ({ ...prev, [newId]: [] }));
-        setActiveTabId(newId);
-        setNextId((prev) => prev + 1);
+        handleProjectCreate("Projektnamn");
     };
 
-    // Create a new project with a specific name (called from Sidebar)
-    const handleProjectCreate = (projectName) => {
-        const newId = nextId;
-        const newTab = { id: newId, name: projectName };
-        setTabs((prevTabs) => [...prevTabs, newTab]);
-        setProjectRows((prev) => ({ ...prev, [newId]: [] }));
-        setActiveTabId(newId);
-        setNextId((prev) => prev + 1);
-    };
-
-    // Open an existing project or create it if it doesn't exist
-    const handleProjectOpen = (projectName) => {
-        // Check if project is already open
-        const existingTab = tabs.find(tab => tab.name === projectName);
-
-        if (existingTab) {
-            // If already open, just switch to that tab
-            setActiveTabId(existingTab.id);
-        } else {
-            // If not open, create a new tab for it
-            const newId = nextId;
-            const newTab = { id: newId, name: projectName };
-            setTabs((prevTabs) => [...prevTabs, newTab]);
-            setProjectRows((prev) => ({ ...prev, [newId]: [] }));
-            setActiveTabId(newId);
-            setNextId((prev) => prev + 1);
-        }
-    };
-
-    // Handle changes to project rows
+    // 🔸 Radhantering
     const handleRowChange = (tabId, newRows) => {
-        setProjectRows((prev) => ({
+        setProjectRows(prev => ({
             ...prev,
             [tabId]: newRows,
         }));
     };
 
-    // Add a new row to a project
     const handleAddRow = (tabId) => {
-        setProjectRows((prev) => ({
+        setProjectRows(prev => ({
             ...prev,
             [tabId]: [
                 ...(prev[tabId] || []),
@@ -101,16 +120,14 @@ export default function App() {
         }));
     };
 
-    // Remove a row from a project
     const handleRemoveRow = (tabId, indexToRemove) => {
-        setProjectRows((prev) => ({
+        setProjectRows(prev => ({
             ...prev,
             [tabId]: prev[tabId].filter((_, index) => index !== indexToRemove),
         }));
     };
 
-    // Get the currently active tab
-    const activeTab = tabs.find((tab) => tab.id === activeTabId);
+    const activeTab = tabs.find(t => t.id === activeTabId);
 
     return (
         <div className="app">
@@ -126,8 +143,10 @@ export default function App() {
 
             <div className="main-content">
                 <Sidebar
+                    allProjects={allProjects}
                     onFilterClick={() => setShowFilter(true)}
                     onProjectCreate={handleProjectCreate}
+                    onProjectDelete={handleProjectDelete}
                     onProjectOpen={handleProjectOpen}
                 />
                 <Workspace
