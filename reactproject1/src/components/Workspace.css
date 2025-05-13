@@ -40,7 +40,62 @@
 	border-collapse: collapse;
 	table-layout: fixed;
   }
-  
+
+  .project-table th:nth-child(1),
+  .project-table td:nth-child(1) {
+    width: 5%; /* Ändra bredden för den första kolumnen */
+  }
+
+  .project-table th:nth-child(2),
+  .project-table td:nth-child(2) {
+    width: 15%; /* Ändra bredden för den andra kolumnen */
+  }
+
+  .project-table th:nth-child(3),
+  .project-table td:nth-child(3) {
+    width: 9%; /* Ändra bredden för den tredje kolumnen */
+  }
+
+  .project-table th:nth-child(4),
+  .project-table td:nth-child(4) {
+    width: 12%; /* Ändra bredden för den fjärde kolumnen */
+  }
+
+  .project-table th:nth-child(5),
+  .project-table td:nth-child(5) {
+    width: 12%; /* Ändra bredden för den femte kolumnen */
+  }
+
+  .project-table th:nth-child(6),
+  .project-table td:nth-child(6) {
+    width: 12%; /* Ändra bredden för den sjätte kolumnen */
+  }
+
+  .project-table th:nth-child(7),
+  .project-table td:nth-child(7) {
+    width: 12%; /* Ändra bredden för den sjunde kolumnen */
+  }
+
+  .project-table th:nth-child(8),
+  .project-table td:nth-child(8) {
+    width: 12%; /* Ändra bredden för den åttonde kolumnen */
+  }
+
+  .project-table th:nth-child(9),
+  .project-table td:nth-child(9) {
+    width: 12%; /* Ändra bredden för den nionde kolumnen */
+  }
+
+  .project-table th:nth-child(10),
+  .project-table td:nth-child(10) {
+    width: 15%; /* Ändra bredden för den tionde kolumnen */
+  }
+
+  .project-table th:nth-child(11),
+  .project-table td:nth-child(11) {
+    width: 5%; /* Ändra bredden för den tionde kolumnen */
+  }
+
   .project-table th {
 	background-color: #e6f0ff;
 	color: #222;
