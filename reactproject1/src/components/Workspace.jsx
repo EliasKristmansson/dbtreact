@@ -102,7 +102,7 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 							<button onClick={() => setFilter("intePlockade")}>Inte plockade</button>
 							<button onClick={() => setFilter("flaggade")}>Flaggade</button>
 							<button onClick={() => setFilter("kommenterade")}>Kommenterade</button>
-							<button onClick={() => setFilter("")}>Rensa filter</button>
+							<button className="rensa-filter-btn"onClick={() => setFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
 						</div>
 					</div>
