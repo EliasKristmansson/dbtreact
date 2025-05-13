@@ -3,7 +3,7 @@ import Folder from "./Folder";
 import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics}) {
+export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics, folders}) {
     const grouped = allProjects.reduce((acc, project) => {
         if (!acc[project.folder]) acc[project.folder] = [];
         acc[project.folder].push(project);
@@ -61,7 +61,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
         }
     };
     
-
+  
     return (
         <div
             className="sidebar"
@@ -102,15 +102,18 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
 
             <div className="folder-container">
                 <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-                {Object.entries(grouped).map(([folderTitle, projects], idx) => (
-                <Folder
-                    key={idx}
-                    title={folderTitle}
-                    projects={projects.map((p) => p.name)}
-                    onProjectDoubleClick={onProjectOpen}
-                    onProjectDelete={(projectIndex) => handleDelete(folderTitle, projectIndex)}
-                />
-                ))}
+                {folders.map((folderTitle) => {
+                    const projects = allProjects.filter(p => p.folder === folderTitle);
+                    return (
+                        <Folder
+                            key={folderTitle}
+                            title={folderTitle}
+                            projects={projects.map(p => p.name)}
+                            onProjectDoubleClick={onProjectOpen}
+                            onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
+                        />
+                    );
+                })}
                 </div>
             </div>
 
