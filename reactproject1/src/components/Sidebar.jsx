@@ -1,8 +1,10 @@
 ﻿import React, { useState, useRef } from "react";
 import Folder from "./Folder";
+import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen }) {
+export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen, onShowStatistics }) {
+
     const [folders, setFolders] = useState([
         { title: "Prio", projects: ["Projekt 1", "Projekt 2", "Projekt 3"] },
         { title: "Sötvatten", projects: ["Projekt 4", "Projekt 5"] },
@@ -131,6 +133,14 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
                     }
                 }}
             ></div>
+
+                <div className="sidebar-footer">
+                <button className="stats-button" onClick={onShowStatistics}>
+                    📊 Visa statistik
+                </button>
+                </div>
+
+
         </div>
     );
 }

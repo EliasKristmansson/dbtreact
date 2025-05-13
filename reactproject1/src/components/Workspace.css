@@ -259,3 +259,19 @@
 .rensa-filter-btn {
 	
 }
+
+
+
+.complete-project-btn {
+	background-color: #4caf50;
+	color: white;
+	padding: 8px 14px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 10px;
+  }
+  .complete-project-btn:hover {
+	background-color: #388e3c;
+  }
+  

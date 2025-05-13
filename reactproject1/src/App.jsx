@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
+import Statistik from "./components/Statistik";
+
 
 export default function App() {
     const [showFilter, setShowFilter] = useState(false);
@@ -18,6 +20,9 @@ export default function App() {
         2: [],
         3: [],
     });
+
+    const [viewMode, setViewMode] = useState("workspace"); // or "statistics"
+
 
     // Close a tab and handle active tab selection
     const handleTabClose = (id) => {
@@ -124,22 +129,30 @@ export default function App() {
                 onTabClose={handleTabClose}
             />
 
-            <div className="main-content">
-                <Sidebar
-                    onFilterClick={() => setShowFilter(true)}
-                    onProjectCreate={handleProjectCreate}
-                    onProjectOpen={handleProjectOpen}
-                />
-                <Workspace
-                    activeTabId={activeTabId}
-                    projectRows={projectRows}
-                    onChangeRow={handleRowChange}
-                    onAddRow={handleAddRow}
-                    onRemoveRow={handleRemoveRow}
-                    onNewProjectClick={handleNewProject}
-                    tabs={tabs}
-                />
-            </div>
+<div className="main-content">
+    {viewMode === "workspace" ? (
+        <>
+            <Sidebar
+                onFilterClick={() => setShowFilter(true)}
+                onProjectCreate={handleProjectCreate}
+                onProjectOpen={handleProjectOpen}
+                onShowStatistics={() => setViewMode("statistics")}
+            />
+            <Workspace
+                activeTabId={activeTabId}
+                projectRows={projectRows}
+                onChangeRow={handleRowChange}
+                onAddRow={handleAddRow}
+                onRemoveRow={handleRemoveRow}
+                onNewProjectClick={handleNewProject}
+                tabs={tabs}
+            />
+        </>
+    ) : (
+        <Statistik onBack={() => setViewMode("workspace")} />
+    )}
+</div>
+
 
             <Filter
                 isOpen={showFilter}
