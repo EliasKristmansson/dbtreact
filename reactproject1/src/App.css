@@ -51,7 +51,7 @@ body {
     gap: 10px;
     align-items: stretch;
     color: black;
-    padding-bottom: 10px;
+    
 }
 
 .sidebar-title{
@@ -186,9 +186,10 @@ body {
 }
 
 .divider-line {
-  border-top: 0.3px solid grey; /* vit med låg opacitet */
+  border-top: 0.3px solid grey;
   width: 100%;
-  margin: 0.8rem 0;
+  margin: 0.3rem 0;
+  
   
 }
 
@@ -228,7 +229,7 @@ body {
 }
 
 .workspace {
-    background-color: #F8F8F8;
+    background-color: #F4F4F4;
     flex: 1;
     padding: 20px;
     overflow: auto;
@@ -376,7 +377,7 @@ body {
 
 
 .sidebar {
-    background-color: #D7D7D7;
+    background-color: #E0E0E0;
     border-right: 1px solid #888686;
     box-sizing: border-box;
     padding: 10px;
@@ -414,7 +415,7 @@ body {
     }
 
 .folders-container {
-    margin-top: 20px;
+    margin-top: 0.2rem;
 }
 
 .resizer {
