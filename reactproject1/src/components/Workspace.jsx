@@ -2,47 +2,46 @@ import React, { useState } from "react";
 import "./Workspace.css";
 import ConfirmModal from "./confirmModal";
 
-export default function Workspace({ tabs, onNewProjectClick }) {
-	const [rows, setRows] = useState([
-		{
-			märkning: "",
-			inkommet: "",
-			plockat: "",
-			andelPlockat: "",
-			datum: "",
-			antalDjur: "",
-			hemtagna: "",
-			åter: "",
-			kommentarer: "",
-			flag: ""
-		}
-	]);
-
-  const confirmDelete = () => {
-    setRows(rows.filter((_, index) => index !== pendingDeleteIndex));
-    setPendingDeleteIndex(null);
-    setShowDeleteModal(false);
-  };
-  
-  const cancelDelete = () => {
-    setPendingDeleteIndex(null);
-    setShowDeleteModal(false);
-  };
-  
-
-
-	const [filter, setFilter] = useState("");
+export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
+	const [projectData, setProjectData] = useState({});
+	const [filterMap, setFilterMap] = useState({});
 	const [showModal, setShowModal] = useState(false);
 	const [pendingCommentIndex, setPendingCommentIndex] = useState(null);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
+	// Initialize project rows if not already present
+	if (!projectData[activeTabId]) {
+		setProjectData(prev => ({
+			...prev,
+			[activeTabId]: [
+				{
+					märkning: "",
+					inkommet: "",
+					plockat: "",
+					andelPlockat: "",
+					datum: "",
+					antalDjur: "",
+					hemtagna: "",
+					åter: "",
+					kommentarer: "",
+					flag: ""
+				}
+			]
+		}));
+	}
 
+	const rows = projectData[activeTabId] || [];
+	const filter = filterMap[activeTabId] || "";
+
+	const updateProjectRows = (newRows) => {
+		setProjectData(prev => ({ ...prev, [activeTabId]: newRows }));
+	};
 
 	const handleChange = (index, field, value) => {
 		const updatedRows = [...rows];
 		updatedRows[index][field] = value;
-		setRows(updatedRows);
+		updateProjectRows(updatedRows);
 	};
 
 	const toggleFlag = (index) => {
@@ -54,7 +53,7 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 		else if (currentFlag === "yellow") newFlag = "red";
 		else if (currentFlag === "red") newFlag = "";
 		updatedRows[index].flag = newFlag;
-		setRows(updatedRows);
+		updateProjectRows(updatedRows);
 	};
 
 	const handleSaveComment = (index) => {
@@ -70,13 +69,13 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 	const cancelCommentSave = () => {
 		const updatedRows = [...rows];
 		updatedRows[pendingCommentIndex].kommentarer = "";
-		setRows(updatedRows);
+		updateProjectRows(updatedRows);
 		setShowModal(false);
 		setPendingCommentIndex(null);
 	};
 
 	const addRow = () => {
-		setRows([
+		updateProjectRows([
 			...rows,
 			{
 				märkning: "",
@@ -93,16 +92,35 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 		]);
 	};
 
-	const removeRow = (indexToRemove) => {
-		setRows(rows.filter((_, index) => index !== indexToRemove));
+	const confirmDelete = () => {
+		const updatedRows = rows.filter((_, index) => index !== pendingDeleteIndex);
+		updateProjectRows(updatedRows);
+		setPendingDeleteIndex(null);
+		setShowDeleteModal(false);
+	};
+
+	const cancelDelete = () => {
+		setPendingDeleteIndex(null);
+		setShowDeleteModal(false);
 	};
 
 	const filteredRows = rows.filter(row => {
-		if (filter === "intePlockade") return !row.plockat;
-		if (filter === "flaggade") return !row.andelPlockat;
-		if (filter === "kommenterade") return row.kommentarer?.trim();
-		return true;
-	});
+    switch (filter) {
+      case "intePlockade":
+        return !row.plockat?.trim();
+      case "flaggade":
+        return ["green", "yellow", "red"].includes(row.flag);
+      case "kommenterade":
+        return !!row.kommentarer?.trim();
+      default:
+        return true;
+    }
+  });
+  
+
+	const handleSetFilter = (newFilter) => {
+		setFilterMap(prev => ({ ...prev, [activeTabId]: newFilter }));
+	};
 
 	const showEmpty = tabs.length === 0;
 
@@ -116,10 +134,10 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 				<>
 					<div className="workspace-header">
 						<div className="filter-buttons">
-							<button onClick={() => setFilter("intePlockade")}>Inte plockade</button>
-							<button onClick={() => setFilter("flaggade")}>Flaggade</button>
-							<button onClick={() => setFilter("kommenterade")}>Kommenterade</button>
-							<button className="rensa-filter-btn"onClick={() => setFilter("")}>Rensa filter</button>
+							<button onClick={() => handleSetFilter("intePlockade")}>Inte plockade</button>
+							<button onClick={() => handleSetFilter("flaggade")}>Flaggade</button>
+							<button onClick={() => handleSetFilter("kommenterade")}>Kommenterade</button>
+							<button className="rensa-filter-btn" onClick={() => handleSetFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
 						</div>
 					</div>
@@ -196,10 +214,7 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 											/>
 										</td>
 										<td>
-                    <button onClick={() => {setPendingDeleteIndex(index);setShowDeleteModal(true);}}> 🗑️</button>
-
-
-
+											<button onClick={() => { setPendingDeleteIndex(index); setShowDeleteModal(true); }}> 🗑️</button>
 										</td>
 									</tr>
 								))}
@@ -210,23 +225,20 @@ export default function Workspace({ tabs, onNewProjectClick }) {
 			)}
 			{showModal && (
 				<ConfirmModal
-        isOpen={showModal}
-        message="Är du säker på att du vill spara kommentaren?"
-        onConfirm={confirmCommentSave}
-        onCancel={cancelCommentSave}
-      />
-      
+					isOpen={showModal}
+					message="Är du säker på att du vill spara kommentaren?"
+					onConfirm={confirmCommentSave}
+					onCancel={cancelCommentSave}
+				/>
 			)}
-        {showDeleteModal && (
-  <ConfirmModal
-    isOpen={showDeleteModal}
-    message="Är du säker på att du vill ta bort raden?"
-    onConfirm={confirmDelete}
-    onCancel={cancelDelete}
-  />
-)}
-
+			{showDeleteModal && (
+				<ConfirmModal
+					isOpen={showDeleteModal}
+					message="Är du säker på att du vill ta bort raden?"
+					onConfirm={confirmDelete}
+					onCancel={cancelDelete}
+				/>
+			)}
 		</div>
 	);
 }
-
