@@ -123,7 +123,7 @@ body {
   .delete-icon {
     color: rgb(24, 24, 24);
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 100px;
   }
   
   .delete-icon:hover {
@@ -427,4 +427,35 @@ body {
     right: 0;
     height: 100%;
     z-index: 10;
+}
+.context-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.context-menu button {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.context-menu button:hover {
+    background-color: #ff4444;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    z-index: 999;
 }

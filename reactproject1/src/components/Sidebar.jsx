@@ -63,7 +63,7 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
         }
     };
 
-    const handleProjectDelete = (folderIndex, projectIndex) => {
+    const handleDelete = (folderIndex, projectIndex) => {
         const updatedFolders = [...folders];
         updatedFolders[folderIndex].projects.splice(projectIndex, 1);
         setFolders(updatedFolders);
@@ -115,7 +115,7 @@ export default function Sidebar({ onFilterClick, onProjectCreate, onProjectOpen 
                             title={folder.title}
                             projects={folder.projects}
                             onProjectDoubleClick={onProjectOpen}
-                            onProjectDelete={(projectIndex) => handleProjectDelete(idx, projectIndex)}
+                            onProjectDelete={(projectIndex) => handleDelete(idx, projectIndex)}
                         />
                     ))}
                 </div>
