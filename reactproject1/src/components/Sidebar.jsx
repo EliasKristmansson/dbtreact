@@ -125,11 +125,11 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
                 }}
             ></div>
 
-                <div className="sidebar-footer">
-                <button className="stats-button" onClick={onShowStatistics}>
-                    📊 Visa statistik
-                </button>
-                </div>
+            <div className="sidebar-footer">
+            <button className="stats-button" onClick={onShowStatistics}>
+                📊 Visa statistik
+            </button>
+            </div>
 
 
         </div>
