@@ -1,261 +1,262 @@
 /* ====== Workspace.css (senaste och uppdaterade versionen) ====== */
 
 .workspace {
-	padding: 1.5rem;
-	background-color: #fafafa;
-	color: #333;
-  }
-  
-  .workspace-header {
-	display: flex;
-	margin-bottom: 1rem;
-	width: 100%;
-  }
-  
-  .add-btn {
-	padding: 0.5rem 1.2rem;
-	font-size: 1rem;
-	background-color: #333;
-	color: white;
-	border: none;
-	margin-left: auto;
-	border-radius: 6px;
-	cursor: pointer;
-	transition: background-color 0.2s;
-  }
-  
-  .add-btn:hover {
-	background-color: #111;
-  }
-  
-  .table-container {
-	overflow-x: auto;
-	background-color: transparent;
-	border-radius: 0;
-	box-shadow: none;
-  }
-  
-  .project-table {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
-  }
+    padding: 1.5rem;
+    background-color: #fafafa;
+    color: #333;
+}
 
-  .project-table th:nth-child(1),
-  .project-table td:nth-child(1) {
-    width: 5%; /* Ändra bredden för den första kolumnen */
-  }
+.workspace-header {
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+}
 
-  .project-table th:nth-child(2),
-  .project-table td:nth-child(2) {
-    width: 15%; /* Ändra bredden för den andra kolumnen */
-  }
+.add-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    margin-left: auto;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
-  .project-table th:nth-child(3),
-  .project-table td:nth-child(3) {
-    width: 9%; /* Ändra bredden för den tredje kolumnen */
-  }
+    .add-btn:hover {
+        background-color: #111;
+    }
 
-  .project-table th:nth-child(4),
-  .project-table td:nth-child(4) {
-    width: 12%; /* Ändra bredden för den fjärde kolumnen */
-  }
+.table-container {
+    overflow-x: auto;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
 
-  .project-table th:nth-child(5),
-  .project-table td:nth-child(5) {
-    width: 12%; /* Ändra bredden för den femte kolumnen */
-  }
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
 
-  .project-table th:nth-child(6),
-  .project-table td:nth-child(6) {
-    width: 12%; /* Ändra bredden för den sjätte kolumnen */
-  }
+    .project-table th:nth-child(1),
+    .project-table td:nth-child(1) {
+        width: 5%; /* Ändra bredden för den första kolumnen */
+    }
 
-  .project-table th:nth-child(7),
-  .project-table td:nth-child(7) {
-    width: 12%; /* Ändra bredden för den sjunde kolumnen */
-  }
+    .project-table th:nth-child(2),
+    .project-table td:nth-child(2) {
+        width: 15%; /* Ändra bredden för den andra kolumnen */
+    }
 
-  .project-table th:nth-child(8),
-  .project-table td:nth-child(8) {
-    width: 12%; /* Ändra bredden för den åttonde kolumnen */
-  }
+    .project-table th:nth-child(3),
+    .project-table td:nth-child(3) {
+        width: 9%; /* Ändra bredden för den tredje kolumnen */
+    }
 
-  .project-table th:nth-child(9),
-  .project-table td:nth-child(9) {
-    width: 12%; /* Ändra bredden för den nionde kolumnen */
-  }
+    .project-table th:nth-child(4),
+    .project-table td:nth-child(4) {
+        width: 12%; /* Ändra bredden för den fjärde kolumnen */
+    }
 
-  .project-table th:nth-child(10),
-  .project-table td:nth-child(10) {
-    width: 15%; /* Ändra bredden för den tionde kolumnen */
-  }
+    .project-table th:nth-child(5),
+    .project-table td:nth-child(5) {
+        width: 12%; /* Ändra bredden för den femte kolumnen */
+    }
 
-  .project-table th:nth-child(11),
-  .project-table td:nth-child(11) {
-    width: 5%; /* Ändra bredden för den tionde kolumnen */
-  }
+    .project-table th:nth-child(6),
+    .project-table td:nth-child(6) {
+        width: 12%; /* Ändra bredden för den sjätte kolumnen */
+    }
 
-  .project-table th {
-	background-color: #e6f0ff;
-	color: #222;
-	font-size: 0.9rem;
-	font-weight: 600;
-	padding: 0.6rem 0.5rem; /* lite mer padding så texten andas */
-	text-align: center;
-  }
-  
-  .project-table td {
-	border-bottom: 1px solid #eee;
-	padding: 0.4rem 0.5rem;
-	text-align: center; /* Centrera ALL text */
-	vertical-align: middle;
-	white-space: nowrap;
-	background-color: #f4f9ff;
-	min-width: 120px; /* bredare kolumner för att undvika ihoptryckt text */
-  }
-  
-  .project-table tr td {
-	background-color: #f4f9ff; /* alltid blå bakgrund, ingen hover-effekt */
-  }
-  
-  .project-table input,
-  .project-table textarea {
-	width: 100%;
-	padding: 0.25rem 0.4rem;
-	font-size: 0.85rem;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	background-color: #fff;
-	box-sizing: border-box;
-  }
-  
-  .project-table input:focus,
-  .project-table textarea:focus {
-	border-color: #666;
-	outline: none;
-  }
-  
-  .project-table textarea {
-	resize: vertical;
-	min-height: 40px;
-	max-height: 100px;
-  }
-  
-  .project-table td input[type="number"] {
-	padding: 0.3rem;
-	font-size: 0.85rem;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-  }
-  
-  .project-table button {
-	padding: 0.3rem 0.5rem;
-	background: none; /* 🚫 ingen bakgrundsfärg */
-	color: #666; /* 🔵 neutral grå färg på ikonen */
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1.2rem; /* lite större ikon om du vill */
-	transition: color 0.2s;
-  }
-  
-  .project-table button:hover {
-	color: #111; /* 🔵 blir mörkare vid hover */
-  }
+    .project-table th:nth-child(7),
+    .project-table td:nth-child(7) {
+        width: 12%; /* Ändra bredden för den sjunde kolumnen */
+    }
+
+    .project-table th:nth-child(8),
+    .project-table td:nth-child(8) {
+        width: 12%; /* Ändra bredden för den åttonde kolumnen */
+    }
+
+    .project-table th:nth-child(9),
+    .project-table td:nth-child(9) {
+        width: 12%; /* Ändra bredden för den nionde kolumnen */
+    }
+
+    .project-table th:nth-child(10),
+    .project-table td:nth-child(10) {
+        width: 15%; /* Ändra bredden för den tionde kolumnen */
+    }
+
+    .project-table th:nth-child(11),
+    .project-table td:nth-child(11) {
+        width: 5%; /* Ändra bredden för den tionde kolumnen */
+    }
+
+    .project-table tr {
+        
+    }
+
+    .project-table th {
+        border: none;
+        background-color: #fafafa;
+        color: #222;
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 0;
+    }
+
+    .project-table td {
+        border: none;
+        padding: 0;
+        white-space: nowrap;
+        background-color: #fafafa;
+        min-width: 120px; /* bredare kolumner för att undvika ihoptryckt text */
+    }
+
+    .project-table input,
+    .project-table textarea {
+        width: 100%;
+        padding: 0.25rem 0.4rem;
+        font-size: 0.85rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-sizing: border-box;
+    }
+
+        .project-table input:focus,
+        .project-table textarea:focus {
+            border-color: #666;
+            outline: none;
+        }
+
+    .project-table textarea {
+        resize: vertical;
+    }
+
+    .project-table td input[type="number"] {
+        padding: 0.3rem;
+        font-size: 0.85rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .project-table button {
+        padding: 0.3rem 0.5rem;
+        background: none; /* 🚫 ingen bakgrundsfärg */
+        color: #666; /* 🔵 neutral grå färg på ikonen */
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.2rem; /* lite större ikon om du vill */
+        transition: color 0.2s;
+    }
+
+    .project-table .flag-container {
+        text-align: center;
+    }
+
+    .project-table button:hover {
+        color: #111; /* 🔵 blir mörkare vid hover */
+    }
 
 
 .filter-buttons {
-	display: flex;
-	flex-wrap: wrap;
-	display: flex;
-	gap: 0.5rem;
-	width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
 }
 
-	.filter-buttons button {
-		padding: 0.5rem 1.2rem;
-		background-color: rgb(215, 215, 215);
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		font-size: 0.7rem;
-		font-weight: 600;
-		color: #333;
-		transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-	}
+    .filter-buttons button {
+        padding: 0.5rem 1.2rem;
+        background-color: rgb(215, 215, 215);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
 
-	.filter-buttons .rensa-filter-btn {
-		background-color: #ffcfcf;
-	}
-  
-  .filter-buttons button:hover {
-	background-color: #d0d0d0;
-	border-color: #999;
-	color: #111;
-  }
-  
-  /* När en filter-knapp är aktiv */
-  .filter-buttons .active-filter {
-	background-color: #007bff;
-	color: white;
-	border-color: #007bff;
-	font-weight: 700;
-  }
-  
-  
-  
-  
-  .project-table .antal-djur-inputs {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.4rem; /* 🔵 lägger mellanrum mellan inputs och / */
-	padding: 0 0.5rem; /* 🔵 lägger luft till vänster och höger */
-  }
-  .project-table .antal-djur-inputs input {
-	width: 50px;
-	text-align: center;
-	padding: 0.3rem;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	background-color: #fff;
-  }
+    .filter-buttons .rensa-filter-btn {
+        background-color: #ffcfcf;
+    }
 
-  .row-wrapper {
-	position: relative;
-  }
-  
-  .flag-container {
-	width: 30px; /* smal cell för bara flag-knappen */
-	text-align: center;
-	border: 1px;
-  }
-  
-  .flag-button {
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background-color: #3d3636;
-	cursor: pointer;
-	box-shadow: 0 0 0 1px #ccc; /* Skapar en tunn visuell kant */
-	transition: background-color 0.3s, transform 0.2s;
+    .filter-buttons button:hover {
+        background-color: #d0d0d0;
+        border-color: #999;
+        color: #111;
+    }
+
+    /* När en filter-knapp är aktiv */
+    .filter-buttons .active-filter {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+        font-weight: 700;
+    }
+
+
+
+
+.project-table .antal-djur-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem; /* 🔵 lägger mellanrum mellan inputs och / */
+    padding: 0 0.5rem; /* 🔵 lägger luft till vänster och höger */
 }
-  
-  .flag-button.green {
-	background-color: green;
-  }
-  .flag-button.yellow {
-	background-color: gold;
-  }
-  .flag-button.red {
-	background-color: red;
-  }
-  
-  .flag-button:hover {
-	transform: scale(1.2); /* lite växande hover-effekt */
-  }
+
+    .project-table .antal-djur-inputs input {
+        width: 50px;
+        text-align: center;
+        padding: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+.row-wrapper {
+    position: relative;
+}
+
+.flag-container {
+    width: 30px; /* smal cell för bara flag-knappen */
+    border: 1px;
+}
+
+.flag-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3d3636;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #ccc; /* Skapar en tunn visuell kant */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .flag-button.green {
+        background-color: green;
+    }
+
+    .flag-button.yellow {
+        background-color: gold;
+    }
+
+    .flag-button.red {
+        background-color: red;
+    }
+
+    .flag-button:hover {
+        transform: scale(1.2); /* lite växande hover-effekt */
+    }
 
 .rensa-filter-btn {
-	
 }
