@@ -20,6 +20,7 @@
 	border-radius: 6px;
 	cursor: pointer;
 	transition: background-color 0.2s;
+	margin-left: auto;
 }
 
 .add-btn:hover {
@@ -53,18 +54,18 @@
 	font-size: 0.9rem;
 	font-weight: 600;
 	padding: 0;
-	text-align: left;
 	border: none;
+	text-align: left;
 }
 
-.project-table td {
-	padding: 0;
-	text-align: left;
-	vertical-align: middle;
-	background-color: transparent;
-	border: none;
-	min-width: 120px;
-}
+	.project-table td {
+		padding: 0;
+		vertical-align: middle;
+		background-color: transparent;
+		border: none;
+		min-width: 120px;
+		text-align: center;
+	}
 
 .project-table input,
 .project-table textarea {
@@ -133,12 +134,10 @@
 }
 
 
-.flag-container {
-	width: 100%;
-	text-align: left;
-}
-
-
+.flag-container{
+		width: 100%;
+		text-align:center;
+	}
 
 .flag-button {
 	width: 20px;
@@ -148,8 +147,9 @@
 	cursor: pointer;
 	box-shadow: 0 0 0 1px #ccc;
 	transition: background-color 0.3s, transform 0.2s;
-	margin: 0; /* säkerställ att ingen extra marginal påverkar placeringen */
+	margin: 0; /* Remove any extra margin */
 }
+
 
 
 .flag-button.green {

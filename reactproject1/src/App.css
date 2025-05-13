@@ -258,13 +258,6 @@ body {
     background-color: #2d4f73;
 }
 
-.project-table th,
-.project-table td {
-    border: 1px solid #3c668f;
-    padding: 8px;
-    text-align: left;
-}
-
 .empty-workspace {
     display: flex;
     justify-content: center;

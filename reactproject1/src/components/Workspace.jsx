@@ -185,13 +185,13 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onClick={() => toggleFlag(index)}
 											></button>
 										</td>
-										<td><input type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
-										<td><input type="date" value={row.inkommet} onChange={(e) => handleChange(index, "inkommet", e.target.value)} /></td>
-										<td><input type="date" value={row.plockat} onChange={(e) => handleChange(index, "plockat", e.target.value)} /></td>
-										<td><input type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
-										<td><input type="date" value={row.datum} onChange={(e) => handleChange(index, "datum", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="date" value={row.inkommet} onChange={(e) => handleChange(index, "inkommet", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }}type="date" value={row.plockat} onChange={(e) => handleChange(index, "plockat", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }}type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }}type="date" value={row.datum} onChange={(e) => handleChange(index, "datum", e.target.value)} /></td>
 										<td>
-											<div className="antal-djur-inputs">
+											<div className="antal-djur-inputs" style={{ height: "25px" }}>
 												<input
 													type="text"
 													placeholder="123"
@@ -202,7 +202,8 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 													}}
 												/>
 												<span>/</span>
-												<input
+												<input 
+													style={{ height: "25px" }}
 													type="text"
 													placeholder="456"
 													value={row.antalDjur?.split('/')[1] || ""}
@@ -213,10 +214,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												/>
 											</div>
 										</td>
-										<td><input type="date" value={row.hemtagna} onChange={(e) => handleChange(index, "hemtagna", e.target.value)} /></td>
-										<td><input type="date" value={row.åter} onChange={(e) => handleChange(index, "åter", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="date" value={row.hemtagna} onChange={(e) => handleChange(index, "hemtagna", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="date" value={row.åter} onChange={(e) => handleChange(index, "åter", e.target.value)} /></td>
 										<td>
 											<textarea
+												style={{ height: "25px" }}
 												value={row.kommentarer}
 												onChange={(e) => handleChange(index, "kommentarer", e.target.value)}
 												onBlur={() => handleSaveComment(index)}
@@ -226,7 +228,6 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 														handleSaveComment(index);
 													}
 												}}
-												rows="2"
 												placeholder="Skriv kommentar..."
 											/>
 										</td>
