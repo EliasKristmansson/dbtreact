@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./Workspace.css";
 import ConfirmModal from "./confirmModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { parseISO } from "date-fns";
+import { Calendar } from "lucide-react";
 
 export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 	const [projectData, setProjectData] = useState({});
@@ -105,18 +109,48 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 	};
 
 	const filteredRows = rows.filter(row => {
-    switch (filter) {
-      case "intePlockade":
-        return !row.plockat?.trim();
-      case "flaggade":
-        return ["green", "yellow", "red"].includes(row.flag);
-      case "kommenterade":
-        return !!row.kommentarer?.trim();
-      default:
-        return true;
-    }
-  });
-  
+		switch (filter) {
+			case "intePlockade":
+				return !row.plockat?.trim();
+			case "flaggade":
+				return ["green", "yellow", "red"].includes(row.flag);
+			case "kommenterade":
+				return !!row.kommentarer?.trim();
+			default:
+				return true;
+		}
+	});
+
+	const CalendarInput = React.forwardRef(({ value, onClick }, ref) => (
+		<button
+			className="calendar-input"
+			onClick={onClick}
+			ref={ref}
+			style={{
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				height: "25px",
+				width: "100%",
+				backgroundColor: "white",
+				boxShadow: "0 0 0 1px #ccc",
+				borderRadius: "4px",
+				cursor: "pointer",
+				fontSize: "14px",  // You can adjust the font size here
+				color: "#333",  // Change text color
+				padding: "0 10px", // Add padding to the left and right of the text
+			}}
+		>
+			{value ? (
+				<span style={{ marginRight: "8px" }}>{value}</span> // Show selected date with style
+			) : (
+				<Calendar size={16} />
+			)}
+		</button>
+	));
+
+
+
 
 	const handleSetFilter = (newFilter) => {
 		setFilterMap(prev => ({ ...prev, [activeTabId]: newFilter }));
@@ -124,20 +158,20 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 
 	const showEmpty = tabs.length === 0;
 
-  const markProjectAsDone = () => {
-    const currentTab = tabs.find(tab => tab.id === activeTabId);
-    const completionData = {
-      date: new Date().toISOString(),
-      name: currentTab?.name || "Okänt projekt",
-    };
-  
-    const prev = JSON.parse(localStorage.getItem("completedProjects") || "[]");
-    localStorage.setItem("completedProjects", JSON.stringify([...prev, completionData]));
-  
-    alert(`Projekt "${completionData.name}" markerat som klart och sparat i statistiken!`);
-  };
-  
-  
+	const markProjectAsDone = () => {
+		const currentTab = tabs.find(tab => tab.id === activeTabId);
+		const completionData = {
+			date: new Date().toISOString(),
+			name: currentTab?.name || "Okänt projekt",
+		};
+
+		const prev = JSON.parse(localStorage.getItem("completedProjects") || "[]");
+		localStorage.setItem("completedProjects", JSON.stringify([...prev, completionData]));
+
+		alert(`Projekt "${completionData.name}" markerat som klart och sparat i statistiken!`);
+	};
+
+
 
 	return (
 		<div className="workspace">
@@ -154,7 +188,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 							<button onClick={() => handleSetFilter("kommenterade")}>Kommenterade</button>
 							<button className="rensa-filter-btn" onClick={() => handleSetFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
-              <button className="complete-project-btn" onClick={markProjectAsDone}>✔ Projekt klart</button>
+							<button className="complete-project-btn" onClick={markProjectAsDone}>✔ Projekt klart</button>
 
 						</div>
 					</div>
@@ -163,7 +197,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 						<table className="project-table">
 							<thead>
 								<tr>
-									<th>Flagga</th>
+									<th className="flag-column">Flagga</th>
 									<th>Märkning</th>
 									<th>Inkommet</th>
 									<th>Plockat</th>
@@ -172,7 +206,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 									<th>Antal djur</th>
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
-									<th>Övriga kommentarer</th>
+									<th>Kommentarer</th>
 									<th>Ta bort</th>
 								</tr>
 							</thead>
@@ -186,10 +220,31 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 											></button>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
-										<td><input style={{ height: "25px" }} type="date" value={row.inkommet} onChange={(e) => handleChange(index, "inkommet", e.target.value)} /></td>
-										<td><input style={{ height: "25px" }}type="date" value={row.plockat} onChange={(e) => handleChange(index, "plockat", e.target.value)} /></td>
-										<td><input style={{ height: "25px" }}type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
-										<td><input style={{ height: "25px" }}type="date" value={row.datum} onChange={(e) => handleChange(index, "datum", e.target.value)} /></td>
+										<td>
+											<DatePicker
+												selected={row.inkommet ? parseISO(row.inkommet) : null}
+												onChange={(date) => handleChange(index, "inkommet", date?.toISOString().split("T")[0] || "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+											/>
+										</td>
+										<td>
+											<DatePicker
+												selected={row.plockat ? parseISO(row.plockat) : null}
+												onChange={(date) => handleChange(index, "plockat", date?.toISOString().split("T")[0] || "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+											/>
+										</td>
+										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
+										<td>
+											<DatePicker
+												selected={row.datum ? parseISO(row.datum) : null}
+												onChange={(date) => handleChange(index, "datum", date?.toISOString().split("T")[0] || "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+											/>
+										</td>
 										<td>
 											<div className="antal-djur-inputs" style={{ height: "25px" }}>
 												<input
@@ -202,7 +257,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 													}}
 												/>
 												<span>/</span>
-												<input 
+												<input
 													style={{ height: "25px" }}
 													type="text"
 													placeholder="456"
@@ -214,11 +269,24 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												/>
 											</div>
 										</td>
-										<td><input style={{ height: "25px" }} type="date" value={row.hemtagna} onChange={(e) => handleChange(index, "hemtagna", e.target.value)} /></td>
-										<td><input style={{ height: "25px" }} type="date" value={row.åter} onChange={(e) => handleChange(index, "åter", e.target.value)} /></td>
+										<td>
+											<DatePicker
+												selected={row.hemtagna ? parseISO(row.hemtagna) : null}
+												onChange={(date) => handleChange(index, "hemtagna", date?.toISOString().split("T")[0] || "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+											/>
+										</td>
+										<td>
+											<DatePicker
+												selected={row.åter ? parseISO(row.åter) : null}
+												onChange={(date) => handleChange(index, "åter", date?.toISOString().split("T")[0] || "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+											/>
+										</td>
 										<td>
 											<textarea
-												style={{ height: "25px" }}
 												value={row.kommentarer}
 												onChange={(e) => handleChange(index, "kommentarer", e.target.value)}
 												onBlur={() => handleSaveComment(index)}

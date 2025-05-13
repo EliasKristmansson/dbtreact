@@ -194,11 +194,6 @@ body {
   
 }
 
-.search {
-    flex: 1;
-    padding: 5px;
-}
-
 .filter-btn {
     background-color: #243c5a;
     border: none;
@@ -229,20 +224,6 @@ body {
     list-style: none;
 }
 
-.workspace {
-    background-color: #F4F4F4;
-    flex: 1;
-    padding: 20px;
-    overflow: auto;
-}
-
-.workspace-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 .add-btn {
     padding: 5px 15px;
     background-color: #305780;
@@ -250,12 +231,6 @@ body {
     color: white;
     cursor: pointer;
     border-radius: 4px;
-}
-
-.project-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #2d4f73;
 }
 
 .empty-workspace {
@@ -345,19 +320,18 @@ body {
 }
 
 .sidebar {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    columns:1;
-    background-color: #D7D7D7;
+    columns: 1;
     border-right: 1px solid #888686;
     box-sizing: border-box;
     width: 250px; /* Default width */
     padding: 10px;
     position: relative;
+    background-color: #E0E0E0;
+    transition: width 0.3s ease;
 }
-.folder-container {
 
-}
 .resizer {
     width: 5px;
     cursor: ew-resize;
@@ -367,16 +341,6 @@ body {
     right: 0;
     height: 100%;
     z-index: 10;
-}
-
-
-.sidebar {
-    background-color: #E0E0E0;
-    border-right: 1px solid #888686;
-    box-sizing: border-box;
-    padding: 10px;
-    position: relative;
-    transition: width 0.3s ease;
 }
 
 .sidebar-title,
