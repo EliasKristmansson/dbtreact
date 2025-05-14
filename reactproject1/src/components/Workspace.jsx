@@ -13,6 +13,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 	const [pendingCommentIndex, setPendingCommentIndex] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [pendingDeleteIndex, setPendingDeleteIndex] = useState(null);
+	const todayStr = new Date().toISOString().split("T")[0];
 
 	// Initialize project rows if not already present
 	if (!projectData[activeTabId]) {
@@ -83,18 +84,19 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 			...rows,
 			{
 				märkning: "",
-				inkommet: "",
-				plockat: "",
+				inkommet: todayStr,
+				plockat: todayStr,
 				andelPlockat: "",
-				datum: "",
+				datum: todayStr,
 				antalDjur: "",
-				hemtagna: "",
-				åter: "",
+				hemtagna: todayStr,
+				åter: todayStr,
 				kommentarer: "",
 				flag: ""
 			}
 		]);
 	};
+
 
 	const confirmDelete = () => {
 		const updatedRows = rows.filter((_, index) => index !== pendingDeleteIndex);
@@ -122,32 +124,33 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 	});
 
 	const CalendarInput = React.forwardRef(({ value, onClick }, ref) => (
-		<button
-			className="calendar-input"
+		<div
 			onClick={onClick}
 			ref={ref}
+			className="calendar-input"
 			style={{
 				display: "flex",
 				alignItems: "center",
-				justifyContent: "center",
+				justifyContent: "space-between",
 				height: "25px",
 				width: "100%",
 				backgroundColor: "white",
 				boxShadow: "0 0 0 1px #ccc",
 				borderRadius: "4px",
 				cursor: "pointer",
-				fontSize: "14px",  // You can adjust the font size here
-				color: "#333",  // Change text color
-				padding: "0 10px", // Add padding to the left and right of the text
+				boxSizing: "border-box",
+				padding: "0 5px",
+				fontSize: "12px", // smaller text
+				color: "#333",
 			}}
 		>
-			{value ? (
-				<span style={{ marginRight: "8px" }}>{value}</span> // Show selected date with style
-			) : (
-				<Calendar size={16} />
-			)}
-		</button>
+			<span style={{ marginRight: "8px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+				{value || "Välj datum"}
+			</span>
+			<Calendar size={16} style={{ flexShrink: 0 }} />
+		</div>
 	));
+
 
 
 
