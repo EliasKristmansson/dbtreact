@@ -105,6 +105,7 @@ body {
 .project-name {
     color: black;
     margin: 0;
+    
     font-size: 1rem;
     font-weight: 600;
     white-space: nowrap;
@@ -115,6 +116,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 2px 6px;
+    width: 99%;
     transition: background-color 0.2s;
   }
   
@@ -311,7 +313,9 @@ body {
 }
 
 .project li{
+    
   padding: 3px;
+  width:100%;
   border-start-start-radius: 3px;
   border-end-start-radius: 3px;
 }
