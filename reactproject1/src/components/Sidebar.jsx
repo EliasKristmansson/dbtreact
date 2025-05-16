@@ -85,7 +85,7 @@ const closeAllFolders = () => {
       allClosed[folder] = false;
     });
     setIsOpen(allClosed);
-  };
+};
 
   return (
     <div
@@ -136,7 +136,7 @@ const closeAllFolders = () => {
                 tabs={tabs}
                 isOpen={isOpen[folderTitle]}
                 toggleFolder={() => toggleFolder(folderTitle)}
-                projects={projects.map(p => p.name)}
+                projects={projects}
                 onProjectDoubleClick={onProjectOpen}
                 onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
                 onProjectRename={handleRename}

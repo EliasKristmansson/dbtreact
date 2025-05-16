@@ -39,7 +39,7 @@ export default function Project({ name, onDoubleClick, onDelete, onRename, class
       {contextMenu && (
         <div
           className="context-menu"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
+          
         >
           <li onClick={handleRename}>Byt namn</li>
           <li onClick={handleDelete}>Ta bort</li>
