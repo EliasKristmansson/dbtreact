@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { parseISO } from "date-fns";
 import { Calendar } from "lucide-react";
 
-export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
+export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount }) {
 	const [projectData, setProjectData] = useState({});
 	const [filterMap, setFilterMap] = useState({});
 	const [showModal, setShowModal] = useState(false);
@@ -36,6 +36,18 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 			],
 		}));
 	}
+
+	useEffect(() => {
+		const rows = projectData[activeTabId] || [];
+
+		// Skip update if the comment modal is open (i.e., pending comment not confirmed)
+		if (showModal) return;
+
+		const count = rows.filter(row => row.kommentarer?.trim()).length;
+		setCommentCount(count);
+	}, [projectData, activeTabId, showModal, setCommentCount]);
+
+
 
 	const rows = projectData[activeTabId] || [];
 	const filters = filterMap[activeTabId] || [];
