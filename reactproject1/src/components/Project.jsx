@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
-export default function Project({name, onDoubleClick,onDelete }) {
+export default function Project({name, onDoubleClick,onDelete, className }) {
   const [contextMenu, setContextMenu] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -21,7 +21,7 @@ export default function Project({name, onDoubleClick,onDelete }) {
   };
   return (
 
-    <div>
+    <div className={className}>
     <li
         onDoubleClick={() => onDoubleClick(name)}
         onContextMenu={handleContextMenu} // Hanterar högerklick

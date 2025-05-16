@@ -158,6 +158,8 @@ export default function App() {
             <Sidebar
               allProjects={allProjects}
               folders={folders}
+              activeTabId={activeTabId}
+              tabs={tabs}
                 onFilterClick={() => setShowFilter(true)}
                 onProjectCreate={handleProjectCreate}
                 onProjectDelete={handleProjectDelete}
