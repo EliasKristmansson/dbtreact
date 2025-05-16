@@ -276,6 +276,7 @@ body {
 .chevron {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 /* Add these styles to your App.css */

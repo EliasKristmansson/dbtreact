@@ -114,12 +114,11 @@
         overflow: hidden;
         display: block; /* forces block layout, helps alignment */
         margin: 0; /* remove default margins */
-        
     }
 
-    .project-table textarea::placeholder {
-        font-size: 0.7rem;
-    }
+        .project-table textarea::placeholder {
+            font-size: 0.7rem;
+        }
 
     .project-table td input[type="number"] {
         padding: 0.2rem;
@@ -227,6 +226,10 @@
         background-color: #ffcfcf;
     }
 
+        .filter-buttons .rensa-filter-btn:hover {
+            background-color: #ec8787;
+        }
+
     .filter-buttons button:hover {
         background-color: #d0d0d0;
         border-color: #999;
@@ -242,28 +245,29 @@
 
 
     .filter-buttons button {
-    background-color: #e0e0e0;
-    color: #333;
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
+        background-color: #e0e0e0;
+        color: #333;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
 
-.filter-buttons button:hover {
-    background-color: #999;
-    color: white;
-}
+        .filter-buttons button:hover {
+            background-color: #999;
+            color: white;
+        }
 
-.filter-buttons .active-filter {
-    background-color: #999 !important;
-    color: white;
-}
+    .filter-buttons .active-filter {
+        background-color: #999 !important;
+        color: white;
+    }
 
 .project-table .delete-row-icon-td,
 .project-table .delete-row-icon-th {
+    
     width: 40px;
     min-width: 40px;
     max-width: 40px;
