@@ -150,32 +150,40 @@
         gap: 0.2rem;
     }
 
-.project-table .antal-djur-inputs input {
-	width: 40px;
-	text-align: center;
-	padding: 0.2rem;
-	border: 1px solid #000; /* samma ram som övriga */
-	background-color: transparent;
-	border-radius: 0;
-}
+        .project-table .antal-djur-inputs input {
+            width: 40px;
+            text-align: center;
+            padding: 0.2rem;
+            border: none;
+            box-shadow: 0 0 0 1px #ccc; /* Add this line to match the flag button border */
+            background-color: white;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font: inherit;
+        }
+
+            .project-table .antal-djur-inputs input:focus {
+                outline: none;
+                background-color: white;
+                box-shadow: 0 0 2px 2px #d3d3d3;
+            }
 
 
 .flag-container {
-	width: 100%;
-	text-align: left;
+    text-align: left;
 }
 
 
 
 .flag-button {
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background-color: #3d3636;
-	cursor: pointer;
-	box-shadow: 0 0 0 1px #ccc;
-	transition: background-color 0.3s, transform 0.2s;
-	margin: 0; /* säkerställ att ingen extra marginal påverkar placeringen */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3d3636;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #ccc;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0; /* säkerställ att ingen extra marginal påverkar placeringen */
 }
 
 
@@ -261,7 +269,6 @@
 
 .project-table .delete-row-icon-td,
 .project-table .delete-row-icon-th {
-    
     width: 40px;
     min-width: 40px;
     max-width: 40px;

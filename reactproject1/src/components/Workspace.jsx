@@ -85,14 +85,14 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 			...rows,
 			{
 				märkning: "",
-				inkommet: todayStr,
-				plockat: todayStr,
+				inkommet: "",
+				plockat: "",
 				andelPlockat: "",
-				datum: todayStr,
+				datum: "",
 				artat: "",
 				antalDjur: "",
-				hemtagna: todayStr,
-				åter: todayStr,
+				hemtagna: "",
+				åter: "",
 				kommentarer: "",
 				flag: "",
 			},
@@ -169,7 +169,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 					textOverflow: "ellipsis",
 				}}
 			>
-				{value || todayStr}
+				{value || "Välj datum"}
 			</span>
 			<Calendar size={16} style={{ flexShrink: 0 }} />
 		</div>
@@ -259,6 +259,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
 											/>
 										</td>
 										<td>
@@ -267,6 +268,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onChange={(date) => handleChange(index, "plockat", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
 											/>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
@@ -276,12 +278,14 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
 											/>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
-											<div className="antal-djur-inputs" style={{ height: "25px" }}>
+											<div className="antal-djur-inputs">
 												<input
+													style={{ height: "25px" }}
 													type="text"
 													placeholder="123"
 													value={row.antalDjur?.split('/')[0] || ""}
@@ -309,6 +313,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onChange={(date) => handleChange(index, "hemtagna", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
 											/>
 										</td>
 										<td>
@@ -317,6 +322,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												onChange={(date) => handleChange(index, "åter", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
 											/>
 										</td>
 										<td>

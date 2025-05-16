@@ -136,6 +136,17 @@ export default function App() {
         }));
     };
 
+    const handleProjectRename = (folderName, oldName, newName) => {
+  setAllProjects(prevProjects =>
+    prevProjects.map(project =>
+      project.folder === folderName && project.name === oldName
+        ? { ...project, name: newName }
+        : project
+    )
+  );
+};
+
+
     const activeTab = tabs.find(t => t.id === activeTabId);
 
     return (
@@ -163,6 +174,7 @@ export default function App() {
                 onProjectCreate={handleProjectCreate}
                 onProjectDelete={handleProjectDelete}
                 onProjectOpen={handleProjectOpen}
+                onProjectRename={handleProjectRename}
                 onShowStatistics={() => setViewMode("statistics")}
             />
             <Workspace
