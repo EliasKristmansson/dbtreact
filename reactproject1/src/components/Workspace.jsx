@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import "./Workspace.css";
 import ConfirmModal from "./confirmModal";
 import DatePicker from "react-datepicker";
@@ -222,7 +223,122 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
               </button>
             </div>
           </div>
-          {/* Table rendering remains unchanged */}
+                      <div className="table-container">
+                          <table className="project-table">
+                              <thead>
+                                  <tr>
+                                      <th className="flag-column"></th>
+                                      <th>Märkning</th>
+                                      <th>Inkommet</th>
+                                      <th>Plockat</th>
+                                      <th>Andel plockat</th>
+                                      <th>Provtaget datum</th>
+                                      <th>Artat</th>
+                                      <th>Antal djur</th>
+                                      <th>Prover hemtagna</th>
+                                      <th>Prover åter</th>
+                                      <th>Kommentarer</th>
+                                      <th className="delete-row-icon-th"></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {filteredRows.map((row, index) => (
+                                      <tr key={index} className="row-wrapper">
+                                          <td className="flag-container">
+                                              <button
+                                                  className={`flag-button ${row.flag}`}
+                                                  onClick={() => toggleFlag(index)}
+                                              ></button>
+                                          </td>
+                                          <td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
+                                          <td>
+                                              <DatePicker
+                                                  selected={row.inkommet ? parseISO(row.inkommet) : null}
+                                                  onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
+                                                  dateFormat="yyyy-MM-dd"
+                                                  customInput={<CalendarInput />}
+                                              />
+                                          </td>
+                                          <td>
+                                              <DatePicker
+                                                  selected={row.plockat ? parseISO(row.plockat) : null}
+                                                  onChange={(date) => handleChange(index, "plockat", date ? date.toLocaleDateString('sv-SE') : "")}
+                                                  dateFormat="yyyy-MM-dd"
+                                                  customInput={<CalendarInput />}
+                                              />
+                                          </td>
+                                          <td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
+                                          <td>
+                                              <DatePicker
+                                                  selected={row.datum ? parseISO(row.datum) : null}
+                                                  onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
+                                                  dateFormat="yyyy-MM-dd"
+                                                  customInput={<CalendarInput />}
+                                              />
+                                          </td>
+                                          <td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
+                                          <td>
+                                              <div className="antal-djur-inputs" style={{ height: "25px" }}>
+                                                  <input
+                                                      type="text"
+                                                      placeholder="123"
+                                                      value={row.antalDjur?.split('/')[0] || ""}
+                                                      onChange={(e) => {
+                                                          const andra = row.antalDjur?.split('/')[1] || "";
+                                                          handleChange(index, "antalDjur", `${e.target.value}/${andra}`);
+                                                      }}
+                                                  />
+                                                  <span>/</span>
+                                                  <input
+                                                      style={{ height: "25px" }}
+                                                      type="text"
+                                                      placeholder="456"
+                                                      value={row.antalDjur?.split('/')[1] || ""}
+                                                      onChange={(e) => {
+                                                          const första = row.antalDjur?.split('/')[0] || "";
+                                                          handleChange(index, "antalDjur", `${första}/${e.target.value}`);
+                                                      }}
+                                                  />
+                                              </div>
+                                          </td>
+                                          <td>
+                                              <DatePicker
+                                                  selected={row.hemtagna ? parseISO(row.hemtagna) : null}
+                                                  onChange={(date) => handleChange(index, "hemtagna", date ? date.toLocaleDateString('sv-SE') : "")}
+                                                  dateFormat="yyyy-MM-dd"
+                                                  customInput={<CalendarInput />}
+                                              />
+                                          </td>
+                                          <td>
+                                              <DatePicker
+                                                  selected={row.åter ? parseISO(row.åter) : null}
+                                                  onChange={(date) => handleChange(index, "åter", date ? date.toLocaleDateString('sv-SE') : "")}
+                                                  dateFormat="yyyy-MM-dd"
+                                                  customInput={<CalendarInput />}
+                                              />
+                                          </td>
+                                          <td>
+                                              <textarea
+                                                  value={row.kommentarer}
+                                                  onChange={(e) => handleChange(index, "kommentarer", e.target.value)}
+                                                  onBlur={() => handleSaveComment(index)}
+                                                  onKeyDown={(e) => {
+                                                      if (e.key === "Enter" && !e.shiftKey) {
+                                                          e.preventDefault();
+                                                          handleSaveComment(index);
+                                                      }
+                                                  }}
+                                                  placeholder="Skriv kommentar..."
+                                              />
+                                          </td>
+                                          <td className="delete-row-icon-td">
+                                              <button onClick={() => { setPendingDeleteIndex(index); setShowDeleteModal(true); }}> 🗑️</button>
+                                          </td>
+                                      </tr>
+                                  ))}
+                              </tbody>
+                          </table>
+                      </div>
         </>
       )}
 
