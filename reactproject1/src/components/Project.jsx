@@ -31,15 +31,6 @@ export default function Project({ name, onDoubleClick, onDelete, onRename, class
         setShowRenameModal(false);
     };
 
-<<<<<<< HEAD
-      {contextMenu && (
-        <div
-          className="context-menu"
-          
-        >
-          <li onClick={handleRename}>Byt namn</li>
-          <li onClick={handleDelete}>Ta bort</li>
-=======
     const closeContextMenu = () => {
         setContextMenu(null);
     };
@@ -72,7 +63,6 @@ export default function Project({ name, onDoubleClick, onDelete, onRename, class
                     onCancel={closeRenameModal}
                 />
             )}
->>>>>>> a0aeb92621a993b2a3b2e510398ce01aff5a0829
         </div>
     );
 }
