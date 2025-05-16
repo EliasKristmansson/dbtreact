@@ -14,6 +14,13 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
     const sidebarRef = useRef(null);
     const isResizing = useRef(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
+    const [isOpen , setIsOpen] = useState(() => {
+        const initialState = {};
+        folders.forEach(folder => {
+          initialState[folder] = true;
+        });
+        return initialState;
+      });
 
     const handleDelete = (folderTitle, projectIndex) => {
         if (window.confirm("Vill du ta bort detta projekt?")) {
@@ -60,7 +67,21 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
             onProjectCreate(projectName, folderName); // <-- Viktigt!
         }
     };
-    
+
+    const toggleFolder = (folderName) => {
+        setIsOpen(prev => ({
+          ...prev,
+          [folderName]: !prev[folderName]
+        }));
+    };
+
+    const closeAllFolders = () => {
+        const allClosed = {};
+        folders.forEach(folder => {
+          allClosed[folder] = false;
+        });
+        setIsOpen(allClosed);
+      };
   
     return (
         <div
@@ -81,7 +102,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
                         <FaFileAlt title="Lägg till projekt" onClick={addProject} />
                         <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
                         <FaSyncAlt title="Uppdatera" />
-                        <FaCompressAlt title="Stäng öppna mappar" />
+                        <FaCompressAlt title="Stäng öppna mappar" onClick={() => closeAllFolders()}/>
                         <FaRegEye title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"} onClick={() => {
                             if (isMinimized) {
                                 setSidebarWidth(250);
@@ -110,6 +131,8 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
                             title={folderTitle}
                             activeTabId={activeTabId}
                             tabs={tabs}
+                            isOpen={isOpen[folderTitle]}
+                            toggleFolder={() => toggleFolder(folderTitle)}
                             projects={projects.map(p => p.name)}
                             onProjectDoubleClick={onProjectOpen}
                             onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
