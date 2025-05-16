@@ -1,40 +1,48 @@
-import React from "react";
-import { FaTimes } from "react-icons/fa";
-import { useState } from "react";
-export default function Project({name, onDoubleClick,onDelete, className }) {
+import React, { useState } from "react";
+
+export default function Project({ name, onDoubleClick, onDelete, onRename, className }) {
   const [contextMenu, setContextMenu] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
   const handleContextMenu = (e) => {
-    e.preventDefault(); // Förhindrar den vanliga högerklicksmenyn
+    e.preventDefault();
     setSelectedProject(name);
     setContextMenu({ x: e.clientX, y: e.clientY });
   };
 
   const handleDelete = () => {
-    onDelete(selectedProject);// Ta bort projektet
-    setContextMenu(null); // Stäng menyn
+    onDelete(selectedProject);
+    setContextMenu(null);
+  };
+
+  const handleRename = () => {
+    const newName = prompt("Ange nytt namn:", selectedProject);
+    if (newName && newName !== selectedProject) {
+      onRename(selectedProject, newName);
+    }
+    setContextMenu(null);
   };
 
   const closeContextMenu = () => {
-    setContextMenu(null); // Stäng menyn om användaren klickar någon annanstans
+    setContextMenu(null);
   };
-  return (
 
+  return (
     <div className={className}>
-    <li
+      <li
         onDoubleClick={() => onDoubleClick(name)}
-        onContextMenu={handleContextMenu} // Hanterar högerklick
+        onContextMenu={handleContextMenu}
       >
         {name}
       </li>
-        {/* Context menu */}
-        {contextMenu && (
+
+      {contextMenu && (
         <div
           className="context-menu"
-          onClick={closeContextMenu}
+          style={{ top: contextMenu.y, left: contextMenu.x }}
         >
-          <li onClick={handleDelete}>Ta bort {name}</li>
+          <li onClick={handleRename}>Byt namn</li>
+          <li onClick={handleDelete}>Ta bort</li>
         </div>
       )}
 
