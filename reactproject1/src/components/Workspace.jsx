@@ -186,9 +186,27 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 				<>
 					<div className="workspace-header">
 						<div className="filter-buttons">
-							<button onClick={() => handleSetFilter("intePlockade")}>Inte plockade</button>
-							<button onClick={() => handleSetFilter("flaggade")}>Flaggade</button>
-							<button onClick={() => handleSetFilter("kommenterade")}>Kommenterade</button>
+							<button
+  								onClick={() => handleSetFilter("intePlockade")}
+  								className={filter === "intePlockade" ? "active-filter" : ""}
+							>
+								Inte plockade
+							</button>
+							
+							<button
+  								onClick={() => handleSetFilter("flaggade")}
+  								className={filter === "flaggade" ? "active-filter" : ""}
+							>
+								Flaggade
+							</button>
+
+							<button
+								onClick={() => handleSetFilter("kommenterade")}
+								className={filter === "kommenterade" ? "active-filter" : ""}
+							>
+							Kommenterade
+							</button>
+
 							<button className="rensa-filter-btn" onClick={() => handleSetFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
 							<button className="complete-project-btn" onClick={markProjectAsDone}>✔ Projekt klart</button>
