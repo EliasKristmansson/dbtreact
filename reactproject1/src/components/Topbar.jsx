@@ -13,6 +13,7 @@ export default function Topbar({
     onTabClose,
     onTabRename,
     allProjects,
+    commentCount = 0
 }) {
     const [contextMenu, setContextMenu] = useState(null);
     const [renameValue, setRenameValue] = useState("");
@@ -106,7 +107,7 @@ export default function Topbar({
                 <div className="project-meta">
                     <p className="project-other">Deadline: <span>{deadline}</span></p>
                     <p className="project-other">0/100 prover klara</p>
-                    <p className="project-other">0 Kommentarer</p>
+                    <p className="project-other">{commentCount} Kommentarer</p>
                 </div>
             </div>
         </div>
