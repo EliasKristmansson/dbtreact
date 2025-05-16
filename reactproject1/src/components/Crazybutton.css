@@ -1,0 +1,57 @@
+.crazy-button {
+	position: relative;
+	padding: 1rem 2rem;
+	font-size: 1.2rem;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	color: white;
+	background: #111;
+	overflow: hidden;
+	transition: background-color 0.3s ease;
+	z-index: 0;
+}
+
+.crazy-button::before {
+	content: "";
+	position: absolute;
+	top: var(--y);
+	left: var(--x);
+	transform: translate(-50%, -50%);
+	width: 200px;
+	height: 200px;
+	background: radial-gradient(circle at center, rgba(0, 123, 255, 0.4), transparent 70%);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.crazy-button:hover::before {
+	opacity: 1;
+}
+
+.crazy-button::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 12px;
+	padding: 2px;
+	background: linear-gradient(135deg, #0ff, #f0f, #0f0);
+	background-size: 400%;
+	filter: blur(5px);
+	z-index: -1;
+	animation: glowMove 3s linear infinite;
+}
+
+@keyframes glowMove {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
