@@ -10,13 +10,28 @@ function groupBy(data, periodFn) {
   return Object.entries(grouped).map(([key, count]) => ({ period: key, count }));
 }
 
+// Custom tooltip component
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">
+        <p className="custom-tooltip-label">{label}</p>
+        <div className="custom-tooltip-value">
+          <span></span>
+          <span>{`${payload[0].value} projekt`}</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function Statistik({ onBack }) {
   const [view, setView] = useState("week");
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const raw = JSON.parse(localStorage.getItem("completedProjects") || "[]");
-
     const formatter = {
       week: (date) => {
         const week = Math.ceil((date.getDate() - date.getDay() + 1) / 7);
@@ -25,27 +40,61 @@ export default function Statistik({ onBack }) {
       month: (date) => `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}`,
       year: (date) => `${date.getFullYear()}`
     };
-
     setData(groupBy(raw, formatter[view]));
   }, [view]);
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Statistik över avklarade projekt</h2>
-      <div style={{ marginBottom: "1rem" }}>
-        <button onClick={() => setView("week")}>Veckovis</button>
-        <button onClick={() => setView("month")}>Månadsvis</button>
-        <button onClick={() => setView("year")}>Årsvis</button>
-        <button onClick={onBack} style={{ marginLeft: "1rem" }}>⬅ Tillbaka</button>
+    <div className="statistics-container">
+      <div className="statistics-header">
+        <h2>Statistik över avklarade projekt</h2>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
-          <XAxis dataKey="period" />
-          <YAxis allowDecimals={false} />
-          <Tooltip />
-          <Bar dataKey="count" fill="#2196f3" />
-        </BarChart>
-      </ResponsiveContainer>
+      
+      <div className="control-bar">
+        <div className="view-buttons">
+          <button 
+            className={`view-button ${view === "week" ? "active" : ""}`} 
+            onClick={() => setView("week")}
+          >
+            Veckovis
+          </button>
+          <button 
+            className={`view-button ${view === "month" ? "active" : ""}`} 
+            onClick={() => setView("month")}
+          >
+            Månadsvis
+          </button>
+          <button 
+            className={`view-button ${view === "year" ? "active" : ""}`} 
+            onClick={() => setView("year")}
+          >
+            Årsvis
+          </button>
+        </div>
+        
+        <button className="back-button" onClick={onBack}>
+          ⬅ <span>Tillbaka</span>
+        </button>
+      </div>
+      
+      <div className="chart-container">
+        {data.length > 0 ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data}>
+              <XAxis dataKey="period" />
+              <YAxis allowDecimals={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="count" fill="#2196f3" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="empty-state">
+            <div className="empty-state-icon">📊</div>
+            <div className="empty-state-text">
+              Inga avklarade projekt ännu. Avsluta projekt för att visa statistik här.
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
