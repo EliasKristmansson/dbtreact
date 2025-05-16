@@ -268,3 +268,7 @@
     max-width: 40px;
     padding: 0;
 }
+
+    .project-table .delete-row-icon-td button {
+        padding: 0 0 0 0.3rem;
+    }

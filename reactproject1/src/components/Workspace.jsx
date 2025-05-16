@@ -224,6 +224,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 									<th>Plockat</th>
 									<th>Andel plockat</th>
 									<th>Provtaget datum</th>
+									<th>Artat</th>
 									<th>Antal djur</th>
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
@@ -266,6 +267,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												customInput={<CalendarInput />}
 											/>
 										</td>
+										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
 										<td>
 											<div className="antal-djur-inputs" style={{ height: "25px" }}>
 												<input
