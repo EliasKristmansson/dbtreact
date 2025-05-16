@@ -1,22 +1,69 @@
-﻿import React from "react";
+﻿import React, { useState, useRef, useEffect } from "react";
 import "../App.css";
 import { X } from "lucide-react";
-import logo from "../assets/Pelagia_Logotyp_Sekundar_Vit_RGB.svg"; // Adjust the path and filename as needed
+import logo from "../assets/Pelagia_Logotyp_Sekundar_Vit_RGB.svg";
 
-export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, activeTabId, onTabClick, onTabClose }) {
+export default function Topbar({
+    projectName,
+    deadline = "Ingen deadline",
+    priority = "medium",
+    tabs,
+    activeTabId,
+    onTabClick,
+    onTabClose,
+    onTabRename,
+    allProjects,
+}) {
+    const [contextMenu, setContextMenu] = useState(null);
+    const [renameValue, setRenameValue] = useState("");
+    const inputRef = useRef();
+
+    // 🔹 Visa input automatiskt
+    useEffect(() => {
+        if (contextMenu) {
+            inputRef.current?.focus();
+        }
+    }, [contextMenu]);
+
+    // 🔹 Stäng menyn vid klick utanför
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (contextMenu && !e.target.closest(".rename-input")) {
+                setContextMenu(null);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [contextMenu]);
+
+    const handleRightClick = (e, tab) => {
+        e.preventDefault();
+        setContextMenu({ x: e.clientX, y: e.clientY, tab });
+        setRenameValue(tab.name);
+    };
+
+    const handleRenameSubmit = () => {
+        if (renameValue.trim() && renameValue !== contextMenu.tab.name) {
+            onTabRename(contextMenu.tab, renameValue.trim());
+        }
+        setContextMenu(null);
+    };
+
     return (
         <div className="topbar">
             <div className="logo-container">
                 <img src={logo} alt="Company Logo" className="topbar-logo" />
             </div>
+
             <div className="topbar-content">
                 {tabs.map((tab) => (
                     <div
                         key={tab.id}
                         className={`tab ${tab.id === activeTabId ? "active-tab" : ""}`}
                         onClick={() => onTabClick(tab.id)}
+                        onContextMenu={(e) => handleRightClick(e, tab)}
                     >
-                        {tab.name}
+                        {allProjects.find(p => p.id === tab.id)?.name || "Namnlös"}
                         <button
                             title="Stäng projekt"
                             onClick={(e) => {
@@ -30,12 +77,32 @@ export default function Topbar({ projectName, deadline = "Ingen deadline", prior
                         </button>
                     </div>
                 ))}
+
+                {/* 🔹 Byt namn-popup */}
+                {contextMenu && (
+                    <input
+                        className="rename-input"
+                        ref={inputRef}
+                        style={{
+                            position: "fixed",
+                            top: contextMenu.y,
+                            left: contextMenu.x,
+                            zIndex: 1000,
+                        }}
+                        value={renameValue}
+                        onChange={(e) => setRenameValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") handleRenameSubmit();
+                            if (e.key === "Escape") setContextMenu(null);
+                        }}
+                        onBlur={() => setContextMenu(null)}
+                    />
+                )}
             </div>
 
             <div className="topbar-content-right">
                 <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`} />
                 <h2 className="project-name">{projectName}</h2>
-
                 <div className="project-meta">
                     <p className="project-other">Deadline: <span>{deadline}</span></p>
                     <p className="project-other">0/100 prover klara</p>

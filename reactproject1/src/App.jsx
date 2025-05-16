@@ -31,7 +31,7 @@ export default function App() {
         const newProject = { id: newId, name: projectName, folder };
 
         setAllProjects(prev => [...prev, newProject]); // Lägg till i register
-        setTabs(prev => [...prev, newProject]);        // Lägg till som tab
+        setTabs(prev => [...prev, { id: newId }]);        // Lägg till som tab
         setProjectRows(prev => ({ ...prev, [newId]: [] }));
         setActiveTabId(newId);
         setNextId(prev => prev + 1);
@@ -48,7 +48,7 @@ export default function App() {
         if (existingTab) {
             setActiveTabId(existingTab.id);
         } else {
-            setTabs(prev => [...prev, project]);
+            setTabs(prev => [...prev, { id: project.id }]);
             setActiveTabId(project.id);
         }
 
@@ -136,19 +136,31 @@ export default function App() {
         }));
     };
 
+    const handleProjectRename = (folderName, oldName, newName) => {
+  setAllProjects(prevProjects =>
+    prevProjects.map(project =>
+      project.folder === folderName && project.name === oldName
+        ? { ...project, name: newName }
+        : project
+    )
+  );
+};
+
+
     const activeTab = tabs.find(t => t.id === activeTabId);
 
     return (
         <div className="app">
             <Topbar
-                projectName={activeTab ? activeTab.name : "Ingen Tab"}
-                deadline="30 april 2025"
-                priority="high"
-                tabs={tabs}
-                activeTabId={activeTabId}
-                onTabClick={setActiveTabId}
-                onTabClose={handleTabClose}
-            />
+    projectName={activeTab ? allProjects.find(p => p.id === activeTab.id)?.name || "Ingen Tab" : "Ingen Tab"}
+    deadline="30 april 2025"
+    priority="high"
+    tabs={tabs}
+    activeTabId={activeTabId}
+    onTabClick={setActiveTabId}
+    onTabClose={handleTabClose}
+    allProjects={allProjects}
+/>
 
 <div className="main-content">
     {viewMode === "workspace" ? (
@@ -163,6 +175,7 @@ export default function App() {
                 onProjectCreate={handleProjectCreate}
                 onProjectDelete={handleProjectDelete}
                 onProjectOpen={handleProjectOpen}
+                onProjectRename={handleProjectRename}
                 onShowStatistics={() => setViewMode("statistics")}
             />
             <Workspace

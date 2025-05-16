@@ -3,138 +3,165 @@ import Folder from "./Folder";
 import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics, folders, activeTabId, tabs, handleAddFolder}) {
-    const grouped = allProjects.reduce((acc, project) => {
-        if (!acc[project.folder]) acc[project.folder] = [];
-        acc[project.folder].push(project);
-        return acc;
-    }, {});
+export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onProjectRename, onShowStatistics, folders, activeTabId, tabs, handleAddFolder }) {
+  const grouped = allProjects.reduce((acc, project) => {
+    if (!acc[project.folder]) acc[project.folder] = [];
+    acc[project.folder].push(project);
+    return acc;
+  }, {});
 
     const [isMinimized, setIsMinimized] = useState(false);
     const sidebarRef = useRef(null);
     const isResizing = useRef(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
+    const [isOpen , setIsOpen] = useState(() => {
+        const initialState = {};
+        folders.forEach(folder => {
+          initialState[folder] = true;
+        });
+        return initialState;
+      });
 
-    const handleDelete = (folderTitle, projectIndex) => {
-        if (window.confirm("Vill du ta bort detta projekt?")) {
-            onProjectDelete(folderTitle, projectIndex);
-        }
-    };
+  const handleDelete = (folderTitle, projectIndex) => {
+    if (window.confirm("Vill du ta bort detta projekt?")) {
+      onProjectDelete(folderTitle, projectIndex);
+    }
+  };
 
-    const startResizing = (e) => {
-        isResizing.current = true;
-        document.addEventListener("mousemove", resizeSidebar);
-        document.addEventListener("mouseup", stopResizing);
-    };
+  const handleRename = (folderTitle, oldName, newName) => {
+    onProjectRename(folderTitle, oldName, newName);
+  };
 
-    const resizeSidebar = (e) => {
-        if (!isResizing.current) return;
-        const newWidth = e.clientX;
-        if (newWidth >= 180 && newWidth <= 500) {
-            setSidebarWidth(newWidth);
-            if (isMinimized && newWidth > 50) {
-                setIsMinimized(false);
-            }
-        }
-    };
+  const startResizing = (e) => {
+    isResizing.current = true;
+    document.addEventListener("mousemove", resizeSidebar);
+    document.addEventListener("mouseup", stopResizing);
+  };
 
-    const stopResizing = () => {
-        isResizing.current = false;
-        document.removeEventListener("mousemove", resizeSidebar);
-        document.removeEventListener("mouseup", stopResizing);
-    };
+  const resizeSidebar = (e) => {
+    if (!isResizing.current) return;
+    const newWidth = e.clientX;
+    if (newWidth >= 180 && newWidth <= 500) {
+      setSidebarWidth(newWidth);
+      if (isMinimized && newWidth > 50) {
+        setIsMinimized(false);
+      }
+    }
+  };
 
-    const addFolder = () => {
-        const newTitle = prompt("Namn på ny mapp:");
-        if (newTitle) {
-            handleAddFolder(newTitle);
-        }
-    };
+  const stopResizing = () => {
+    isResizing.current = false;
+    document.removeEventListener("mousemove", resizeSidebar);
+    document.removeEventListener("mouseup", stopResizing);
+  };
 
-    const addProject = () => {
-        const folderName = prompt("Ange namn på mapp:");
-        if (!folderName) return;
+  const addFolder = () => {
+    const newTitle = prompt("Namn på ny mapp:");
+    if (newTitle) {
+      handleAddFolder(newTitle);
+    }
+  };
 
-        const projectName = prompt("Namn på nytt projekt:");
-        if (projectName) {
-            onProjectCreate(projectName, folderName); // <-- Viktigt!
-        }
-    };
-    
-  
-    return (
-        <div
-            className="sidebar"
-            ref={sidebarRef}
-            style={{ width: `${sidebarWidth}px` }}
-            onClick={() => {
-                if (isMinimized) {
-                    setSidebarWidth(250);
-                    setIsMinimized(false);
-                }
-            }}
-        >
-            <div className="sidebar-header">
-                <div className="sidebar-title">
-                    <p className={`sidebar-title ${isMinimized ? "minimized" : ""}`}>Projektfönster</p>
-                    <div className={`sidebar-icons ${isMinimized ? "minimized" : ""}`}>
-                        <FaFileAlt title="Lägg till projekt" onClick={addProject} />
-                        <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
-                        <FaSyncAlt title="Uppdatera" />
-                        <FaCompressAlt title="Stäng öppna mappar" />
-                        <FaRegEye title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"} onClick={() => {
-                            if (isMinimized) {
-                                setSidebarWidth(250);
-                            } else {
-                                setSidebarWidth(0);
-                            }
-                            setIsMinimized(!isMinimized);
-                        }} />
-                    </div>
-                </div>
+  const addProject = () => {
+    const folderName = prompt("Ange namn på mapp:");
+    if (!folderName) return;
 
-                <div className={`sidebar-search ${isMinimized ? "minimized" : ""}`}>
-                    <input type="text" placeholder="Sök..." className={`search ${isMinimized ? "minimized" : ""}`} />
-                    <button className={`filter-btn ${isMinimized ? "minimized" : ""}`} onClick={onFilterClick}>Filter</button>
-                </div>
-                <div className="divider-line"></div>
-            </div>
-            
-            <div className="folder-container">
-                <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-                {folders.map((folderTitle) => {
-                    const projects = allProjects.filter(p => p.folder === folderTitle);
-                    return (
-                        <Folder
-                            key={folderTitle}
-                            title={folderTitle}
-                            activeTabId={activeTabId}
-                            tabs={tabs}
-                            projects={projects.map(p => p.name)}
-                            onProjectDoubleClick={onProjectOpen}
-                            onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
-                        />
-                    );
-                })}
-                </div>
-            </div>
+    const projectName = prompt("Namn på nytt projekt:");
+    if (projectName) {
+      onProjectCreate(projectName, folderName);
+    }
+  };
 
-            <div
-                className="resizer"
-                onMouseDown={startResizing}
-                onClick={() => {
+  const toggleFolder = (folderName) => {
+    setIsOpen(prev => ({
+      ...prev,
+      [folderName]: !prev[folderName]
+    }));
+};
+
+const closeAllFolders = () => {
+    const allClosed = {};
+    folders.forEach(folder => {
+      allClosed[folder] = false;
+    });
+    setIsOpen(allClosed);
+  };
+
+  return (
+    <div
+      className="sidebar"
+      ref={sidebarRef}
+      style={{ width: `${sidebarWidth}px` }}
+      onClick={() => {
+        if (isMinimized) {
+          setSidebarWidth(250);
+          setIsMinimized(false);
+        }}}
+      >
+      <div className="sidebar-header">
+        <div className="sidebar-title">
+            <p className={`sidebar-title ${isMinimized ? "minimized" : ""}`}>Projektfönster</p>
+            <div className={`sidebar-icons ${isMinimized ? "minimized" : ""}`}>
+                <FaFileAlt title="Lägg till projekt" onClick={addProject} />
+                <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
+                <FaSyncAlt title="Uppdatera" />
+                <FaCompressAlt title="Stäng öppna mappar" onClick={() => closeAllFolders()}/>
+                <FaRegEye title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"} onClick={() => {
                     if (isMinimized) {
                         setSidebarWidth(250);
-                        setIsMinimized(false);
+                    } else {
+                        setSidebarWidth(0);
                     }
-                }}
-            ></div>
-
-            <div className={`sidebar-footer ${isMinimized ? "minimized" : ""}`}>
-                <button className={`stats-button ${isMinimized ? "minimized" : ""}`} onClick={onShowStatistics}>
-                    📊 Visa statistik
-                </button>
+                    setIsMinimized(!isMinimized);
+                }} />
             </div>
         </div>
-    );
+
+        <div className={`sidebar-search ${isMinimized ? "minimized" : ""}`}>
+          <input type="text" placeholder="Sök..." className={`search ${isMinimized ? "minimized" : ""}`} />
+          <button className={`filter-btn ${isMinimized ? "minimized" : ""}`} onClick={onFilterClick}>Filter</button>
+        </div>
+        <div className="divider-line"></div>
+      </div>
+
+      <div className="folder-container">
+        <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
+          {folders.map((folderTitle) => {
+            const projects = allProjects.filter(p => p.folder === folderTitle);
+            return (
+              <Folder
+                key={folderTitle}
+                title={folderTitle}
+                activeTabId={activeTabId}
+                tabs={tabs}
+                isOpen={isOpen[folderTitle]}
+                toggleFolder={() => toggleFolder(folderTitle)}
+                projects={projects.map(p => p.name)}
+                onProjectDoubleClick={onProjectOpen}
+                onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
+                onProjectRename={handleRename}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <div
+        className="resizer"
+        onMouseDown={startResizing}
+        onClick={() => {
+          if (isMinimized) {
+            setSidebarWidth(250);
+            setIsMinimized(false);
+          }
+        }}
+      ></div>
+
+      <div className={`sidebar-footer ${isMinimized ? "minimized" : ""}`}>
+        <button className={`stats-button ${isMinimized ? "minimized" : ""}`} onClick={onShowStatistics}>
+          📊 Visa statistik
+        </button>
+      </div>
+    </div>
+  );
 }
