@@ -3,7 +3,7 @@ import Folder from "./Folder";
 import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
-export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics, folders, activeTabId, tabs}) {
+export default function Sidebar({allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onShowStatistics, folders, activeTabId, tabs, handleAddFolder}) {
     const grouped = allProjects.reduce((acc, project) => {
         if (!acc[project.folder]) acc[project.folder] = [];
         acc[project.folder].push(project);
@@ -47,7 +47,7 @@ export default function Sidebar({allProjects, onFilterClick, onProjectCreate, on
     const addFolder = () => {
         const newTitle = prompt("Namn på ny mapp:");
         if (newTitle) {
-            setFolders([...folders, { title: newTitle, projects: [] }]);
+            handleAddFolder(newTitle);
         }
     };
 
