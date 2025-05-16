@@ -238,3 +238,25 @@
         border-color: #007bff;
         font-weight: 700;
     }
+
+
+    .filter-buttons button {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-buttons button:hover {
+    background-color: #999;
+    color: white;
+}
+
+.filter-buttons .active-filter {
+    background-color: #999 !important;
+    color: white;
+}

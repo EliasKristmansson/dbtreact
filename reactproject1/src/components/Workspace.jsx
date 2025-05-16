@@ -145,7 +145,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 			}}
 		>
 			<span style={{ marginRight: "8px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-				{value || "Välj datum"}
+				{value || new Date().toISOString().split("T")[0]}
 			</span>
 			<Calendar size={16} style={{ flexShrink: 0 }} />
 		</div>
@@ -186,9 +186,27 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 				<>
 					<div className="workspace-header">
 						<div className="filter-buttons">
-							<button onClick={() => handleSetFilter("intePlockade")}>Inte plockade</button>
-							<button onClick={() => handleSetFilter("flaggade")}>Flaggade</button>
-							<button onClick={() => handleSetFilter("kommenterade")}>Kommenterade</button>
+							<button
+  								onClick={() => handleSetFilter("intePlockade")}
+  								className={filter === "intePlockade" ? "active-filter" : ""}
+							>
+								Inte plockade
+							</button>
+							
+							<button
+  								onClick={() => handleSetFilter("flaggade")}
+  								className={filter === "flaggade" ? "active-filter" : ""}
+							>
+								Flaggade
+							</button>
+
+							<button
+								onClick={() => handleSetFilter("kommenterade")}
+								className={filter === "kommenterade" ? "active-filter" : ""}
+							>
+							Kommenterade
+							</button>
+
 							<button className="rensa-filter-btn" onClick={() => handleSetFilter("")}>Rensa filter</button>
 							<button className="add-btn" onClick={addRow}>+ Lägg till rad</button>
 							<button className="complete-project-btn" onClick={markProjectAsDone}>✔ Projekt klart</button>
@@ -226,7 +244,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										<td>
 											<DatePicker
 												selected={row.inkommet ? parseISO(row.inkommet) : null}
-												onChange={(date) => handleChange(index, "inkommet", date?.toISOString().split("T")[0] || "")}
+												onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 											/>
@@ -234,7 +252,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										<td>
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
-												onChange={(date) => handleChange(index, "plockat", date?.toISOString().split("T")[0] || "")}
+												onChange={(date) => handleChange(index, "plockat", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 											/>
@@ -243,7 +261,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										<td>
 											<DatePicker
 												selected={row.datum ? parseISO(row.datum) : null}
-												onChange={(date) => handleChange(index, "datum", date?.toISOString().split("T")[0] || "")}
+												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 											/>
@@ -275,7 +293,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										<td>
 											<DatePicker
 												selected={row.hemtagna ? parseISO(row.hemtagna) : null}
-												onChange={(date) => handleChange(index, "hemtagna", date?.toISOString().split("T")[0] || "")}
+												onChange={(date) => handleChange(index, "hemtagna", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 											/>
@@ -283,7 +301,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										<td>
 											<DatePicker
 												selected={row.åter ? parseISO(row.åter) : null}
-												onChange={(date) => handleChange(index, "åter", date?.toISOString().split("T")[0] || "")}
+												onChange={(date) => handleChange(index, "åter", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 											/>
