@@ -315,10 +315,7 @@ body {
   border-start-start-radius: 3px;
   border-end-start-radius: 3px;
 }
-.project li:hover{
-  background-color: #b9b9b9;
-  
-}
+
 
 .sidebar {
     display: flex;
