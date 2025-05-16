@@ -3,8 +3,14 @@ import Project from "./Project";
 import {ChevronRight, ChevronDown} from "lucide-react";
 
 
-export default function Folder({ title, projects, onProjectDoubleClick, onProjectDelete}) {
+export default function Folder({ title, projects, onProjectDoubleClick, onProjectDelete, activeTabId, tabs}) {
   const [isOpen, setIsOpen] = useState(true);
+
+  const isActive = (projectName) => {
+    const tab = tabs.find(t => t.name === projectName);
+    return tab && tab.id === activeTabId;
+  };
+  
 
   return (
     <div className="folder">
@@ -19,13 +25,14 @@ export default function Folder({ title, projects, onProjectDoubleClick, onProjec
           {projects.map((proj, idx) => (
             <Project 
               key={idx} 
-              name={proj} 
+              name={proj}
+              className={`project-item ${isActive(proj) ? "active" : ""}`} 
               onDoubleClick={onProjectDoubleClick}
               onDelete={() => onProjectDelete(idx)}
             />
             
           ))}
-       
+        
         </div>
       )}
     </div>

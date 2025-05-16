@@ -1,127 +1,154 @@
 .workspace {
-	padding: 1.5rem;
-	background-color: #fafafa;
-	color: #333;
+    padding: 1.5rem;
+    background-color: #fafafa;
+    color: #333;
+    flex: 1;
+    overflow: auto;
 }
 
 .workspace-header {
-	display: flex;
-	margin-bottom: 1rem;
-	width: 100%;
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .add-btn,
 .complete-project-btn {
-	padding: 0.5rem 1.2rem;
-	font-size: 1rem;
-	background-color: #333;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	transition: background-color 0.2s;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-left: auto;
 }
 
-.add-btn:hover {
-	background-color: #111;
-}
+    .add-btn:hover {
+        background-color: #111;
+    }
 
 .complete-project-btn {
-	background-color: #4caf50;
-	margin-left: 10px;
+    background-color: #4caf50;
+    margin-left: 10px;
 }
 
-.complete-project-btn:hover {
-	background-color: #388e3c;
-}
+    .complete-project-btn:hover {
+        background-color: #388e3c;
+    }
 
 .table-container {
-	overflow-x: auto;
-	background-color: transparent;
+    overflow-x: auto;
+    background-color: transparent;
 }
 
 .project-table {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
-	background-color: transparent;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Allow the table to resize based on content */
+    background-color: transparent;
 }
 
-.project-table th {
-	background-color: transparent;
-	color: #222;
-	font-size: 0.9rem;
-	font-weight: 600;
-	padding: 0;
-	text-align: left;
-	border: none;
-}
+    .project-table th {
+        background-color: transparent;
+        color: #222;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: none;
+        text-align: left;
+        padding-right: 10px;
+        padding-left: 10px;
+        border-right: 1px solid #ddd;
+    }
 
-.project-table td {
-	padding: 0;
-	text-align: left;
-	vertical-align: middle;
-	background-color: transparent;
-	border: none;
-	min-width: 120px;
-}
+    .project-table td {
+        font-size: 0.8rem;
+        background-color: transparent;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        text-align: left;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: nowrap; /* Prevent wrapping, so content stays in one line */
+        border-right: 1px solid #ddd;
+    }
 
-.project-table input,
-.project-table textarea {
-	width: 100%;
-	padding: 0.2rem 0.3rem;
-	font-size: 0.85rem;
-	border: none;
-	border: 1px solid #000000;
-	background-color: transparent;
-	box-sizing: border-box;
-	border-radius: 0;
-}
 
-.project-table input:focus,
-.project-table textarea:focus {
-	border-bottom: 1px solid #000;
-	outline: none;
-	background-color: #fff;
-}
+    .project-table tr {
+        display: table-row; /* Keep the table layout for rows */
+    }
 
-.project-table textarea {
-	resize: vertical;
-	min-height: 40px;
-	max-height: 100px;
-}
+    .project-table th:last-child,
+    .project-table td:last-child {
+        border-right: none;
+    }
 
-.project-table td input[type="number"] {
-	padding: 0.2rem;
-	font-size: 0.85rem;
-	border: none;
-	border-bottom: 1px solid #ccc;
-	background-color: transparent;
-	border-radius: 0;
-}
+    .project-table input,
+    .project-table textarea {
+        width: 100%;
+        padding: 0.2rem 0.3rem;
+        border: none;
+        box-shadow: 0 0 0 1px #ccc; /* Add this line to match the flag button border */
+        background-color: white;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font: inherit;
+    }
 
-.project-table button {
-	padding: 0.3rem 0.5rem;
-	background: none;
-	color: #666;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1.2rem;
-	transition: color 0.2s;
-}
+        .project-table input:focus,
+        .project-table textarea:focus {
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 2px 2px #d3d3d3;
+        }
 
-.project-table button:hover {
-	color: #111;
-}
+    .project-table textarea {
+        height: 25px;
+        resize: none;
+        padding: 2px 4px;
+        line-height: 1.2;
+        overflow: hidden;
+        display: block; /* forces block layout, helps alignment */
+        margin: 0; /* remove default margins */
+    }
 
-/* Justering för antal djur inputs */
-.project-table .antal-djur-inputs {
-	display: flex;
-	align-items: center;
-	gap: 0.2rem;
-	padding: 0;
-}
+        .project-table textarea::placeholder {
+            font-size: 0.7rem;
+        }
+
+    .project-table td input[type="number"] {
+        padding: 0.2rem;
+        font-size: 0.85rem;
+        border: none;
+        background-color: transparent;
+        border-radius: 4px;
+    }
+
+    .project-table button {
+        padding: 0.3rem 0.5rem;
+        background: none;
+        color: #666;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: color 0.2s;
+    }
+
+        .project-table button:hover {
+            color: #111;
+        }
+
+    /* Justering för antal djur inputs */
+    .project-table .antal-djur-inputs {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+    }
 
 .project-table .antal-djur-inputs input {
 	width: 40px;
@@ -134,77 +161,113 @@
 
 
 .flag-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
+	width: 100%;
+	text-align: left;
 }
 
 
 
 .flag-button {
 	width: 20px;
-	height: 20px; /* Match the input height */
-	border-radius: 4px; /* Optional: to match input style */
+	height: 20px;
+	border-radius: 50%;
 	background-color: #3d3636;
 	cursor: pointer;
 	box-shadow: 0 0 0 1px #ccc;
 	transition: background-color 0.3s, transform 0.2s;
-	margin: 0;
-	display: inline-block;
+	margin: 0; /* säkerställ att ingen extra marginal påverkar placeringen */
 }
 
 
 
-.flag-button.green {
-	background-color: green;
-}
+    .flag-button.green {
+        background-color: green;
+    }
 
-.flag-button.yellow {
-	background-color: gold;
-}
+    .flag-button.yellow {
+        background-color: gold;
+    }
 
-.flag-button.red {
-	background-color: red;
-}
+    .flag-button.red {
+        background-color: red;
+    }
 
-.flag-button:hover {
-	transform: scale(1.2);
-}
+    .flag-button:hover {
+        transform: scale(1.2);
+    }
 
 /* Filter-knappar */
 .filter-buttons {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
 }
 
-.filter-buttons button {
-	padding: 0.5rem 1.2rem;
-	background-color: rgb(215, 215, 215);
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 0.7rem;
-	font-weight: 600;
-	color: #333;
-	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    .filter-buttons button {
+        padding: 0.5rem 1.2rem;
+        background-color: rgb(215, 215, 215);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .filter-buttons .rensa-filter-btn {
+        background-color: #ffcfcf;
+    }
+
+        .filter-buttons .rensa-filter-btn:hover {
+            background-color: #ec8787;
+        }
+
+    .filter-buttons button:hover {
+        background-color: #d0d0d0;
+        border-color: #999;
+        color: #111;
+    }
+
+    .filter-buttons .active-filter {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+        font-weight: 700;
+    }
+
+
+    .filter-buttons button {
+        background-color: #e0e0e0;
+        color: #333;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+        .filter-buttons button:hover {
+            background-color: #999;
+            color: white;
+        }
+
+    .filter-buttons .active-filter {
+        background-color: #999 !important;
+        color: white;
+    }
+
+.project-table .delete-row-icon-td,
+.project-table .delete-row-icon-th {
+    
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    padding: 0;
 }
 
-.filter-buttons .rensa-filter-btn {
-	background-color: #ffcfcf;
-}
-
-.filter-buttons button:hover {
-	background-color: #d0d0d0;
-	border-color: #999;
-	color: #111;
-}
-
-.filter-buttons .active-filter {
-	background-color: #007bff;
-	color: white;
-	border-color: #007bff;
-	font-weight: 700;
-}
+    .project-table .delete-row-icon-td button {
+        padding: 0 0 0 0.3rem;
+    }

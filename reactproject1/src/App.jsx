@@ -78,11 +78,9 @@ export default function App() {
   
       const handleAddFolder = (newFolderName) => {
         if (!folders.includes(newFolderName)) {
-            setFolders(prev => [...prev, newFolderName]);
+          setFolders(prev => [...prev, newFolderName]);
         }
     };
-
-  
 
     // 🔸 Stäng tab (inte från allProjects)
     const handleTabClose = (id) => {
@@ -156,8 +154,11 @@ export default function App() {
     {viewMode === "workspace" ? (
         <>
             <Sidebar
-              allProjects={allProjects}
-              folders={folders}
+                allProjects={allProjects}
+                folders={folders}
+                activeTabId={activeTabId}
+                tabs={tabs}
+                handleAddFolder={handleAddFolder}
                 onFilterClick={() => setShowFilter(true)}
                 onProjectCreate={handleProjectCreate}
                 onProjectDelete={handleProjectDelete}
