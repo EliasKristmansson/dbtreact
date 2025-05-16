@@ -160,23 +160,23 @@
 
 
     .project-table th.flag-column {
-        width: 60px; /* or 40px + padding/margin */
-        min-width: 60px;
-        max-width: 60px;
+        width: 40px; /* or 40px + padding/margin */
+        min-width: 40px;
+        max-width: 40px;
         padding: 0;
     }
 
     .project-table td.flag-container {
-        width: 60px;
-        min-width: 60px;
-        max-width: 60px;
+        width: 40px;
+        min-width: 40px;
+        max-width: 40px;
         padding: 0;
     }
 
 .flag-button {
     margin-left: 12px;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     background-color: #3d3636;
     cursor: pointer;
@@ -259,4 +259,12 @@
 .filter-buttons .active-filter {
     background-color: #999 !important;
     color: white;
+}
+
+.project-table .delete-row-icon-td,
+.project-table .delete-row-icon-th {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    padding: 0;
 }

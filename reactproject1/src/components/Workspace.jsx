@@ -218,7 +218,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 						<table className="project-table">
 							<thead>
 								<tr>
-									<th className="flag-column">Flagga</th>
+									<th className="flag-column"></th>
 									<th>Märkning</th>
 									<th>Inkommet</th>
 									<th>Plockat</th>
@@ -228,7 +228,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
 									<th>Kommentarer</th>
-									<th>Ta bort</th>
+									<th className="delete-row-icon-th"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -320,7 +320,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 												placeholder="Skriv kommentar..."
 											/>
 										</td>
-										<td>
+										<td className="delete-row-icon-td">
 											<button onClick={() => { setPendingDeleteIndex(index); setShowDeleteModal(true); }}> 🗑️</button>
 										</td>
 									</tr>
