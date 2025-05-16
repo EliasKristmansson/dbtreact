@@ -280,8 +280,9 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick }) {
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
-											<div className="antal-djur-inputs" style={{ height: "25px" }}>
+											<div className="antal-djur-inputs">
 												<input
+													style={{ height: "25px" }}
 													type="text"
 													placeholder="123"
 													value={row.antalDjur?.split('/')[0] || ""}

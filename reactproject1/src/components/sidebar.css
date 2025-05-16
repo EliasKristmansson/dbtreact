@@ -17,6 +17,7 @@
   .stats-button:hover {
 	background-color: #1976d2;
   }
+
   .project-item.active {
 	width: 97%;
 	background-color: #cacaca;
