@@ -134,22 +134,26 @@
 
 
 .flag-container {
-	width: 100%;
-	text-align: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
 }
 
 
 
 .flag-button {
 	width: 20px;
-	height: 20px;
-	border-radius: 50%;
+	height: 20px; /* Match the input height */
+	border-radius: 4px; /* Optional: to match input style */
 	background-color: #3d3636;
 	cursor: pointer;
 	box-shadow: 0 0 0 1px #ccc;
 	transition: background-color 0.3s, transform 0.2s;
-	margin: 0; /* säkerställ att ingen extra marginal påverkar placeringen */
+	margin: 0;
+	display: inline-block;
 }
+
 
 
 .flag-button.green {
