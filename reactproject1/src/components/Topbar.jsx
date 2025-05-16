@@ -3,7 +3,7 @@ import "../App.css";
 import { X } from "lucide-react";
 import logo from "../assets/Pelagia_Logotyp_Sekundar_Vit_RGB.svg"; // Adjust the path and filename as needed
 
-export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, activeTabId, onTabClick, onTabClose, commentCount = 0 }) {
+export default function Topbar({ projectName, deadline = "Ingen deadline", priority = "medium", tabs, activeTabId, onTabClick, onTabClose }) {
     return (
         <div className="topbar">
             <div className="logo-container">
@@ -39,8 +39,7 @@ export default function Topbar({ projectName, deadline = "Ingen deadline", prior
                 <div className="project-meta">
                     <p className="project-other">Deadline: <span>{deadline}</span></p>
                     <p className="project-other">0/100 prover klara</p>
-                    <p className="project-other">{commentCount} Kommentarer</p>
-
+                    <p className="project-other">0 Kommentarer</p>
                 </div>
             </div>
         </div>
