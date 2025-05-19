@@ -23,7 +23,7 @@
   
   
   .stats-button:hover {
-	background-color: #1976d2;
+	background-color: #164e86;
   }
 
 .statistics-container {
@@ -92,7 +92,7 @@
   .view-button.active,
   .chart-toggle button.active,
   .time-range-buttons button.active {
-	background-color: #2196f3;
+	background-color: #092e4d;
 	color: white;
   }
   
@@ -179,7 +179,7 @@
 	height: 12px;
 	margin-right: 8px;
 	border-radius: 2px;
-	background-color: #2196f3;
+	background-color: #092e4d;
   }
   
   .recharts-cartesian-grid-horizontal line,
