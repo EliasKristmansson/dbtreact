@@ -64,7 +64,7 @@
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        background-color: #3c70a4;
+        background-color: rgb(36, 60, 90);
         color: white;
         font-weight: bold;
     }
