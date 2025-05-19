@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 .sidebar-footer {
 	padding: 10px;
 	text-align: center;
@@ -20,7 +19,6 @@
   .stats-button:hover {
 	background-color: #1976d2;
   }
->>>>>>> 94b7e572dd04ba4654cc0eb67e6480081540088d
 
 .statistics-container {
 	background-color: #f8f9fa;
@@ -231,9 +229,7 @@
 	  height: 300px;
 	}
   }
-<<<<<<< HEAD
-  
-=======
+
 
 /* Add to your CSS file */
 .modal-overlay {
@@ -261,4 +257,4 @@
 	display: flex;
 	justify-content: space-between;
 }
->>>>>>> 94b7e572dd04ba4654cc0eb67e6480081540088d
+
