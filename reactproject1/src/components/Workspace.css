@@ -239,9 +239,9 @@
     }
 
     .filter-buttons .active-filter {
-        background-color: #007bff;
+        background-color: #164e86;
         color: white;
-        border-color: #007bff;
+        border-color: #164e86;
         font-weight: 700;
     }
 
@@ -301,5 +301,5 @@
 	}
 	
 	.new-project-btn:hover {
-		background-color: #0056b3;
+		background-color: #164e86;
 	}
