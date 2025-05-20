@@ -179,15 +179,23 @@
 }
 
     .flag-button.green {
-        background-color: green;
+        background-color: #00af52;
     }
 
     .flag-button.yellow {
-        background-color: gold;
+        background-color: #ffff01;
     }
 
     .flag-button.red {
-        background-color: red;
+        background-color: #fd0002;
+    }
+
+    .flag-button.orange {
+        background-color: #ffc000;
+    }
+
+    .flag-button.blue {
+        background-color:#01b0f1;
     }
 
     .flag-button:hover {

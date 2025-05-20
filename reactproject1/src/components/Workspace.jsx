@@ -23,15 +23,17 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				{
 					märkning: "",
 					inkommet: "",
+					antalvialer: "",
 					plockat: "",
 					andelPlockat: "",
 					datum: "",
 					artat: "",
+					artatdatum: "",
 					antalDjur: "",
 					hemtagna: "",
 					åter: "",
 					kommentarer: "",
-					flag: "",
+					flag: "red",
 				},
 			],
 		}));
@@ -53,14 +55,15 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	const toggleFlag = (index) => {
 		const updatedRows = [...rows];
 		const currentFlag = updatedRows[index].flag;
-		let newFlag = "";
-		if (currentFlag === "") newFlag = "green";
-		else if (currentFlag === "green") newFlag = "yellow";
-		else if (currentFlag === "yellow") newFlag = "red";
-		else if (currentFlag === "red") newFlag = "";
-		updatedRows[index].flag = newFlag;
+
+		const flagCycle = ["red", "orange", "yellow", "green", "blue"];
+		const currentIndex = flagCycle.indexOf(currentFlag);
+		const nextIndex = (currentIndex + 1) % flagCycle.length;
+
+		updatedRows[index].flag = flagCycle[nextIndex];
 		updateProjectRows(updatedRows);
 	};
+
 
 	useEffect(() => {
 		const rows = projectData[activeTabId] || [];
@@ -96,15 +99,17 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			{
 				märkning: "",
 				inkommet: "",
+				antalvialer: "",
 				plockat: "",
 				andelPlockat: "",
 				datum: "",
 				artat: "",
+				artatdatum: "",
 				antalDjur: "",
 				hemtagna: "",
 				åter: "",
 				kommentarer: "",
-				flag: "",
+				flag: "red",
 			},
 		]);
 	};
@@ -127,7 +132,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				case "intePlockade":
 					return !row.plockat?.trim();
 				case "flaggade":
-					return ["green", "yellow", "red"].includes(row.flag);
+					return ["green", "yellow", "red", "blue", "orange"].includes(row.flag);
 				case "kommenterade":
 					return !!row.kommentarer?.trim();
 				default:
@@ -241,11 +246,13 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								<tr>
 									<th className="flag-column"></th>
 									<th>Märkning</th>
+									<th>Provtaget datum</th>
 									<th>Inkommet</th>
+									<th>Antal vialer</th>
 									<th>Plockat</th>
 									<th>Andel plockat</th>
-									<th>Provtaget datum</th>
 									<th>Artat</th>
+									<th>Artat datum</th>
 									<th>Antal djur</th>
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
@@ -265,6 +272,15 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
 										<td>
 											<DatePicker
+												selected={row.datum ? parseISO(row.datum) : null}
+												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
+											/>
+										</td>
+										<td>
+											<DatePicker
 												selected={row.inkommet ? parseISO(row.inkommet) : null}
 												onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
@@ -272,6 +288,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
+										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td>
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
@@ -282,16 +299,16 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 											/>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<DatePicker
-												selected={row.datum ? parseISO(row.datum) : null}
-												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
+												selected={row.plockat ? parseISO(row.plockat) : null}
+												onChange={(date) => handleChange(index, "artatdatum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<div className="antal-djur-inputs">
 												<input
