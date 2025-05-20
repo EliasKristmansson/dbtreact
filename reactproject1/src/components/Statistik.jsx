@@ -1,8 +1,8 @@
-// Statistik.jsx
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line
 } from "recharts";
+import { motion, AnimatePresence } from "framer-motion";
 
 function groupBy(data, periodFn) {
   const grouped = {};
@@ -111,7 +111,12 @@ export default function Statistik({ onBack }) {
   const maxPeriod = data.reduce((max, d) => d.count > max.count ? d : max, { count: 0 });
 
   return (
-    <div className="statistics-container">
+    <motion.div
+      className="statistics-container"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="statistics-header">
         <h2>Statistik över avklarade projekt</h2>
       </div>
@@ -124,54 +129,99 @@ export default function Statistik({ onBack }) {
       </div>
 
       <div className="control-bar">
-        <div className="view-buttons">
-          <button className={view === "week" ? "active" : ""} onClick={() => setView("week")}>Veckovis</button>
-          <button className={view === "month" ? "active" : ""} onClick={() => setView("month")}>Månadsvis</button>
-          <button className={view === "year" ? "active" : ""} onClick={() => setView("year")}>Årsvis</button>
+        <div className="time-controls">
+          {[{ key: "week", label: "Veckovis" }, { key: "month", label: "Månadsvis" }, { key: "year", label: "Årsvis" }]
+            .map(({ key, label }) => (
+              <motion.button
+                key={key}
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                className={view === key ? "active" : ""}
+                onClick={() => setView(key)}
+              >
+                {label}
+              </motion.button>
+            ))}
+
+          {[{ key: "all", label: "Alla" }, { key: "3months", label: "Senaste 3 mån" }, { key: "year", label: "Senaste året" }]
+            .map(({ key, label }) => (
+              <motion.button
+                key={key}
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                className={timeRange === key ? "active" : ""}
+                onClick={() => setTimeRange(key)}
+              >
+                {label}
+              </motion.button>
+            ))}
         </div>
 
         <div className="chart-toggle">
-          <button className={chartType === "bar" ? "active" : ""} onClick={() => setChartType("bar")}>Stapeldiagram</button>
-          <button className={chartType === "line" ? "active" : ""} onClick={() => setChartType("line")}>Linjediagram</button>
+          {["bar", "line"].map((type) => (
+            <motion.button
+              key={type}
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
+              className={chartType === type ? "active" : ""}
+              onClick={() => setChartType(type)}
+            >
+              {type === "bar" ? "Stapeldiagram" : "Linjediagram"}
+            </motion.button>
+
+            
+              
+
+          ))}
         </div>
 
-        <div className="time-range-buttons">
-          <button className={timeRange === "all" ? "active" : ""} onClick={() => setTimeRange("all")}>Alla</button>
-          <button className={timeRange === "3months" ? "active" : ""} onClick={() => setTimeRange("3months")}>Senaste 3 mån</button>
-          <button className={timeRange === "year" ? "active" : ""} onClick={() => setTimeRange("year")}>Senaste året</button>
-        </div>
-
-        <button className="back-button" onClick={onBack}>⬅ <span>Tillbaka</span></button>
+        <motion.button
+          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05 }}
+          className="back-button"
+          onClick={onBack}
+        >
+          ⬅ <span>Tillbaka</span>
+        </motion.button>
       </div>
 
-      <div className="chart-container">
-        {data.length > 0 ? (
-          <ResponsiveContainer width="100%" height="100%">
-            {chartType === "bar" ? (
-              <BarChart data={data}>
-                <XAxis dataKey="period" />
-                <YAxis allowDecimals={false} />
-                <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="count" fill={colorMap[view]} isAnimationActive={true} radius={[4, 4, 0, 0]} />
-              </BarChart>
-            ) : (
-              <LineChart data={data}>
-                <XAxis dataKey="period" />
-                <YAxis allowDecimals={false} />
-                <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="count" stroke={colorMap[view]} strokeWidth={2} dot={{ r: 4 }} />
-              </LineChart>
-            )}
-          </ResponsiveContainer>
-        ) : (
-          <div className="empty-state">
-            <div className="empty-state-icon">📊</div>
-            <div className="empty-state-text">
-              Inga avklarade projekt ännu. Avsluta projekt för att visa statistik här.
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={view + timeRange + chartType}
+          className="chart-container"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+        >
+          {data.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              {chartType === "bar" ? (
+                <BarChart data={data}>
+                  <XAxis dataKey="period" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="count" fill={colorMap[view]} isAnimationActive={true} radius={[4, 4, 0, 0]} />
+                </BarChart>
+              ) : (
+                <LineChart data={data}>
+                  <XAxis dataKey="period" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Line type="monotone" dataKey="count" stroke={colorMap[view]} strokeWidth={2} dot={{ r: 4 }} />
+                </LineChart>
+              )}
+            </ResponsiveContainer>
+          ) : (
+            <div className="empty-state">
+              <div className="empty-state-icon">📊</div>
+              <div className="empty-state-text">
+                Inga avklarade projekt ännu. Avsluta projekt för att visa statistik här.
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-    </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
   );
 }

@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { parseISO } from "date-fns";
 import { Calendar } from "lucide-react";
+import CrazyButton from "./Crazybutton.jsx";
+
 
 export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount }) {
 	const [projectData, setProjectData] = useState({});
@@ -209,9 +211,9 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		<div className="workspace">
 			{showEmpty ? (
 				<div className="new-project">
-					<button className="new-project-btn" onClick={onNewProjectClick}>
-						+ Nytt projekt
-					</button>
+					<CrazyButton onClick={onNewProjectClick} />
+						
+					
 				</div>
 			) : (
 				<>
