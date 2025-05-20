@@ -32,7 +32,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 					hemtagna: "",
 					åter: "",
 					kommentarer: "",
-					flag: "",
+					flag: "red",
 				},
 			],
 		}));
@@ -54,14 +54,15 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	const toggleFlag = (index) => {
 		const updatedRows = [...rows];
 		const currentFlag = updatedRows[index].flag;
-		let newFlag = "";
-		if (currentFlag === "") newFlag = "green";
-		else if (currentFlag === "green") newFlag = "yellow";
-		else if (currentFlag === "yellow") newFlag = "red";
-		else if (currentFlag === "red") newFlag = "";
-		updatedRows[index].flag = newFlag;
+
+		const flagCycle = ["red", "orange", "yellow", "green", "blue"];
+		const currentIndex = flagCycle.indexOf(currentFlag);
+		const nextIndex = (currentIndex + 1) % flagCycle.length;
+
+		updatedRows[index].flag = flagCycle[nextIndex];
 		updateProjectRows(updatedRows);
 	};
+
 
 	useEffect(() => {
 		const rows = projectData[activeTabId] || [];
@@ -106,7 +107,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				hemtagna: "",
 				åter: "",
 				kommentarer: "",
-				flag: "",
+				flag: "red",
 			},
 		]);
 	};
