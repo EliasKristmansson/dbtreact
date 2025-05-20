@@ -4,19 +4,23 @@ import Topbar from "./components/Topbar";
 import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
 import Statistik from "./components/Statistik";
-
+import buildFolderTree from "./components/BuildFolderTree";
+import Folder from "./components/Folder";
 
 export default function App() {
 	const [allProjects, setAllProjects] = useState([
 		{ id: 1, name: "Projekt 1", folder: "Prio" },
-		{ id: 2, name: "Projekt 2", folder: "Prio" },
-		{ id: 3, name: "Projekt 3", folder: "Prio" },
+		{ id: 2, name: "Projekt 2", folder: "Prio/Sub1" },
+		{ id: 3, name: "Projekt 3", folder: "Prio/Sub1" },
 		{ id: 4, name: "Projekt 4", folder: "Sötvatten" },
-		{ id: 5, name: "Projekt 5", folder: "Sötvatten" },
+		{ id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp" },
 		{ id: 6, name: "Projekt 6", folder: "Marint" },
-	]);
+	  ]);
+	  
+	const folderTree = buildFolderTree(allProjects);
+
 	const [nextId, setNextId] = useState(7);
-	const [folders, setFolders] = useState(["Prio", "Sötvatten", "Marint"]);
+	
 
 	const [tabs, setTabs] = useState([]);
 	const [projectRows, setProjectRows] = useState({});
@@ -169,7 +173,7 @@ export default function App() {
 					<>
 						<Sidebar
 							allProjects={allProjects}
-							folders={folders}
+							folders={folderTree} // Skicka den färdiga trädet här!
 							activeTabId={activeTabId}
 							tabs={tabs}
 							handleAddFolder={handleAddFolder}

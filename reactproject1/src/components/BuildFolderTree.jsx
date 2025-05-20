@@ -12,16 +12,17 @@ export default function buildFolderTree(projects){
 				existingFolder = {
 					title: folderName,
 					projects: [],
-					children: [],
+					subFolders: [],
 				};
 				currentLevel.push(existingFolder);
 			}
 			if (index === path.length - 1){
 				existingFolder.projects.push(project);
 			} else {
-				currentLevel = existingFolder.children;
+				currentLevel = existingFolder.subFolders;
 			}
 		});
 	});
 	return root;
+	
 }
