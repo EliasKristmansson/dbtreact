@@ -23,6 +23,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				{
 					märkning: "",
 					inkommet: "",
+					antalvialer: "",
 					plockat: "",
 					andelPlockat: "",
 					datum: "",
@@ -97,6 +98,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			{
 				märkning: "",
 				inkommet: "",
+				antalvialer: "",
 				plockat: "",
 				andelPlockat: "",
 				datum: "",
@@ -245,6 +247,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 									<th>Märkning</th>
 									<th>Provtaget datum</th>
 									<th>Inkommet</th>
+									<th>Antal vialer</th>
 									<th>Plockat</th>
 									<th>Andel plockat</th>
 									<th>Artat</th>
@@ -284,6 +287,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
+										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td>
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
