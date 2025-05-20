@@ -1,11 +1,19 @@
 
+.project-item.active {
+	background-color: #cacaca;
+	font-weight: bold;
+	border-left: 4px solid #9f9f9f;
+	width:97%;
+  } 
+
+
 .sidebar-footer {
 	padding: 10px;
 	text-align: center;
   }
-  
-  .stats-button {
-	background-color: #2196f3;
+
+.stats-button {
+	background-color: rgb(36, 60, 90);
 	color: white;
 	padding: 8px 14px;
 	border: none;
@@ -13,12 +21,14 @@
 	font-size: 1rem;
 	cursor: pointer;
 	width: 90%;
-  }
-  
-  
-  .stats-button:hover {
-	background-color: #1976d2;
-  }
+
+	transition: background-color 0.3s;
+}
+
+
+	.stats-button:hover {
+		background-color: #164e86;
+	}
 
 
 .statistics-container {
@@ -87,7 +97,7 @@
   .view-button.active,
   .chart-toggle button.active,
   .time-range-buttons button.active {
-	background-color: #2196f3;
+	background-color: #092e4d;
 	color: white;
   }
   
@@ -174,7 +184,7 @@
 	height: 12px;
 	margin-right: 8px;
 	border-radius: 2px;
-	background-color: #2196f3;
+	background-color: #092e4d;
   }
   
   .recharts-cartesian-grid-horizontal line,
