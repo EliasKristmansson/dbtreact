@@ -27,6 +27,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 					andelPlockat: "",
 					datum: "",
 					artat: "",
+					artatdatum: "",
 					antalDjur: "",
 					hemtagna: "",
 					åter: "",
@@ -100,6 +101,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				andelPlockat: "",
 				datum: "",
 				artat: "",
+				artatdatum: "",
 				antalDjur: "",
 				hemtagna: "",
 				åter: "",
@@ -241,11 +243,12 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								<tr>
 									<th className="flag-column"></th>
 									<th>Märkning</th>
+									<th>Provtaget datum</th>
 									<th>Inkommet</th>
 									<th>Plockat</th>
 									<th>Andel plockat</th>
-									<th>Provtaget datum</th>
 									<th>Artat</th>
+									<th>Artat datum</th>
 									<th>Antal djur</th>
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
@@ -265,6 +268,15 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
 										<td>
 											<DatePicker
+												selected={row.datum ? parseISO(row.datum) : null}
+												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
+												dateFormat="yyyy-MM-dd"
+												customInput={<CalendarInput />}
+												placeholderText="Välj datum"
+											/>
+										</td>
+										<td>
+											<DatePicker
 												selected={row.inkommet ? parseISO(row.inkommet) : null}
 												onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
@@ -282,16 +294,16 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 											/>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<DatePicker
-												selected={row.datum ? parseISO(row.datum) : null}
-												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
+												selected={row.plockat ? parseISO(row.plockat) : null}
+												onChange={(date) => handleChange(index, "artatdatum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<div className="antal-djur-inputs">
 												<input
