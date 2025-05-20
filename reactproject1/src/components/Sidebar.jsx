@@ -126,11 +126,11 @@ const closeAllFolders = () => {
 
       <div className="folder-container">
         <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-          {folders.map((folderTitle) => {
+          {folders.map((folderTitle,i) => {
             const projects = allProjects.filter(p => p.folder === folderTitle);
             return (
               <Folder
-                key={folderTitle}
+                key={i}
                 title={folderTitle}
                 activeTabId={activeTabId}
                 tabs={tabs}
