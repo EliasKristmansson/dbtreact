@@ -127,7 +127,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				case "intePlockade":
 					return !row.plockat?.trim();
 				case "flaggade":
-					return ["green", "yellow", "red"].includes(row.flag);
+					return ["green", "yellow", "red", "blue", "orange"].includes(row.flag);
 				case "kommenterade":
 					return !!row.kommentarer?.trim();
 				default:
