@@ -22,11 +22,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			[activeTabId]: [
 				{
 					märkning: "",
+					datum: "",
 					inkommet: "",
 					antalvialer: "",
 					plockat: "",
 					andelPlockat: "",
-					datum: "",
 					artat: "",
 					artatdatum: "",
 					antalDjur: "",
@@ -98,11 +98,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			...rows,
 			{
 				märkning: "",
+				datum: "",
 				inkommet: "",
 				antalvialer: "",
 				plockat: "",
 				andelPlockat: "",
-				datum: "",
 				artat: "",
 				artatdatum: "",
 				antalDjur: "",
@@ -288,7 +288,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="text" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td>
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
@@ -302,7 +302,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<DatePicker
-												selected={row.plockat ? parseISO(row.plockat) : null}
+												selected={row.artatdatum ? parseISO(row.artatdatum) : null}
 												onChange={(date) => handleChange(index, "artatdatum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
