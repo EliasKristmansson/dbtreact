@@ -1,9 +1,11 @@
+
 .project-item.active {
 	background-color: #cacaca;
 	font-weight: bold;
 	border-left: 4px solid #9f9f9f;
 	width:97%;
   } 
+
 
 .sidebar-footer {
 	padding: 10px;
@@ -19,6 +21,7 @@
 	font-size: 1rem;
 	cursor: pointer;
 	width: 90%;
+
 	transition: background-color 0.3s;
 }
 
@@ -26,6 +29,7 @@
 	.stats-button:hover {
 		background-color: #164e86;
 	}
+
 
 .statistics-container {
 	background-color: #f8f9fa;
