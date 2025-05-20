@@ -82,25 +82,38 @@ body {
 }
 
 .tab {
-    background-color: #D7D7D7;
-    padding: 8px 12px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    color: black;
+    background-color: #e4e4e4;
+    padding: 8px 16px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #333;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
-    position: relative;
     font-weight: 500;
-    transition: background-color 0.2s ease;
-    display: flex;
-    justify-content: space-between; /* Detta ser till att texten och stängknappen ligger på samma rad */
-    width: auto; /* Lägger till för att tabbarna ska kunna justera sig själva när en stängs */
+    font-size: 0.95rem;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+    margin-right: 4px;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+    border: 1px solid #ccc;
+    border-bottom: 0px solid #e4e4e4;
 }
 
     .tab:hover {
-        background-color: #C0C2C1;
+        background-color: #d8d8d8;
+        box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
     }
+
+    .tab.active-tab {
+        background-color: #ffffff;
+        font-weight: 600;
+        border-bottom: 2px solid white;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
+        color: #000;
+    }
+
 
 .project-name {
     color: black;
@@ -205,7 +218,12 @@ body {
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s;
 }
+
+    .filter-btn:hover {
+        background-color: #164e86;
+    }
 
 .folder {
     color: black;
@@ -259,16 +277,6 @@ body {
     .new-project-btn:hover {
         background-color: #2d4a6d;
     }
-
-.tab.active-tab {
-    background-color: #bbb;
-    font-weight: 700;
-}
-
-.tab:hover {
-    cursor: pointer;
-}
-
 
 .collapse-container {
   margin: 0;
