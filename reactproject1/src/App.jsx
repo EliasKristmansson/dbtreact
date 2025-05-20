@@ -20,7 +20,7 @@ export default function App() {
 	const folderTree = buildFolderTree(allProjects);
 
 	const [nextId, setNextId] = useState(7);
-	
+	const [rowCount,setRowCount] = useState(0);
 
 	const [tabs, setTabs] = useState([]);
 	const [projectRows, setProjectRows] = useState({});
@@ -162,6 +162,7 @@ export default function App() {
 				priority="high"
 				tabs={tabs}
 				activeTabId={activeTabId}
+				rowCount={rowCount}
 				onTabClick={setActiveTabId}
 				onTabClose={handleTabClose}
 				allProjects={allProjects}
@@ -189,6 +190,7 @@ export default function App() {
 							projectRows={projectRows}
 							onChangeRow={handleRowChange}
 							onAddRow={handleAddRow}
+							onRowCount={setRowCount}
 							onRemoveRow={handleRemoveRow}
 							onNewProjectClick={handleNewProject}
 							tabs={tabs}
