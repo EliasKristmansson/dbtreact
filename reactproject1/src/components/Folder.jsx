@@ -29,6 +29,21 @@ export default function Folder({ title, projects, onProjectDoubleClick, onProjec
               onRename={(oldName, newName) => onProjectRename(title, oldName, newName)}
             />
           ))}
+
+          {title.children && title.children.map((subfolder, i) =>(
+            <Folder
+              key={folderTitle}
+              title={title}
+              activeTabId={activeTabId}
+              tabs={tabs}
+              isOpen={isOpen[title]}
+              toggleFolder={() => toggleFolder(title)}
+              projects={projects}
+              onProjectDoubleClick={onProjectOpen}
+              onProjectDelete={(projectIndex) => onProjectDelete(title, projectIndex)}
+              onProjectRename={handleRename}
+            />
+          ))}
         </div>
       )}
     </div>
