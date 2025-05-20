@@ -126,19 +126,19 @@ const closeAllFolders = () => {
 
       <div className="folder-container">
         <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-          {folders.map((folderTitle) => {
-            const projects = allProjects.filter(p => p.folder === folderTitle);
+          {folders.map((folder,i) => {
+            const projects = allProjects.filter(p => p.folder === folder);
             return (
               <Folder
-                key={folderTitle}
-                title={folderTitle}
+                key={i}
+                folder={folder}
                 activeTabId={activeTabId}
                 tabs={tabs}
-                isOpen={isOpen[folderTitle]}
-                toggleFolder={() => toggleFolder(folderTitle)}
+                isOpen={isOpen[folder]}
+                toggleFolder={() => toggleFolder(folder)}
                 projects={projects}
                 onProjectDoubleClick={onProjectOpen}
-                onProjectDelete={(projectIndex) => onProjectDelete(folderTitle, projectIndex)}
+                onProjectDelete={(projectIndex) => onProjectDelete(folder, projectIndex)}
                 onProjectRename={handleRename}
               />
             );
