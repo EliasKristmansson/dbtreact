@@ -269,3 +269,33 @@
 	justify-content: space-between;
 }
 
+.time-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.time-controls button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #555;
+}
+
+.time-controls button.active {
+  background-color: #092e4d;
+  color: white;
+}
+
+.time-controls button:hover:not(.active) {
+  background-color: #dee2e6;
+}
+
+

@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { parseISO } from "date-fns";
 import { Calendar } from "lucide-react";
+import CrazyButton from "./Crazybutton.jsx";
+
 
 export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount,onRowCount }) {
 	const [projectData, setProjectData] = useState({});
@@ -22,11 +24,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			[activeTabId]: [
 				{
 					märkning: "",
+					datum: "",
 					inkommet: "",
 					antalvialer: "",
 					plockat: "",
 					andelPlockat: "",
-					datum: "",
 					artat: "",
 					artatdatum: "",
 					antalDjur: "",
@@ -99,11 +101,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			...rows,
 			{
 				märkning: "",
+				datum: "",
 				inkommet: "",
 				antalvialer: "",
 				plockat: "",
 				andelPlockat: "",
-				datum: "",
 				artat: "",
 				artatdatum: "",
 				antalDjur: "",
@@ -210,9 +212,9 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		<div className="workspace">
 			{showEmpty ? (
 				<div className="new-project">
-					<button className="new-project-btn" onClick={onNewProjectClick}>
-						+ Nytt projekt
-					</button>
+					<CrazyButton onClick={onNewProjectClick} />
+						
+					
 				</div>
 			) : (
 				<>
@@ -289,7 +291,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="text" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td>
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
@@ -303,7 +305,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
 										<td>
 											<DatePicker
-												selected={row.plockat ? parseISO(row.plockat) : null}
+												selected={row.artatdatum ? parseISO(row.artatdatum) : null}
 												onChange={(date) => handleChange(index, "artatdatum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
