@@ -5,7 +5,9 @@ export default function SampleTable() {
   const [rows, setRows] = useState([
     {
       märkning: '',
+      provtagetdatum: '',
       inkommet: '',
+      antalvialer: '',
       plockat: '',
       andelPlockat: '',
       datum: '',
@@ -25,7 +27,9 @@ export default function SampleTable() {
   const addRow = () => {
     setRows([...rows, {
       märkning: '',
+      provtagetdatum: '',
       inkommet: '',
+      antalvialer: '',
       plockat: '',
       andelPlockat: '',
       datum: '',
@@ -43,10 +47,11 @@ export default function SampleTable() {
         <thead>
           <tr>
             <th>Märkning</th>
+            <th>Provtaget datum</th>
             <th>Inkommet</th>
+            <th>antalvialer</th>
             <th>Plockat</th>
             <th>Andel Plockat</th>
-            <th>Provtaget datum</th>
             <th>Antal djur</th>
             <th>Prover hemtagna</th>
             <th>Prover åter</th>
