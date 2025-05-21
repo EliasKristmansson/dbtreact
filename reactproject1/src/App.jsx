@@ -21,13 +21,14 @@ export default function App() {
 
 	const [nextId, setNextId] = useState(7);
 	const [rowCount,setRowCount] = useState(0);
-
+	const [folders, setFolders] = useState([]);
 	const [tabs, setTabs] = useState([]);
 	const [projectRows, setProjectRows] = useState({});
 	const [activeTabId, setActiveTabId] = useState(null);
 	const [showFilter, setShowFilter] = useState(false);
 	const [viewMode, setViewMode] = useState("workspace"); // or "statistics"
 	const [commentCount, setCommentCount] = useState(0);
+	const [greenFlagsCount, setGreenFlagsCount] = useState(0);
 
 
 	// 🔸 Skapa ett nytt projekt (lägger till i både allProjects och tabs)
@@ -163,6 +164,7 @@ export default function App() {
 				tabs={tabs}
 				activeTabId={activeTabId}
 				rowCount={rowCount}
+				greenFlagsCount={greenFlagsCount}
 				onTabClick={setActiveTabId}
 				onTabClose={handleTabClose}
 				allProjects={allProjects}
@@ -191,6 +193,7 @@ export default function App() {
 							onChangeRow={handleRowChange}
 							onAddRow={handleAddRow}
 							onRowCount={setRowCount}
+							onGreenFlagsCount={setGreenFlagsCount}
 							onRemoveRow={handleRemoveRow}
 							onNewProjectClick={handleNewProject}
 							tabs={tabs}

@@ -9,7 +9,7 @@ import { Calendar } from "lucide-react";
 import CrazyButton from "./Crazybutton.jsx";
 
 
-export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount,onRowCount }) {
+export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount,onRowCount, onGreenFlagsCount}) {
 	const [projectData, setProjectData] = useState({});
 	const [filterMap, setFilterMap] = useState({});
 	const [showModal, setShowModal] = useState(false);
@@ -73,6 +73,10 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		onRowCount(rows.length);
 		// Skip update if the comment modal is open (i.e., pending comment not confirmed)
 		if (showModal) return;
+
+		// Räknar antalet gröna flaggor
+  		const greenFlagsCount = rows.filter(row => row.flag === "green").length;
+  		onGreenFlagsCount(greenFlagsCount); 
 
 		const count = rows.filter(row => row.kommentarer?.trim()).length;
 		setCommentCount(count);
