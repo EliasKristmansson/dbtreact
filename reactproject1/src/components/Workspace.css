@@ -315,3 +315,80 @@
 .project-table td:nth-child(5) {
     width: 5px; /* gör kolumnen för vialer smalare */
 }
+
+.flag-filter-container button {
+  padding: 6px 12px; 
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 32px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-filter-container.active-filter button {
+  background-color: #ffffff;
+  color: #164e86;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flag-filter-container {
+  position: relative;
+  display: inline-block;
+}
+
+.flag-filter-container.active-filter {
+  background-color: #e0e0e0 !important; 
+  border-radius: 6px;
+}
+
+.flag-filter-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 4px 0;
+  font-size: 12px;
+  border: 1px solid #ddd;
+}
+
+.flag-filter-container:hover .flag-filter-dropdown {
+  display: block;
+}
+
+.flag-filter-option {
+  padding: 4px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flag-filter-option:hover {
+  background-color: #f1f1f1;
+}
+
+.flag-filter-option.selected {
+  background-color: #e0e0e0;
+}
+
+.flag-button {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+/* Behåll dina befintliga flaggfärger */
+.flag-button.red { background-color: #ff6b6b; }
+.flag-button.orange { background-color: #ffa502; }
+.flag-button.yellow { background-color: #f9ca24; }
+.flag-button.green { background-color: #51cf66; }
+.flag-button.blue { background-color: #339af0; }

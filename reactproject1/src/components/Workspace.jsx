@@ -58,7 +58,6 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	const toggleFlag = (index) => {
 		const updatedRows = [...rows];
 		const currentFlag = updatedRows[index].flag;
-
 		const flagCycle = ["red", "orange", "yellow", "green", "blue"];
 		const currentIndex = flagCycle.indexOf(currentFlag);
 		const nextIndex = (currentIndex + 1) % flagCycle.length;
@@ -100,6 +99,14 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		setPendingCommentIndex(null);
 	};
 
+	const colorOptions = [
+  		{ color: "red", label: "Röd" },
+  		{ color: "orange", label: "Orange" },
+  		{ color: "yellow", label: "Gul" },
+  		{ color: "green", label: "Grön" },
+  		{ color: "blue", label: "Blå" }
+	];
+
 	const addRow = () => {
 		updateProjectRows([
 			...rows,
@@ -134,18 +141,20 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	};
 
 	const filteredRows = rows.filter((row) => {
-		return filters.every((filter) => {
-			switch (filter) {
-				case "intePlockade":
-					return !row.plockat?.trim();
-				case "flaggade":
-					return ["green", "yellow", "red", "blue", "orange"].includes(row.flag);
-				case "kommenterade":
-					return !!row.kommentarer?.trim();
-				default:
-					return true;
-			}
-		});
+  		return filters.every((filter) => {
+    		if (filter.startsWith("flag-")) {
+      			const color = filter.split("flag-")[1]; 
+      			return row.flag === color;
+    		}
+    		switch (filter) {
+      			case "intePlockade":
+        			return !row.plockat?.trim();
+      			case "kommenterade":
+        			return !!row.kommentarer?.trim();
+      		default:
+        		return true;
+    		}
+  		});
 	});
 
 	const handleSetFilter = (filter) => {
@@ -158,8 +167,30 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		});
 	};
 
+	const handleToggleFlagFilter = (color) => {
+  		const filterName = `flag-${color}`; // Skapar t.ex. "flag-red", "flag-green" etc
+ 		setFilterMap((prev) => {
+    		const currentFilters = prev[activeTabId] || [];
+    		// Toggle filter - lägg till om det inte finns, ta bort om det finns
+    		const newFilters = currentFilters.includes(filterName)
+      		? currentFilters.filter((f) => f !== filterName)
+      		: [...currentFilters, filterName];
+    		return { ...prev, [activeTabId]: newFilters };
+  		});
+	};
+
+	const clearFlagFilters = () => {
+  		setFilterMap((prev) => ({ 
+    		...prev, 
+    		[activeTabId]: prev[activeTabId]?.filter(f => !f.startsWith("flag-")) || [] 
+  		}));
+	};
+
 	const clearFilters = () => {
-		setFilterMap((prev) => ({ ...prev, [activeTabId]: [] }));
+  		setFilterMap((prev) => ({ 
+    		...prev, 
+    		[activeTabId]: [] // Rensa alla filter för den aktiva fliken
+  		}));
 	};
 
 	const CalendarInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -228,10 +259,31 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								className={filters.includes("intePlockade") ? "active-filter" : ""}>
 								Inte plockade
 							</button>
-							<button onClick={() => handleSetFilter("flaggade")}
-								className={filters.includes("flaggade") ? "active-filter" : ""}>
-								Flaggade
-							</button>
+							<div 
+  className={`flag-filter-container ${filters.some(f => f.startsWith("flag-")) ? "active-filter" : ""}`}
+  onClick={() => {
+    // Toggla bort alla flaggfilters om något är valt
+    if (filters.some(f => f.startsWith("flag-"))) {
+      clearFlagFilters();
+    }
+  }}
+>
+  <button onClick={(e) => e.stopPropagation()}>
+    Flaggning {filters.some(f => f.startsWith("flag-")) ? "✓" : "▼"}
+  </button>
+  <div className="flag-filter-dropdown" onClick={(e) => e.stopPropagation()}>
+    {colorOptions.map(({color, label}) => (
+      <div 
+        key={color}
+        className={`flag-filter-option ${filters.includes(`flag-${color}`) ? "selected" : ""}`}
+        onClick={() => handleToggleFlagFilter(color)}
+      >
+        <span className={`flag-button ${color}`}></span>
+        {label}
+      </div>
+    ))}
+  </div>
+</div>
 							<button onClick={() => handleSetFilter("kommenterade")}
 								className={filters.includes("kommenterade") ? "active-filter" : ""}>
 								Kommenterade
