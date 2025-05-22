@@ -141,21 +141,27 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	};
 
 	const filteredRows = rows.filter((row) => {
-  		return filters.every((filter) => {
-    		if (filter.startsWith("flag-")) {
-      			const color = filter.split("flag-")[1]; 
-      			return row.flag === color;
-    		}
-    		switch (filter) {
-      			case "intePlockade":
-        			return !row.plockat?.trim();
-      			case "kommenterade":
-        			return !!row.kommentarer?.trim();
-      		default:
-        		return true;
-    		}
-  		});
-	});
+  // Hantera flaggförst - OR-logik för färger
+  const flagFilters = filters.filter(f => f.startsWith("flag-"));
+  if (flagFilters.length > 0) {
+    const flagColors = flagFilters.map(f => f.split("flag-")[1]);
+    if (!flagColors.includes(row.flag)) {
+      return false;
+    }
+  }
+
+  // Hantera övriga filter - AND-logik som tidigare
+  return filters.filter(f => !f.startsWith("flag-")).every((filter) => {
+    switch (filter) {
+      case "intePlockade":
+        return !row.plockat?.trim();
+      case "kommenterade":
+        return !!row.kommentarer?.trim();
+      default:
+        return true;
+    }
+  });
+});
 
 	const handleSetFilter = (filter) => {
 		setFilterMap((prev) => {
