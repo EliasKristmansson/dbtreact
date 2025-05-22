@@ -317,22 +317,14 @@
 }
 
 .flag-filter-container button {
-  padding: 6px 12px; 
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 32px;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+ height: 32px !important;
 }
 
 .flag-filter-container.active-filter button {
   background-color: #ffffff;
+  max-height: 32px !important;
   color: #164e86;
   font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .flag-filter-container {
