@@ -59,14 +59,16 @@
     font-weight: 600;
     border: none;
     text-align: left;
-    padding: 0.2rem 6px; /* minskat från 0.4rem till 0.2rem */
+    padding: 0.2rem 6px;
+    /* minskat från 0.4rem till 0.2rem */
     border-right: 1px solid #ddd;
 }
 
 .project-table td {
     font-size: 0.8rem;
     background-color: transparent;
-    padding: 0.2rem 6px; /* minskat från 0.4rem till 0.2rem */
+    padding: 0.2rem 6px;
+    /* minskat från 0.4rem till 0.2rem */
     text-align: left;
     word-break: break-word;
     white-space: nowrap;
@@ -142,6 +144,18 @@
     display: flex;
     align-items: center;
     gap: 0.2rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.antal-djur-inputs input {
+    width: 40px !important;
+    min-width: 0;
+    flex: 1;
+}
+
+.antal-djur-inputs span {
+    white-space: nowrap;
 }
 
 .project-table .antal-djur-inputs input {
@@ -171,12 +185,14 @@
 .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem; /* minskat gap */
+    gap: 0.4rem;
+    /* minskat gap */
     width: 100%;
 }
 
 .filter-buttons button {
-    padding: 0.3rem 0.8rem; /* minskat padding */
+    padding: 0.3rem 0.8rem;
+    /* minskat padding */
     background-color: #e6e6e6;
     color: #333;
     border: 1px solid #ccc;
@@ -268,29 +284,29 @@
     margin: 0;
 }
 
-    .flag-button.green {
-        background-color: #00af52;
-    }
+.flag-button.green {
+    background-color: #00af52;
+}
 
-    .flag-button.yellow {
-        background-color: #ffff01;
-    }
+.flag-button.yellow {
+    background-color: #ffff01;
+}
 
-    .flag-button.red {
-        background-color: #fd0002;
-    }
+.flag-button.red {
+    background-color: #fd0002;
+}
 
-    .flag-button.orange {
-        background-color: #ffc000;
-    }
+.flag-button.orange {
+    background-color: #ffc000;
+}
 
-    .flag-button.blue {
-        background-color:#01b0f1;
-    }
+.flag-button.blue {
+    background-color: #01b0f1;
+}
 
-    .flag-button:hover {
-        transform: scale(1.2);
-    }
+.flag-button:hover {
+    transform: scale(1.2);
+}
 
 
 
@@ -313,74 +329,134 @@
 
 .project-table th:nth-child(5),
 .project-table td:nth-child(5) {
-    width: 5px; /* gör kolumnen för vialer smalare */
+    width: 5px;
+}
+
+.project-table th:nth-child(10),
+.project-table td:nth-child(10) {
+    width: 5px;
+    /* gör kolumnen för vialer smalare */
+}
+
+.project-table th:nth-child(14),
+.project-table td:nth-child(14) {
+    width: 160px;
+    /* gör kolumnen för vialer smalare */
 }
 
 .flag-filter-container button {
- height: 32px !important;
+    height: 32px !important;
 }
 
 .flag-filter-container.active-filter button {
-  background-color: #ffffff;
-  max-height: 32px !important;
-  color: #164e86;
-  font-weight: 700;
+    background-color: #ffffff;
+    max-height: 32px !important;
+    color: #164e86;
+    font-weight: 700;
 }
 
 .flag-filter-container {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .flag-filter-container.active-filter {
-  background-color: #e0e0e0 !important; 
-  border-radius: 6px;
+    background-color: #e0e0e0 !important;
+    border-radius: 6px;
 }
 
 .flag-filter-dropdown {
-  display: none;
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  padding: 4px 0;
-  font-size: 12px;
-  border: 1px solid #ddd;
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 4px 0;
+    font-size: 12px;
+    border: 1px solid #ddd;
 }
 
 .flag-filter-container:hover .flag-filter-dropdown {
-  display: block;
+    display: block;
 }
 
 .flag-filter-option {
-  padding: 4px 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    padding: 4px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .flag-filter-option:hover {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 .flag-filter-option.selected {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 .flag-button {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  cursor: pointer;
-  border: 1px solid #ccc;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #ccc;
 }
 
 /* Behåll dina befintliga flaggfärger */
-.flag-button.red { background-color: #ff6b6b; }
-.flag-button.orange { background-color: #ffa502; }
-.flag-button.yellow { background-color: #f9ca24; }
-.flag-button.green { background-color: #51cf66; }
-.flag-button.blue { background-color: #339af0; }
+.flag-button.red {
+    background-color: #ff6b6b;
+}
+
+.flag-button.orange {
+    background-color: #ffa502;
+}
+
+.flag-button.yellow {
+    background-color: #f9ca24;
+}
+
+.flag-button.green {
+    background-color: #51cf66;
+}
+
+.flag-button.blue {
+    background-color: #339af0;
+}
+
+.project-table td.date-picker-cell {
+    padding-right: 6px !important;
+    /* Samma som dina andra celler */
+    width: auto;
+    /* Eller en specifik bredd om du vill */
+}
+
+.date-picker-cell .calendar-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Lägg till dessa regler i din CSS-fil */
+.react-datepicker-wrapper {
+    width: 100% !important;
+}
+
+.react-datepicker__input-container {
+    width: 100% !important;
+    display: block !important;
+}
+
+.date-picker-cell {
+    padding: 0.2rem 6px !important;
+    /* Matchar dina andra celler */
+    width: 1%;
+    /* Låter cellen anpassa sig efter innehållet */
+}
+
+.calendar-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
