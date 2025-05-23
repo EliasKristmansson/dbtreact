@@ -366,7 +366,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
@@ -441,7 +441,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 														handleSaveComment(index);
 													}
 												}}
-												placeholder="Skriv kommentar..."
+												placeholder="Kommentar..."
 											/>
 										</td>
 										<td>
