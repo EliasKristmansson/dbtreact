@@ -242,7 +242,6 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			>
 				{value || "Välj datum"}
 			</span>
-			<Calendar size={16} style={{ flexShrink: 0 }} />
 		</div>
 	));
 
