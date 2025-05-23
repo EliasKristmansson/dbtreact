@@ -1,19 +1,21 @@
 ﻿import React, { useState, useRef, useEffect } from "react";
 import "../App.css";
 import { X } from "lucide-react";
-import logo from "../assets/Pelagia_Logotyp_Sekundar_Vit_RGB.svg";
+import logo from "../assets/Pelagia_Logotyp_Sekundar_Vit_RGB.svg"
 
 export default function Topbar({
     projectName,
     deadline = "Ingen deadline",
     priority = "medium",
     tabs,
+    rowCount,
     activeTabId,
     onTabClick,
     onTabClose,
     onTabRename,
     allProjects,
-    commentCount = 0
+    commentCount = 0,
+    greenFlagsCount = 0
 }) {
     const [contextMenu, setContextMenu] = useState(null);
     const [renameValue, setRenameValue] = useState("");
@@ -106,7 +108,7 @@ export default function Topbar({
                 <h2 className="project-name">{projectName}</h2>
                 <div className="project-meta">
                     <p className="project-other">Deadline: <span>{deadline}</span></p>
-                    <p className="project-other">0/100 prover klara</p>
+                    <p className="project-other">{greenFlagsCount}/{rowCount} prover klara</p>
                     <p className="project-other">{commentCount} Kommentarer</p>
                 </div>
             </div>

@@ -27,18 +27,18 @@
     margin-left: auto;
 }
 
-    .add-btn:hover {
-        background-color: #111;
-    }
+.add-btn:hover {
+    background-color: #111;
+}
 
 .complete-project-btn {
     background-color: #4caf50;
     margin-left: 10px;
 }
 
-    .complete-project-btn:hover {
-        background-color: #388e3c;
-    }
+.complete-project-btn:hover {
+    background-color: #388e3c;
+}
 
 .table-container {
     overflow-x: auto;
@@ -52,206 +52,187 @@
     background-color: transparent;
 }
 
-    .project-table th {
-        background-color: transparent;
-        color: #222;
-        font-size: 0.8rem;
-        font-weight: 600;
-        border: none;
-        text-align: left;
-        padding: 0.5rem 10px;
-        border-right: 1px solid #ddd;
-    }
+.project-table th {
+    background-color: transparent;
+    color: #222;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: none;
+    text-align: left;
+    padding: 0.2rem 6px;
+    /* minskat från 0.4rem till 0.2rem */
+    border-right: 1px solid #ddd;
+}
 
-    .project-table td {
-        font-size: 0.8rem;
-        background-color: transparent;
-        padding: 0.5rem 10px 5px;
-        text-align: left;
-        word-break: break-word;
-        white-space: nowrap;
-        border-right: 1px solid #ddd;
-    }
+.project-table td {
+    font-size: 0.8rem;
+    background-color: transparent;
+    padding: 0.2rem 6px;
+    /* minskat från 0.4rem till 0.2rem */
+    text-align: left;
+    word-break: break-word;
+    white-space: nowrap;
+    border-right: 1px solid #ddd;
+}
 
-    .project-table tr {
-        display: table-row;
-    }
+.project-table tr {
+    display: table-row;
+}
 
-    .project-table th:last-child,
-    .project-table td:last-child {
-        border-right: none;
-    }
+.project-table th:last-child,
+.project-table td:last-child {
+    border-right: none;
+}
 
-    .project-table input,
-    .project-table textarea {
-        width: 100%;
-        padding: 0.2rem 0.3rem;
-        border: none;
-        box-shadow: 0 0 0 1px #ccc;
-        background-color: white;
-        box-sizing: border-box;
-        border-radius: 4px;
-        font: inherit;
-    }
+.project-table input,
+.project-table textarea {
+    width: 100%;
+    padding: 0.2rem 0.3rem;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font: inherit;
+}
 
-        .project-table input:focus,
-        .project-table textarea:focus {
-            outline: none;
-            background-color: white;
-            box-shadow: 0 0 2px 2px #d3d3d3;
-        }
+.project-table input:focus,
+.project-table textarea:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 2px 2px #d3d3d3;
+}
 
-    .project-table textarea {
-        height: 25px;
-        resize: none;
-        padding: 2px 4px;
-        line-height: 1.2;
-        overflow: hidden;
-        display: block;
-        margin: 0;
-    }
+.project-table textarea {
+    height: 25px;
+    resize: none;
+    padding: 2px 10px;
+    line-height: 1.2;
+    overflow: hidden;
+    display: block;
+    margin: 0;
+}
 
-        .project-table textarea::placeholder {
-            font-size: 0.7rem;
-        }
+.project-table textarea::placeholder {
+    font-size: 0.7rem;
+}
 
-    .project-table td input[type="number"] {
-        padding: 0.2rem;
-        font-size: 0.85rem;
-        border: none;
-        background-color: transparent;
-        border-radius: 4px;
-    }
+.project-table td input[type="number"] {
+    padding: 0.2rem;
+    font-size: 0.85rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+}
 
-    .project-table button {
-        padding: 0.3rem 0.5rem;
-        background: none;
-        color: #666;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1.2rem;
-        transition: color 0.2s;
-    }
+.project-table button {
+    padding: 0.3rem 0.5rem;
+    background: none;
+    color: #666;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
 
-        .project-table button:hover {
-            color: #111;
-        }
+.project-table button:hover {
+    color: #111;
+}
 
-    /* Antal djur inputs */
-    .project-table .antal-djur-inputs {
-        display: flex;
-        align-items: center;
-        gap: 0.2rem;
-    }
+.project-table .antal-djur-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    width: 100%;
+    min-width: 0;
+}
 
-        .project-table .antal-djur-inputs input {
-            width: 40px;
-            text-align: center;
-            padding: 0.2rem;
-            border: none;
-            box-shadow: 0 0 0 1px #ccc;
-            background-color: white;
-            box-sizing: border-box;
-            border-radius: 4px;
-            font: inherit;
-        }
+.antal-djur-inputs input {
+    width: 40px !important;
+    min-width: 0;
+    flex: 1;
+}
 
-            .project-table .antal-djur-inputs input:focus {
-                outline: none;
-                background-color: white;
-                box-shadow: 0 0 2px 2px #d3d3d3;
-            }
+.antal-djur-inputs span {
+    white-space: nowrap;
+}
+
+.project-table .antal-djur-inputs input {
+    width: 40px;
+    text-align: center;
+    padding: 0.2rem;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.project-table .antal-djur-inputs input:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 2px 2px #d3d3d3;
+}
 
 .flag-container {
     text-align: left;
 }
 
-.flag-button {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #3d3636;
-    cursor: pointer;
-    box-shadow: 0 0 0 1px #ccc;
-    transition: background-color 0.3s, transform 0.2s;
-    margin: 0;
-}
+/* flag-button behålls orörd */
 
-    .flag-button.green {
-        background-color: #00af52;
-    }
-
-    .flag-button.yellow {
-        background-color: #ffff01;
-    }
-
-    .flag-button.red {
-        background-color: #fd0002;
-    }
-
-    .flag-button.orange {
-        background-color: #ffc000;
-    }
-
-    .flag-button.blue {
-        background-color:#01b0f1;
-    }
-
-    .flag-button:hover {
-        transform: scale(1.2);
-    }
-
-/* Filter-knappar */
 .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    /* minskat gap */
     width: 100%;
 }
 
-    .filter-buttons button {
-        padding: 0.4rem 1rem;
-        background-color: #e6e6e6;
-        color: #333;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.75rem;
-        font-weight: 600;
-        transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
+.filter-buttons button {
+    padding: 0.3rem 0.8rem;
+    /* minskat padding */
+    background-color: #e6e6e6;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
 
-        .filter-buttons button:hover {
-            background-color: #d0d0d0;
-            color: #111;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
+.filter-buttons button:hover {
+    background-color: #d0d0d0;
+    color: #111;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
 
-    .filter-buttons .active-filter {
-        background-color: #ffffff;
-        color: #164e86;
-        border: 1px solid #164e86;
-        font-weight: 700;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
+.filter-buttons .active-filter {
+    background-color: #ffffff;
+    color: #164e86;
+    border: 1px solid #164e86;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 
-    .filter-buttons .active-filter:hover {
-        transform: none;
-    }
+.filter-buttons .active-filter:hover {
+    transform: none;
+}
 
-    .filter-buttons .rensa-filter-btn {
-        background-color: #ffecec;
-        border: 1px solid #e0b4b4;
-        color: #a10000;
-    }
+.filter-buttons .rensa-filter-btn {
+    background-color: #ffecec;
+    border: 1px solid #e0b4b4;
+    color: #a10000;
+}
 
-        .filter-buttons .rensa-filter-btn:hover {
-            background-color: #f8c9c9;
-            color: #800000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
+.filter-buttons .rensa-filter-btn:hover {
+    background-color: #f8c9c9;
+    color: #800000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
 
 .project-table .delete-row-icon-td,
 .project-table .delete-row-icon-th {
@@ -261,9 +242,9 @@
     padding: 0;
 }
 
-    .project-table .delete-row-icon-td button {
-        padding: 0 0 0 0.3rem;
-    }
+.project-table .delete-row-icon-td button {
+    padding: 0 0 0 0.3rem;
+}
 
 .new-project {
     display: flex;
@@ -284,6 +265,198 @@
     transition: background-color 0.3s;
 }
 
-    .new-project-btn:hover {
-        background-color: #164e86;
-    }
+.new-project-btn:hover {
+    background-color: #164e86;
+}
+
+.flag-container {
+    text-align: left;
+}
+
+.flag-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #3d3636;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #ccc;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0;
+}
+
+.flag-button.green {
+    background-color: #00af52;
+}
+
+.flag-button.yellow {
+    background-color: #ffff01;
+}
+
+.flag-button.red {
+    background-color: #fd0002;
+}
+
+.flag-button.orange {
+    background-color: #ffc000;
+}
+
+.flag-button.blue {
+    background-color: #01b0f1;
+}
+
+.flag-button:hover {
+    transform: scale(1.2);
+}
+
+
+
+.project-table .delete-row-icon-td,
+.project-table .delete-row-icon-th {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    padding: 0;
+}
+
+.project-table .delete-row-icon-td button {
+    padding: 0 0 0 0.3rem;
+}
+
+
+.project-table col.col-kommentar {
+    width: 50px;
+}
+
+.project-table th:nth-child(5),
+.project-table td:nth-child(5) {
+    width: 5px;
+}
+
+.project-table th:nth-child(10),
+.project-table td:nth-child(10) {
+    width: 5px;
+    /* gör kolumnen för vialer smalare */
+}
+
+.project-table th:nth-child(14),
+.project-table td:nth-child(14) {
+    width: 160px;
+    /* gör kolumnen för vialer smalare */
+}
+
+.flag-filter-container button {
+    height: 32px !important;
+}
+
+.flag-filter-container.active-filter button {
+    background-color: #ffffff;
+    max-height: 32px !important;
+    color: #164e86;
+    font-weight: 700;
+}
+
+.flag-filter-container {
+    position: relative;
+    display: inline-block;
+}
+
+.flag-filter-container.active-filter {
+    background-color: #e0e0e0 !important;
+    border-radius: 6px;
+}
+
+.flag-filter-dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 4px 0;
+    font-size: 12px;
+    border: 1px solid #ddd;
+}
+
+.flag-filter-container:hover .flag-filter-dropdown {
+    display: block;
+}
+
+.flag-filter-option {
+    padding: 4px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flag-filter-option:hover {
+    background-color: #f1f1f1;
+}
+
+.flag-filter-option.selected {
+    background-color: #e0e0e0;
+}
+
+.flag-button {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+/* Behåll dina befintliga flaggfärger */
+.flag-button.red {
+    background-color: #ff6b6b;
+}
+
+.flag-button.orange {
+    background-color: #ffa502;
+}
+
+.flag-button.yellow {
+    background-color: #f9ca24;
+}
+
+.flag-button.green {
+    background-color: #51cf66;
+}
+
+.flag-button.blue {
+    background-color: #339af0;
+}
+
+.project-table td.date-picker-cell {
+    padding-right: 6px !important;
+    /* Samma som dina andra celler */
+    width: auto;
+    /* Eller en specifik bredd om du vill */
+}
+
+.date-picker-cell .calendar-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Lägg till dessa regler i din CSS-fil */
+.react-datepicker-wrapper {
+    width: 100% !important;
+}
+
+.react-datepicker__input-container {
+    width: 100% !important;
+    display: block !important;
+}
+
+.date-picker-cell {
+    padding: 0.2rem 6px !important;
+    /* Matchar dina andra celler */
+    width: 1%;
+    /* Låter cellen anpassa sig efter innehållet */
+}
+
+.calendar-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}

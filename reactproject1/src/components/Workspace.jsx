@@ -9,7 +9,7 @@ import { Calendar } from "lucide-react";
 import CrazyButton from "./Crazybutton.jsx";
 
 
-export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount }) {
+export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCommentCount, onRowCount, onGreenFlagsCount }) {
 	const [projectData, setProjectData] = useState({});
 	const [filterMap, setFilterMap] = useState({});
 	const [showModal, setShowModal] = useState(false);
@@ -24,17 +24,18 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			[activeTabId]: [
 				{
 					märkning: "",
+					datum: "",
 					inkommet: "",
 					antalvialer: "",
 					plockat: "",
 					andelPlockat: "",
-					datum: "",
 					artat: "",
 					artatdatum: "",
 					antalDjur: "",
 					hemtagna: "",
 					åter: "",
 					kommentarer: "",
+					fel: "",
 					flag: "red",
 				},
 			],
@@ -46,6 +47,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 
 	const updateProjectRows = (newRows) => {
 		setProjectData((prev) => ({ ...prev, [activeTabId]: newRows }));
+
 	};
 
 	const handleChange = (index, field, value) => {
@@ -57,7 +59,6 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	const toggleFlag = (index) => {
 		const updatedRows = [...rows];
 		const currentFlag = updatedRows[index].flag;
-
 		const flagCycle = ["red", "orange", "yellow", "green", "blue"];
 		const currentIndex = flagCycle.indexOf(currentFlag);
 		const nextIndex = (currentIndex + 1) % flagCycle.length;
@@ -69,9 +70,13 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 
 	useEffect(() => {
 		const rows = projectData[activeTabId] || [];
-
+		onRowCount(rows.length);
 		// Skip update if the comment modal is open (i.e., pending comment not confirmed)
 		if (showModal) return;
+
+		// Räknar antalet gröna flaggor
+		const greenFlagsCount = rows.filter(row => row.flag === "green").length;
+		onGreenFlagsCount(greenFlagsCount);
 
 		const count = rows.filter(row => row.kommentarer?.trim()).length;
 		setCommentCount(count);
@@ -95,22 +100,41 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		setPendingCommentIndex(null);
 	};
 
+	const colorOptions = [
+		{ color: "red", label: "Röd" },
+		{ color: "orange", label: "Orange" },
+		{ color: "yellow", label: "Gul" },
+		{ color: "green", label: "Grön" },
+		{ color: "blue", label: "Blå" }
+	];
+
+	const felAlternativ = [
+		"För lite material",
+		"För mycket material",
+		"Dåligt konserverat",
+		"Mycket dåligt konserverat",
+		"För gammalt prov",
+		"Förstört prov",
+		"Annat fel"
+	];
+
 	const addRow = () => {
 		updateProjectRows([
 			...rows,
 			{
 				märkning: "",
+				datum: "",
 				inkommet: "",
 				antalvialer: "",
 				plockat: "",
 				andelPlockat: "",
-				datum: "",
 				artat: "",
 				artatdatum: "",
 				antalDjur: "",
 				hemtagna: "",
 				åter: "",
 				kommentarer: "",
+				fel: "",
 				flag: "red",
 			},
 		]);
@@ -129,12 +153,20 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	};
 
 	const filteredRows = rows.filter((row) => {
-		return filters.every((filter) => {
+		// Hantera flaggförst - OR-logik för färger
+		const flagFilters = filters.filter(f => f.startsWith("flag-"));
+		if (flagFilters.length > 0) {
+			const flagColors = flagFilters.map(f => f.split("flag-")[1]);
+			if (!flagColors.includes(row.flag)) {
+				return false;
+			}
+		}
+
+		// Hantera övriga filter - AND-logik som tidigare
+		return filters.filter(f => !f.startsWith("flag-")).every((filter) => {
 			switch (filter) {
 				case "intePlockade":
 					return !row.plockat?.trim();
-				case "flaggade":
-					return ["green", "yellow", "red", "blue", "orange"].includes(row.flag);
 				case "kommenterade":
 					return !!row.kommentarer?.trim();
 				default:
@@ -153,8 +185,30 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		});
 	};
 
+	const handleToggleFlagFilter = (color) => {
+		const filterName = `flag-${color}`; // Skapar t.ex. "flag-red", "flag-green" etc
+		setFilterMap((prev) => {
+			const currentFilters = prev[activeTabId] || [];
+			// Toggle filter - lägg till om det inte finns, ta bort om det finns
+			const newFilters = currentFilters.includes(filterName)
+				? currentFilters.filter((f) => f !== filterName)
+				: [...currentFilters, filterName];
+			return { ...prev, [activeTabId]: newFilters };
+		});
+	};
+
+	const clearFlagFilters = () => {
+		setFilterMap((prev) => ({
+			...prev,
+			[activeTabId]: prev[activeTabId]?.filter(f => !f.startsWith("flag-")) || []
+		}));
+	};
+
 	const clearFilters = () => {
-		setFilterMap((prev) => ({ ...prev, [activeTabId]: [] }));
+		setFilterMap((prev) => ({
+			...prev,
+			[activeTabId]: [] // Rensa alla filter för den aktiva fliken
+		}));
 	};
 
 	const CalendarInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -212,8 +266,8 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 			{showEmpty ? (
 				<div className="new-project">
 					<CrazyButton onClick={onNewProjectClick} />
-						
-					
+
+
 				</div>
 			) : (
 				<>
@@ -223,10 +277,31 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								className={filters.includes("intePlockade") ? "active-filter" : ""}>
 								Inte plockade
 							</button>
-							<button onClick={() => handleSetFilter("flaggade")}
-								className={filters.includes("flaggade") ? "active-filter" : ""}>
-								Flaggade
-							</button>
+							<div
+								className={`flag-filter-container ${filters.some(f => f.startsWith("flag-")) ? "active-filter" : ""}`}
+								onClick={() => {
+									// Toggla bort alla flaggfilters om något är valt
+									if (filters.some(f => f.startsWith("flag-"))) {
+										clearFlagFilters();
+									}
+								}}
+							>
+								<button onClick={(e) => e.stopPropagation()}>
+									Flaggning {filters.some(f => f.startsWith("flag-")) ? "✓" : "▼"}
+								</button>
+								<div className="flag-filter-dropdown" onClick={(e) => e.stopPropagation()}>
+									{colorOptions.map(({ color, label }) => (
+										<div
+											key={color}
+											className={`flag-filter-option ${filters.includes(`flag-${color}`) ? "selected" : ""}`}
+											onClick={() => handleToggleFlagFilter(color)}
+										>
+											<span className={`flag-button ${color}`}></span>
+											{label}
+										</div>
+									))}
+								</div>
+							</div>
 							<button onClick={() => handleSetFilter("kommenterade")}
 								className={filters.includes("kommenterade") ? "active-filter" : ""}>
 								Kommenterade
@@ -259,6 +334,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 									<th>Prover hemtagna</th>
 									<th>Prover åter</th>
 									<th>Kommentarer</th>
+									<th>Fel</th>
 									<th className="delete-row-icon-th"></th>
 								</tr>
 							</thead>
@@ -272,7 +348,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 											></button>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.märkning} onChange={(e) => handleChange(index, "märkning", e.target.value)} /></td>
-										<td>
+										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.datum ? parseISO(row.datum) : null}
 												onChange={(date) => handleChange(index, "datum", date ? date.toLocaleDateString('sv-SE') : "")}
@@ -281,7 +357,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td>
+										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.inkommet ? parseISO(row.inkommet) : null}
 												onChange={(date) => handleChange(index, "inkommet", date ? date.toLocaleDateString('sv-SE') : "")}
@@ -290,8 +366,8 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
-										<td>
+										<td><input style={{ height: "25px" }} type="text" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
 												onChange={(date) => handleChange(index, "plockat", date ? date.toLocaleDateString('sv-SE') : "")}
@@ -302,9 +378,9 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
 										<td><input style={{ height: "25px" }} type="text" value={row.artat} onChange={(e) => handleChange(index, "artat", e.target.value)} /></td>
-										<td>
+										<td className="date-picker-cell">
 											<DatePicker
-												selected={row.plockat ? parseISO(row.plockat) : null}
+												selected={row.artatdatum ? parseISO(row.artatdatum) : null}
 												onChange={(date) => handleChange(index, "artatdatum", date ? date.toLocaleDateString('sv-SE') : "")}
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
@@ -336,7 +412,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												/>
 											</div>
 										</td>
-										<td>
+										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.hemtagna ? parseISO(row.hemtagna) : null}
 												onChange={(date) => handleChange(index, "hemtagna", date ? date.toLocaleDateString('sv-SE') : "")}
@@ -345,7 +421,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td>
+										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.åter ? parseISO(row.åter) : null}
 												onChange={(date) => handleChange(index, "åter", date ? date.toLocaleDateString('sv-SE') : "")}
@@ -367,6 +443,33 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												}}
 												placeholder="Skriv kommentar..."
 											/>
+										</td>
+										<td>
+											<select
+												value={row.fel || ""}
+												onChange={(e) => handleChange(index, "fel", e.target.value || null)}
+												style={{
+													height: "25px",
+													width: "100%",
+													padding: "0.2rem 0.3rem",
+													border: "none",
+													boxShadow: "0 0 0 1px #ccc",
+													borderRadius: "4px",
+													backgroundColor: "white",
+													fontSize: "0.8rem",
+													color: !row.fel ? "#999" : "#333"
+												}}
+											>
+												<option value="" style={{ color: '#999' }}>Välj fel...</option>
+												{felAlternativ.map((alternativ) => (
+													<option key={alternativ} value={alternativ} style={{ color: '#333' }}>
+														{alternativ}
+													</option>
+												))}
+												{row.fel && !felAlternativ.includes(row.fel) && (
+													<option value={row.fel} style={{ color: '#333' }}>{row.fel}</option>
+												)}
+											</select>
 										</td>
 										<td className="delete-row-icon-td">
 											<button onClick={() => { setPendingDeleteIndex(index); setShowDeleteModal(true); }}> 🗑️</button>
