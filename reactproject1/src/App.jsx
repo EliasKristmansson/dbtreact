@@ -158,7 +158,7 @@ export default function App() {
 	return (
 		<div className="app">
 			<Topbar
-				projectName={activeTab ? allProjects.find(p => p.id === activeTab.id)?.name || "Ingen tab" : "Byt namn på projekt..."}
+				projectName={activeTab ? allProjects.find(p => p.id === activeTab.id)?.name || "Ingen tab" : ""}
 				deadline="30 april 2025"
 				priority="high"
 				tabs={tabs}
