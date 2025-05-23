@@ -22,14 +22,14 @@ export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, o
         return initialState;
       });
 
-  const handleDelete = (folderTitle, projectIndex) => {
+  const handleDelete = (folder, projectIndex) => {
     if (window.confirm("Vill du ta bort detta projekt?")) {
-      onProjectDelete(folderTitle, projectIndex);
+      onProjectDelete(folder, projectIndex);
     }
   };
 
-  const handleRename = (folderTitle, oldName, newName) => {
-    onProjectRename(folderTitle, oldName, newName);
+  const handleRename = (folder, oldName, newName) => {
+    onProjectRename(folder.path, oldName, newName);
   };
 
   const startResizing = (e) => {

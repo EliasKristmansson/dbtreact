@@ -64,10 +64,12 @@ export default function App() {
 		}
 	};
 
-	const handleProjectDelete = (folderName, projectIndex) => {
+	const handleProjectDelete = (folder, projectIndex) => {
+		console.log(folder.path, "folder")
 		// Filtrera fram alla projekt i just den foldern
-		const projectsInFolder = allProjects.filter(p => p.folder === folderName);
+		const projectsInFolder = allProjects.filter(p => p.folder === folder.path);
 
+		console.log(projectsInFolder, "projects in folder")
 		// Hämta det faktiska projektet vi vill ta bort
 		const projectToDelete = projectsInFolder[projectIndex];
 		if (!projectToDelete) return;
@@ -149,6 +151,7 @@ export default function App() {
 					? { ...project, name: newName }
 					: project
 			)
+			
 		);
 	};
 

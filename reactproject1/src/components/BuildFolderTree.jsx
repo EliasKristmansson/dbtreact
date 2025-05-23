@@ -11,6 +11,7 @@ export default function buildFolderTree(projects){
 			if(!existingFolder){
 				existingFolder = {
 					title: folderName,
+					path: project.folder,
 					projects: [],
 					subFolders: [],
 				};
