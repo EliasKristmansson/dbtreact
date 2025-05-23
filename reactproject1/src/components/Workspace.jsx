@@ -365,7 +365,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px", width: "30px" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px", width: "30px", backgroundColor:"white" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}

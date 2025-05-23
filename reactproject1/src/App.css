@@ -83,14 +83,14 @@ body {
 
 .tab {
     background-color: #e4e4e4;
-    padding: 8px 16px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    padding: 6px 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     color: #333;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     font-weight: 500;
     font-size: 0.95rem;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
