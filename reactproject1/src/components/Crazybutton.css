@@ -1,57 +1,15 @@
 .crazy-button {
-	position: relative;
-	padding: 1rem 2rem;
-	font-size: 1.2rem;
-	border: none;
-	border-radius: 12px;
-	cursor: pointer;
-	color: white;
-	background: #111;
-	overflow: hidden;
-	transition: background-color 0.3s ease;
-	z-index: 0;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #164e86;
+  color: white;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.crazy-button::before {
-	content: "";
-	position: absolute;
-	top: var(--y);
-	left: var(--x);
-	transform: translate(-50%, -50%);
-	width: 200px;
-	height: 200px;
-	background: radial-gradient(circle at center, rgba(0, 123, 255, 0.4), transparent 70%);
-	opacity: 0;
-	transition: opacity 0.2s ease;
-	pointer-events: none;
-	z-index: 1;
-}
-
-.crazy-button:hover::before {
-	opacity: 1;
-}
-
-.crazy-button::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 12px;
-	padding: 2px;
-	background: linear-gradient(90deg, rgb(249, 4, 53), rgb(7, 183, 210), rgb(207, 224, 20));
-	background-size: 400%;
-	filter: blur(5px);
-	z-index: -1;
-	animation: glowMove 0.5s  infinite;
-}
-
-@keyframes glowMove {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+.crazy-button:hover {
+  background-color: #2361a0;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.4);
 }
