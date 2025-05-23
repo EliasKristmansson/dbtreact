@@ -145,6 +145,7 @@ export default function Project({
 						top: datePickerPosition.y,
 						left: datePickerPosition.x,
 						zIndex: 9999,
+						marginTop: "-70px",
 					}}
 				>
 					<DatePicker
