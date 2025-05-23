@@ -232,14 +232,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 				color: "#333",
 			}}
 		>
-			<span
-				style={{
-					marginRight: "8px",
-					whiteSpace: "nowrap",
-					overflow: "hidden",
-					textOverflow: "ellipsis",
-				}}
-			>
+			<span>
 				{value || "Välj datum"}
 			</span>
 		</div>
@@ -322,7 +315,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								<tr>
 									<th className="flag-column"></th>
 									<th>Märkning</th>
-									<th>Provtaget datum</th>
+									<th>Provtaget <br />datum</th>
 									<th>Inkommet</th>
 									<th>Antal<br />vialer</th>
 									<th>Plockat</th>
@@ -330,7 +323,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 									<th>Artat</th>
 									<th>Artat datum</th>
 									<th>Antal djur</th>
-									<th>Prover hemtagna</th>
+									<th>Prover <br />hemtagna</th>
 									<th>Prover åter</th>
 									<th>Kommentarer</th>
 									<th>Fel</th>
@@ -365,7 +358,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												placeholderText="Välj datum"
 											/>
 										</td>
-										<td><input style={{ height: "25px", width: "30px", backgroundColor:"white" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px", width: "30px", backgroundColor: "white" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
