@@ -184,6 +184,7 @@
         font-size: 0.65rem;
         font-weight: 600;
         transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        height: 25px; /* Set consistent height */
     }
 
         .filter-buttons button:hover {
@@ -198,6 +199,7 @@
         border: 1px solid #164e86;
         font-weight: 700;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        height: 25px; /* Set consistent height */
     }
 
     .filter-buttons .rensa-filter-btn {
@@ -307,7 +309,7 @@
 }
 
 .flag-filter-container button {
-    height: 32px !important;
+    height: 25px; /* Set consistent height */
 }
 
 .flag-filter-container.active-filter button {
