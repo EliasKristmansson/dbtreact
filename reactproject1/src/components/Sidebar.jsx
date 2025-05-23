@@ -22,11 +22,6 @@ export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, o
         return initialState;
       });
 
-  const handleDelete = (folder, projectIndex) => {
-    if (window.confirm("Vill du ta bort detta projekt?")) {
-      onProjectDelete(folder, projectIndex);
-    }
-  };
 
   const handleRename = (folder, oldName, newName) => {
     onProjectRename(folder.path, oldName, newName);
@@ -127,7 +122,8 @@ const closeAllFolders = () => {
       <div className="folder-container">
         <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
           {folders.map((folder,i) => {
-            const projects = allProjects.filter(p => p.folder === folder);
+              const projects = allProjects.filter(p => p.folder === folder.path); 
+
             return (
               <Folder
                 key={i}
@@ -138,10 +134,11 @@ const closeAllFolders = () => {
                 toggleFolder={() => toggleFolder(folder)}
                 projects={projects}
                 onProjectDoubleClick={onProjectOpen}
-                onProjectDelete={(projectIndex) => onProjectDelete(folder, projectIndex)}
+                onProjectDelete={onProjectDelete}
                 onProjectRename={handleRename}
               />
             );
+            
           })}
         </div>
       </div>

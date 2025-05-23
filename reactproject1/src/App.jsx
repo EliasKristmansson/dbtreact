@@ -64,24 +64,12 @@ export default function App() {
 		}
 	};
 
-	const handleProjectDelete = (folder, projectIndex) => {
-		console.log(folder.path, "folder")
-		// Filtrera fram alla projekt i just den foldern
-		const projectsInFolder = allProjects.filter(p => p.folder === folder.path);
-
-		console.log(projectsInFolder, "projects in folder")
-		// Hämta det faktiska projektet vi vill ta bort
-		const projectToDelete = projectsInFolder[projectIndex];
+	const handleProjectDelete = (projectToDelete) => {
 		if (!projectToDelete) return;
-
-		// Uppdatera allProjects (ta bort projektet)
-		const updatedProjects = allProjects.filter(p => p !== projectToDelete);
-		setAllProjects(updatedProjects);
-
-		// Stäng tabben om den är öppen
-		if (projectToDelete.id !== undefined) {
-			handleTabClose(projectToDelete.id);
-		}
+	  
+		setAllProjects(prev => prev.filter(p => p.id !== projectToDelete.id));
+	  
+		handleTabClose(projectToDelete.id);
 	};
 
 	const handleAddFolder = (newFolderName) => {
@@ -144,10 +132,11 @@ export default function App() {
 		}));
 	};
 
-	const handleProjectRename = (folderName, oldName, newName) => {
+	const handleProjectRename = (folder, oldName, newName) => {
+		
 		setAllProjects(prevProjects =>
 			prevProjects.map(project =>
-				project.folder === folderName && project.name === oldName
+				project.folder === folder && project.name === oldName
 					? { ...project, name: newName }
 					: project
 			)

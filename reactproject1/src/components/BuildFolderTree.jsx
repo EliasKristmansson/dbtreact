@@ -5,7 +5,7 @@ export default function buildFolderTree(projects){
 	projects.forEach((project) => {
 		const path = project.folder.split("/");
 		let currentLevel = root;
-	
+
 		path.forEach((folderName, index) => {
 			let existingFolder = currentLevel.find((f) => f.title === folderName);
 			if(!existingFolder){

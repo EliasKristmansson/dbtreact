@@ -26,7 +26,7 @@ export default function Folder({ folder, projects =[], subFolders = [], onProjec
               name={proj.name}
               className={`project-item ${isActive(proj.id) ? "active" : ""}`}
               onDoubleClick={onProjectDoubleClick}
-              onDelete={() => onProjectDelete(idx)}
+              onDelete={() => onProjectDelete(proj)}
               onRename={(oldName, newName) => onProjectRename(folder, oldName, newName)}
             />
           ))}
