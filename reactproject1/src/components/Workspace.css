@@ -96,6 +96,8 @@
         padding: 0.2rem 0.3rem;
         line-height: 1.2;
         overflow: hidden;
+        margin: 0;
+        vertical-align: middle;
     }
 
         .project-table textarea::placeholder {
