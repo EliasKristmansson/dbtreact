@@ -75,7 +75,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		if (showModal) return;
 
 		// Räknar antalet gröna flaggor
-		const greenFlagsCount = rows.filter(row => row.flag === "green").length;
+		const greenFlagsCount = rows.filter(row => row.flag === "green" || row.flag === "blue").length;
 		onGreenFlagsCount(greenFlagsCount);
 
 		const count = rows.filter(row => row.kommentarer?.trim()).length;
