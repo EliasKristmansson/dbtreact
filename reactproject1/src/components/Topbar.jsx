@@ -21,6 +21,18 @@ export default function Topbar({
     const [renameValue, setRenameValue] = useState("");
     const inputRef = useRef();
 
+    const [isRenaming, setIsRenaming] = useState(false);
+    const [renameInput, setRenameInput] = useState(projectName);
+    const renameInputRef = useRef(null);
+
+
+    useEffect(() => {
+	    if (isRenaming) {
+	    	renameInputRef.current?.focus();
+	    }
+    }, [isRenaming]);
+
+
     // 🔹 Visa input automatiskt
     useEffect(() => {
         if (contextMenu) {
@@ -105,7 +117,36 @@ export default function Topbar({
 
             <div className="topbar-content-right">
                 <div className={`priority-indicator ${priority}`} aria-label={`Priority: ${priority}`} />
-                <h2 className="project-name">{projectName}</h2>
+                {isRenaming ? (
+	<input
+		ref={renameInputRef}
+		className="rename-input"
+		value={renameInput}
+		onChange={(e) => setRenameInput(e.target.value)}
+		onBlur={() => setIsRenaming(false)}
+		onKeyDown={(e) => {
+			if (e.key === "Enter") {
+				const project = allProjects.find(p => p.id === activeTabId);
+				if (project && renameInput.trim() !== project.name) {
+					onTabRename(project, renameInput.trim());
+				}
+				setIsRenaming(false);
+			} else if (e.key === "Escape") {
+				setIsRenaming(false);
+				setRenameInput(projectName);
+			}
+		}}
+	/>
+) : (
+	<h2
+		className="project-name"
+		onDoubleClick={() => setIsRenaming(true)}
+		title="Dubbelklicka för att byta namn"
+	>
+		{projectName}
+	</h2>
+)}
+
                 <div className="project-meta">
                     <p className="project-other">Deadline: <span>{deadline}</span></p>
                     <p className="project-other">{greenFlagsCount}/{rowCount} prover klara</p>
