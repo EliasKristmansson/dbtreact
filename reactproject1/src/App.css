@@ -118,11 +118,15 @@ body {
 .project-name {
     color: black;
     margin: 0;
-    
     font-size: 1rem;
     font-weight: 600;
     white-space: nowrap;
 }
+
+    .project-name:hover {
+        border-bottom: 2px solid black;
+        cursor: pointer;
+    }
 
 .project-item {
     display: flex;
