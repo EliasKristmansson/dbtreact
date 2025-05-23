@@ -169,7 +169,13 @@ export default function App() {
 				onTabClose={handleTabClose}
 				allProjects={allProjects}
 				commentCount={commentCount}
-			/>
+			onTabRename={(tab, newName) => {
+    const project = allProjects.find(p => p.id === tab.id);
+    if (project) {
+      handleProjectRename(project.folder, project.name, newName);
+    }
+  }}
+/>
 
 			<div className="main-content">
 				{viewMode === "workspace" ? (
