@@ -278,7 +278,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 								Inte plockade
 							</button>
 							<div
-								className={`flag-filter-container ${filters.some(f => f.startsWith("flag-")) ? "active-filter" : ""}`}
+								className={"flag-filter-container"}
 								onClick={() => {
 									// Toggla bort alla flaggfilters om något är valt
 									if (filters.some(f => f.startsWith("flag-"))) {
@@ -286,7 +286,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 									}
 								}}
 							>
-								<button onClick={(e) => e.stopPropagation()}>
+								<button className={filters.some(f => f.startsWith("flag-")) ? "active-filter" : ""} onClick={(e) => e.stopPropagation()}>
 									Flaggning {filters.some(f => f.startsWith("flag-")) ? "✓" : "▼"}
 								</button>
 								<div className="flag-filter-dropdown" onClick={(e) => e.stopPropagation()}>
