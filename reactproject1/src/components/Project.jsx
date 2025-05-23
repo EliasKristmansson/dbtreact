@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import RenameModal from "./RenameModal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { parseISO } from "date-fns";
 
 export default function Project({
   name,
+  deadline, // förväntas vara sträng i ISO-format "yyyy-mm-dd" eller null
   onDoubleClick,
   onDelete,
   onRename,
@@ -19,6 +21,24 @@ export default function Project({
   const [datePickerPosition, setDatePickerPosition] = useState({ x: 0, y: 0 });
   const datePickerRef = useRef(null);
 
+  // Om deadline ändras från prop, parsar vi till Date objekt
+  useEffect(() => {
+    if (deadline) {
+      try {
+        const parsedDate = parseISO(deadline);
+        if (!isNaN(parsedDate)) {
+          setSelectedDate(parsedDate);
+        } else {
+          setSelectedDate(null);
+        }
+      } catch {
+        setSelectedDate(null);
+      }
+    } else {
+      setSelectedDate(null);
+    }
+  }, [deadline]);
+
   const handleContextMenu = (e) => {
     e.preventDefault();
     setSelectedProject(name);
@@ -28,7 +48,7 @@ export default function Project({
   const handleChangeDeadline = () => {
     setDatePickerPosition(contextMenu);
     setShowDatePicker(true);
-    setContextMenu(null); // Stäng menyn
+    setContextMenu(null);
   };
 
   const handleDelete = () => {
@@ -69,19 +89,13 @@ export default function Project({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showDatePicker]);
 
-  const formatDate = (date) => {
-    if (!date) return "2024-10-01";
-    return date.toISOString().split("T")[0];
-  };
-
   return (
     <div className={className} id="project-container">
-      <li
-        onDoubleClick={() => onDoubleClick(name)}
-        onContextMenu={handleContextMenu}
-      >
+      <li onDoubleClick={() => onDoubleClick(name)} onContextMenu={handleContextMenu}>
         <span>{name}</span>
-        <span className="project-date">{formatDate(selectedDate)}</span>
+        <span className="project-date">
+          {selectedDate ? selectedDate.toLocaleDateString("sv-SE") : "Ingen deadline"}
+        </span>
       </li>
 
       {contextMenu && (
@@ -136,10 +150,11 @@ export default function Project({
             selected={selectedDate}
             onChange={(date) => {
               setSelectedDate(date);
-              onDeadlineChange(name, date.toISOString().split("T")[0]);
+              onDeadlineChange(name, date ? date.toLocaleDateString("sv-SE") : "");
               setShowDatePicker(false);
             }}
             inline
+            dateFormat="yyyy-MM-dd"
           />
         </div>
       )}
