@@ -319,10 +319,10 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 							<button className="rensa-filter-btn" onClick={clearFilters}>
 								Rensa filter
 							</button>
-							<button className="add-btn" title="Lägg till rad (CTRL + Q)"onClick={addRow}>
+							<button className="add-btn" title="Lägg till rad (CTRL + Q)" onClick={addRow}>
 								+ Lägg till rad
 							</button>
-							<button className="complete-project-btn" onClick={markProjectAsDone}>
+								<button className="complete-project-btn" title="Färdigställ projekt" onClick={markProjectAsDone}>
 								✔ Projekt klart
 							</button>
 						</div>
