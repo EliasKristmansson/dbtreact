@@ -391,7 +391,8 @@
 }
 
 .project-table td.date-picker-cell {
-    padding-right: 6px !important;
+    padding-right: 4px !important;
+    padding-left: 4px !important;
     /* Samma som dina andra celler */
     width: auto;
     /* Eller en specifik bredd om du vill */
