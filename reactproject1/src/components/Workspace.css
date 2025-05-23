@@ -175,6 +175,7 @@
 }
 
     .filter-buttons button {
+        font:inherit;
         padding: 0.2rem 0.6rem;
         background-color: #e6e6e6;
         color: #333;
