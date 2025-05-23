@@ -1,7 +1,7 @@
 // CrazyButton.jsx
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import "./CrazyButton.css";
+import "./Crazybutton.css";
 
 export default function CrazyButton({ onClick }) {
 	const buttonRef = useRef(null);
