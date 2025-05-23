@@ -401,7 +401,6 @@
 }
 
 .date-picker-cell .calendar-input {
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -420,9 +419,4 @@
     /* Matchar dina andra celler */
     width: 1%;
     /* Låter cellen anpassa sig efter innehållet */
-}
-
-.calendar-input {
-    width: 100% !important;
-    box-sizing: border-box !important;
 }
