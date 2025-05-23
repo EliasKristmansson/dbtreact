@@ -299,17 +299,15 @@
 .project-table th:nth-child(10),
 .project-table td:nth-child(10) {
     width: 5px;
-    /* gör kolumnen för vialer smalare */
 }
 
 .project-table th:nth-child(14),
 .project-table td:nth-child(14) {
     width: 100px;
-    /* gör kolumnen för vialer smalare */
 }
 
 .flag-filter-container button {
-    height: 25px; /* Set consistent height */
+    height: 25px; 
 }
 
 .flag-filter-container.active-filter button {
