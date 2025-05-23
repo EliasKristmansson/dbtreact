@@ -6,12 +6,13 @@ import { parseISO } from "date-fns";
 
 export default function Project({
 	name,
-	deadline, // förväntas vara sträng i ISO-format "yyyy-mm-dd" eller null
+	deadline,
 	onDoubleClick,
 	onDelete,
 	onRename,
 	onDeadlineChange,
 	className,
+	projectId, // Lägg till projectId som prop
 	activeTabId
 }) {
 	const [contextMenu, setContextMenu] = useState(null);
@@ -22,7 +23,6 @@ export default function Project({
 	const [datePickerPosition, setDatePickerPosition] = useState({ x: 0, y: 0 });
 	const datePickerRef = useRef(null);
 
-	// Om deadline ändras från prop, parsar vi till Date objekt
 	useEffect(() => {
 		if (deadline) {
 			try {
@@ -151,13 +151,12 @@ export default function Project({
 						selected={selectedDate}
 						onChange={(date) => {
 							setSelectedDate(date);
-							onDeadlineChange(activeTabId, date ? date.toLocaleDateString("sv-SE") : "");
+							onDeadlineChange(projectId, date ? date.toLocaleDateString("sv-SE") : "");
 							setShowDatePicker(false);
 						}}
 						inline
 						dateFormat="yyyy-MM-dd"
 					/>
-
 				</div>
 			)}
 		</div>

@@ -5,16 +5,15 @@ import Workspace from "./components/Workspace";
 import Filter from "./components/Filter";
 import Statistik from "./components/Statistik";
 import buildFolderTree from "./components/BuildFolderTree";
-import Folder from "./components/Folder";
 
 export default function App() {
 	const [allProjects, setAllProjects] = useState([
-		{ id: 1, name: "Projekt 1", folder: "Prio" },
-		{ id: 2, name: "Projekt 2", folder: "Prio/Sub1" },
-		{ id: 3, name: "Projekt 3", folder: "Prio/Sub1" },
-		{ id: 4, name: "Projekt 4", folder: "Sötvatten" },
-		{ id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp" },
-		{ id: 6, name: "Projekt 6", folder: "Marint" },
+		{ id: 1, name: "Projekt 1", folder: "Prio", deadline: null },
+		{ id: 2, name: "Projekt 2", folder: "Prio/Sub1", deadline: null },
+		{ id: 3, name: "Projekt 3", folder: "Prio/Sub1", deadline: null },
+		{ id: 4, name: "Projekt 4", folder: "Sötvatten", deadline: null },
+		{ id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp", deadline: null },
+		{ id: 6, name: "Projekt 6", folder: "Marint", deadline: null },
 	]);
 
 	const folderTree = buildFolderTree(allProjects);
@@ -26,19 +25,17 @@ export default function App() {
 	const [projectRows, setProjectRows] = useState({});
 	const [activeTabId, setActiveTabId] = useState(null);
 	const [showFilter, setShowFilter] = useState(false);
-	const [viewMode, setViewMode] = useState("workspace"); // or "statistics"
+	const [viewMode, setViewMode] = useState("workspace");
 	const [commentCount, setCommentCount] = useState(0);
 	const [greenFlagsCount, setGreenFlagsCount] = useState(0);
-	const [deadlines, setDeadlines] = useState({}); // { [projectId]: "yyyy-mm-dd" }
+	const [deadlines, setDeadlines] = useState({});
 
-
-	// 🔸 Skapa ett nytt projekt (lägger till i både allProjects och tabs)
 	const handleProjectCreate = (projectName, folder = "Okategoriserad") => {
 		const newId = nextId;
-		const newProject = { id: newId, name: projectName, folder };
+		const newProject = { id: newId, name: projectName, folder, deadline: null };
 
-		setAllProjects(prev => [...prev, newProject]); // Lägg till i register
-		setTabs(prev => [...prev, { id: newId }]);        // Lägg till som tab
+		setAllProjects(prev => [...prev, newProject]);
+		setTabs(prev => [...prev, { id: newId }]);
 		setProjectRows(prev => ({ ...prev, [newId]: [] }));
 		setActiveTabId(newId);
 		setNextId(prev => prev + 1);
@@ -46,7 +43,6 @@ export default function App() {
 		setFolders(prev => prev.includes(folder) ? prev : [...prev, folder]);
 	};
 
-	// 🔸 Öppna ett existerande projekt eller skapa en ny tab för det
 	const handleProjectOpen = (projectName) => {
 		const project = allProjects.find(p => p.name === projectName);
 		if (!project) return;
@@ -59,7 +55,6 @@ export default function App() {
 			setActiveTabId(project.id);
 		}
 
-		// För säkerhets skull: om projektRows inte finns för projektet
 		if (!projectRows[project.id]) {
 			setProjectRows(prev => ({ ...prev, [project.id]: [] }));
 		}
@@ -67,9 +62,13 @@ export default function App() {
 
 	const handleProjectDelete = (projectToDelete) => {
 		if (!projectToDelete) return;
-	  
+
 		setAllProjects(prev => prev.filter(p => p.id !== projectToDelete.id));
-	  
+		setDeadlines(prev => {
+			const newDeadlines = { ...prev };
+			delete newDeadlines[projectToDelete.id];
+			return newDeadlines;
+		});
 		handleTabClose(projectToDelete.id);
 	};
 
@@ -79,7 +78,6 @@ export default function App() {
 		}
 	};
 
-	// 🔸 Stäng tab (inte från allProjects)
 	const handleTabClose = (id) => {
 		setTabs(prev => prev.filter(t => t.id !== id));
 		setProjectRows(prev => {
@@ -93,12 +91,10 @@ export default function App() {
 		}
 	};
 
-	// 🔸 Skapa tomt projekt från Workspace
 	const handleNewProject = () => {
 		handleProjectCreate("Projektnamn");
 	};
 
-	// 🔸 Radhantering
 	const handleRowChange = (tabId, newRows) => {
 		setProjectRows(prev => ({
 			...prev,
@@ -134,22 +130,23 @@ export default function App() {
 	};
 
 	const handleProjectRename = (folder, oldName, newName) => {
-		
 		setAllProjects(prevProjects =>
 			prevProjects.map(project =>
 				project.folder === folder && project.name === oldName
 					? { ...project, name: newName }
 					: project
 			)
-
 		);
 	};
-	
 
 	const handleDeadlineChange = (projectId, deadline) => {
 		setDeadlines(prev => ({ ...prev, [projectId]: deadline }));
+		setAllProjects(prev =>
+			prev.map(project =>
+				project.id === projectId ? { ...project, deadline } : project
+			)
+		);
 	};
-
 
 	const activeTab = tabs.find(t => t.id === activeTabId);
 
@@ -180,7 +177,7 @@ export default function App() {
 					<>
 						<Sidebar
 							allProjects={allProjects}
-							folders={folderTree} // Skicka den färdiga trädet här!
+							folders={folderTree}
 							activeTabId={activeTabId}
 							tabs={tabs}
 							handleAddFolder={handleAddFolder}

@@ -20,15 +20,16 @@ export default function Folder({ folder, projects = [], subFolders = [], onProje
 			{isOpen && (
 				<div className="project">
 					{folder.projects.map((proj, idx) => (
-
 						<Project
 							key={idx}
 							name={proj.name}
+							projectId={proj.id}
+							deadline={proj.deadline} // Skicka deadline från allProjects
 							className={`project-item ${isActive(proj.id) ? "active" : ""}`}
 							onDoubleClick={onProjectDoubleClick}
 							onDelete={() => onProjectDelete(proj)}
 							onRename={(oldName, newName) => onProjectRename(folder, oldName, newName)}
-							projectId={activeTabId} onDeadlineChange={onDeadlineChange}
+							onDeadlineChange={onDeadlineChange}
 							activeTabId={activeTabId}
 						/>
 					))}
@@ -43,6 +44,7 @@ export default function Folder({ folder, projects = [], subFolders = [], onProje
 							handleRename={handleRename}
 							activeTabId={activeTabId}
 							tabs={tabs}
+							onDeadlineChange={onDeadlineChange}
 						/>
 					))}
 				</div>

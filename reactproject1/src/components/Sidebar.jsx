@@ -4,12 +4,6 @@ import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
 
 export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, onProjectOpen, onProjectDelete, onProjectRename, onShowStatistics, folders, activeTabId, tabs, handleAddFolder, onDeadlineChange }) {
-	const grouped = allProjects.reduce((acc, project) => {
-		if (!acc[project.folder]) acc[project.folder] = [];
-		acc[project.folder].push(project);
-		return acc;
-	}, {});
-
 	const [isMinimized, setIsMinimized] = useState(false);
 	const sidebarRef = useRef(null);
 	const isResizing = useRef(false);
@@ -17,11 +11,10 @@ export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, o
 	const [isOpen, setIsOpen] = useState(() => {
 		const initialState = {};
 		folders.forEach(folder => {
-			initialState[folder] = true;
+			initialState[folder.title] = true;
 		});
 		return initialState;
 	});
-
 
 	const handleRename = (folder, oldName, newName) => {
 		onProjectRename(folder.path, oldName, newName);
@@ -77,7 +70,7 @@ export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, o
 	const closeAllFolders = () => {
 		const allClosed = {};
 		folders.forEach(folder => {
-			allClosed[folder] = false;
+			allClosed[folder.title] = false;
 		});
 		setIsOpen(allClosed);
 	};
@@ -122,26 +115,21 @@ export default function Sidebar({ allProjects, onFilterClick, onProjectCreate, o
 
 			<div className="folder-container">
 				<div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-					{folders.map((folder, i) => {
-						const projects = allProjects.filter(p => p.folder === folder.path);
-
-						return (
-							<Folder
-								key={i}
-								folder={folder}
-								activeTabId={activeTabId}
-								tabs={tabs}
-								isOpen={isOpen[folder]}
-								toggleFolder={() => toggleFolder(folder)}
-								projects={projects}
-								onProjectDoubleClick={onProjectOpen}
-								onProjectDelete={onProjectDelete}
-								onProjectRename={handleRename}
-								onDeadlineChange={onDeadlineChange}
-							/>
-						);
-
-					})}
+					{folders.map((folder, i) => (
+						<Folder
+							key={i}
+							folder={folder}
+							activeTabId={activeTabId}
+							tabs={tabs}
+							isOpen={isOpen[folder.title]}
+							toggleFolder={() => toggleFolder(folder.title)}
+							projects={allProjects.filter(p => p.folder === folder.path)}
+							onProjectDoubleClick={onProjectOpen}
+							onProjectDelete={onProjectDelete}
+							onProjectRename={handleRename}
+							onDeadlineChange={onDeadlineChange}
+						/>
+					))}
 				</div>
 			</div>
 
