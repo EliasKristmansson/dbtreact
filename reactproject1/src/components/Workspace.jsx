@@ -101,11 +101,11 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	};
 
 	const colorOptions = [
-		{ color: "red", label: "Röd" },
-		{ color: "orange", label: "Orange" },
-		{ color: "yellow", label: "Gul" },
-		{ color: "green", label: "Grön" },
-		{ color: "blue", label: "Blå" }
+		{ color: "red", label: "Ej plockat" },
+		{ color: "orange", label: "Plockat" },
+		{ color: "yellow", label: "Artat" },
+		{ color: "green", label: "Fakturerat" },
+		{ color: "blue", label: "Ok att hälla ut" }
 	];
 
 	const felAlternativ = [
