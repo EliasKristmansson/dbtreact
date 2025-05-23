@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dbtreact
+    env: static
+    staticPublishPath: dist
+    buildCommand: npm run build
+    buildFilter:
+      paths:
+        - package.json
+        - vite.config.js
+        - src/**
+        - public/**
+    envVars:
+      - key: NODE_VERSION
+        value: 18
