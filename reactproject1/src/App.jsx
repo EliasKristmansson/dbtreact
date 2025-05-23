@@ -15,12 +15,12 @@ export default function App() {
 		{ id: 4, name: "Projekt 4", folder: "Sötvatten" },
 		{ id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp" },
 		{ id: 6, name: "Projekt 6", folder: "Marint" },
-	  ]);
-	  
+	]);
+
 	const folderTree = buildFolderTree(allProjects);
 
 	const [nextId, setNextId] = useState(7);
-	const [rowCount,setRowCount] = useState(0);
+	const [rowCount, setRowCount] = useState(0);
 	const [folders, setFolders] = useState([]);
 	const [tabs, setTabs] = useState([]);
 	const [projectRows, setProjectRows] = useState({});
@@ -151,7 +151,7 @@ export default function App() {
 					? { ...project, name: newName }
 					: project
 			)
-			
+
 		);
 	};
 
@@ -172,13 +172,13 @@ export default function App() {
 				onTabClose={handleTabClose}
 				allProjects={allProjects}
 				commentCount={commentCount}
-			onTabRename={(tab, newName) => {
-    const project = allProjects.find(p => p.id === tab.id);
-    if (project) {
-      handleProjectRename(project.folder, project.name, newName);
-    }
-  }}
-/>
+				onTabRename={(tab, newName) => {
+					const project = allProjects.find(p => p.id === tab.id);
+					if (project) {
+						handleProjectRename(project.folder, project.name, newName);
+					}
+				}}
+			/>
 
 			<div className="main-content">
 				{viewMode === "workspace" ? (

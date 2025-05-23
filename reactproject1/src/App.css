@@ -16,6 +16,8 @@ body {
 .topbar {
     background-color: #F8F8F8;
     height: 80px;
+    min-height: 80px; /* Säkerställer att den inte blir mindre */
+    max-height: 80px; /* Säkerställer att den inte blir större */
     display: flex;
     border-bottom: 1px solid #888686;
     box-sizing: border-box;
@@ -307,11 +309,6 @@ body {
     margin:auto;
     object-fit: contain;
     filter: invert(100%);
-}
-
-/* Adjust the topbar-content padding to accommodate the logo */
-.topbar-content {
-    /* Reduced from 270px to account for logo */
 }
 
 .folder{
