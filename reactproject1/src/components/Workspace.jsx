@@ -109,12 +109,13 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 	];
 
 	const felAlternativ = [
+		"Fel i leverans",
+		"Dåligt med etanol",
 		"För lite material",
 		"För mycket material",
 		"Dåligt konserverat",
 		"Mycket dåligt konserverat",
 		"För gammalt prov",
-		"Förstört prov",
 		"Annat fel"
 	];
 
