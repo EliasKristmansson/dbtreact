@@ -29,6 +29,7 @@ export default function App() {
 	const [viewMode, setViewMode] = useState("workspace"); // or "statistics"
 	const [commentCount, setCommentCount] = useState(0);
 	const [greenFlagsCount, setGreenFlagsCount] = useState(0);
+	const [deadlines, setDeadlines] = useState({}); // { [projectId]: "yyyy-mm-dd" }
 
 
 	// 🔸 Skapa ett nytt projekt (lägger till i både allProjects och tabs)
@@ -143,6 +144,11 @@ export default function App() {
 
 		);
 	};
+	
+
+	const handleDeadlineChange = (projectId, deadline) => {
+		setDeadlines(prev => ({ ...prev, [projectId]: deadline }));
+	};
 
 
 	const activeTab = tabs.find(t => t.id === activeTabId);
@@ -151,7 +157,7 @@ export default function App() {
 		<div className="app">
 			<Topbar
 				projectName={activeTab ? allProjects.find(p => p.id === activeTab.id)?.name || "Ingen tab" : ""}
-				deadline="30 april 2025"
+				deadline={deadlines[activeTabId] || "Ingen deadline"}
 				priority="high"
 				tabs={tabs}
 				activeTabId={activeTabId}
@@ -184,6 +190,7 @@ export default function App() {
 							onProjectOpen={handleProjectOpen}
 							onProjectRename={handleProjectRename}
 							onShowStatistics={() => setViewMode("statistics")}
+							onDeadlineChange={handleDeadlineChange}
 						/>
 						<Workspace
 							activeTabId={activeTabId}
