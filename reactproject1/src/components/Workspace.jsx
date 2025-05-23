@@ -42,6 +42,9 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		}));
 	}
 
+	
+
+
 	const rows = projectData[activeTabId] || [];
 	const filters = filterMap[activeTabId] || [];
 
@@ -254,6 +257,20 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 
 	const showEmpty = tabs.length === 0;
 
+	useEffect(() => {
+		const handleKeyDown = (e) => {
+			if (e.ctrlKey && e.key === "q") {
+				e.preventDefault();
+				addRow();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [addRow, rows]);
+
 	return (
 		<div className="workspace">
 			{showEmpty ? (
@@ -302,7 +319,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 							<button className="rensa-filter-btn" onClick={clearFilters}>
 								Rensa filter
 							</button>
-							<button className="add-btn" onClick={addRow}>
+							<button className="add-btn" title="Lägg till rad (CTRL + Q)"onClick={addRow}>
 								+ Lägg till rad
 							</button>
 							<button className="complete-project-btn" onClick={markProjectAsDone}>
