@@ -42,7 +42,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 		}));
 	}
 
-	
+
 
 
 	const rows = projectData[activeTabId] || [];
@@ -322,7 +322,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 							<button className="add-btn" title="Lägg till rad (CTRL + Q)" onClick={addRow}>
 								+ Lägg till rad
 							</button>
-								<button className="complete-project-btn" title="Färdigställ projekt" onClick={markProjectAsDone}>
+							<button className="complete-project-btn" title="Färdigställ projekt" onClick={markProjectAsDone}>
 								✔ Projekt klart
 							</button>
 						</div>
@@ -365,6 +365,42 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "datum", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
 										<td className="date-picker-cell">
@@ -374,9 +410,45 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "inkommet", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
-										<td><input style={{ height: "25px", width: "30px", backgroundColor: "white" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
+										<td><input style={{ height: "25px", width: "34px", backgroundColor: "white" }} type="number" value={row.antalvialer} onChange={(e) => handleChange(index, "antalvialer", e.target.value)} /></td>
 										<td className="date-picker-cell">
 											<DatePicker
 												selected={row.plockat ? parseISO(row.plockat) : null}
@@ -384,6 +456,42 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "plockat", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
 										<td><input style={{ height: "25px" }} type="text" value={row.andelPlockat} onChange={(e) => handleChange(index, "andelPlockat", e.target.value)} /></td>
@@ -395,6 +503,42 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "artatdatum", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
 										<td>
@@ -429,6 +573,42 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "hemtagna", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
 										<td className="date-picker-cell">
@@ -438,6 +618,42 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 												dateFormat="yyyy-MM-dd"
 												customInput={<CalendarInput />}
 												placeholderText="Välj datum"
+												renderCustomHeader={({
+													monthDate,
+													decreaseMonth,
+													increaseMonth,
+													prevMonthButtonDisabled,
+													nextMonthButtonDisabled,
+												}) => (
+													<div className="custom-datepicker-header">
+														<div
+															className="datepicker-title"
+															onClick={() => handleChange(index, "åter", "")}
+														>
+															Inget datum
+														</div>
+														<div className="month-navigation">
+															<button
+																onClick={decreaseMonth}
+																disabled={prevMonthButtonDisabled}
+															>
+																{"<"}
+															</button>
+															<span>
+																{monthDate.toLocaleString("sv-SE", {
+																	month: "long",
+																	year: "numeric",
+																})}
+															</span>
+															<button
+																onClick={increaseMonth}
+																disabled={nextMonthButtonDisabled}
+															>
+																{">"}
+															</button>
+														</div>
+													</div>
+												)}
 											/>
 										</td>
 										<td>

@@ -299,17 +299,15 @@
 .project-table th:nth-child(10),
 .project-table td:nth-child(10) {
     width: 5px;
-    /* gör kolumnen för vialer smalare */
 }
 
 .project-table th:nth-child(14),
 .project-table td:nth-child(14) {
     width: 100px;
-    /* gör kolumnen för vialer smalare */
 }
 
 .flag-filter-container button {
-    height: 25px; /* Set consistent height */
+    height: 25px; 
 }
 
 .flag-filter-container.active-filter button {
@@ -419,4 +417,49 @@
     /* Matchar dina andra celler */
     width: 1%;
     /* Låter cellen anpassa sig efter innehållet */
+}
+
+.custom-datepicker-header {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  background: #f0f0f0;
+}
+
+.datepicker-title {
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+  color: #90a9c4;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.datepicker-title:hover {
+  text-decoration: underline;
+  background-color: #e9ecef;
+  border-radius: 4px;
+}
+
+.month-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.month-navigation button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.month-navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.month-navigation span {
+  font-weight: bold;
 }
