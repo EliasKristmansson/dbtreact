@@ -200,6 +200,7 @@ export default function App() {
 							onNewProjectClick={handleNewProject}
 							tabs={tabs}
 							setCommentCount={setCommentCount}
+							allProjects={allProjects} // Lägg till allProjects som prop
 						/>
 					</>
 				) : (

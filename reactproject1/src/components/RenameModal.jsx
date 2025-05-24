@@ -1,11 +1,7 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState } from "react";
 
 export default function RenameModal({ currentName, onConfirm, onCancel }) {
-    const [newName, setNewName] = useState(currentName);
-
-    useEffect(() => {
-        setNewName(currentName);
-    }, [currentName]);
+    const [newName, setNewName] = useState(""); // Tom sträng istället för currentName
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +19,9 @@ export default function RenameModal({ currentName, onConfirm, onCancel }) {
                         type="text"
                         value={newName}
                         onChange={(e) => setNewName(e.target.value)}
+                        placeholder="Nytt projektnamn" // Lägg till placeholder
                         autoFocus
+                        className="rename-input" // Lägg till klass för styling
                     />
                     <div className="modal-buttons">
                         <button type="submit">Spara</button>
