@@ -377,7 +377,7 @@ export default function Workspace({ tabs, activeTabId, onNewProjectClick, setCom
 															className="datepicker-title"
 															onClick={() => handleChange(index, "datum", "")}
 														>
-															Inget datum
+															Nollställ datum
 														</div>
 														<div className="month-navigation">
 															<button
