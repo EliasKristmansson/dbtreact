@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Workspace from "./components/Workspace";
@@ -8,12 +8,12 @@ import buildFolderTree from "./components/BuildFolderTree";
 
 export default function App() {
   const [allProjects, setAllProjects] = useState([
-    { id: 1, name: "Projekt 1", folder: "Prio", deadline: null, priority: "high" },
+    { id: 1, name: "Projekt 1", folder: "Prio", deadline: null, priority: null },
     { id: 2, name: "Projekt 2", folder: "Prio/Sub1", deadline: null, priority: null },
-    { id: 3, name: "Projekt 3", folder: "Prio/Sub1", deadline: null, priority: "medium" },
-    { id: 4, name: "Projekt 4", folder: "Sötvatten", deadline: null, priority: "low" },
+    { id: 3, name: "Projekt 3", folder: "Prio/Sub1", deadline: null, priority: null },
+    { id: 4, name: "Projekt 4", folder: "Sötvatten", deadline: null, priority: null },
     { id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp", deadline: null, priority: null },
-    { id: 6, name: "Projekt 6", folder: "Marint", deadline: null, priority: "high" },
+    { id: 6, name: "Projekt 6", folder: "Marint", deadline: null, priority: null },
   ]);
 
   const folderTree = buildFolderTree(allProjects);
@@ -34,7 +34,12 @@ export default function App() {
     const newId = nextId;
     const newProject = { id: newId, name: projectName, folder, deadline: null, priority: null };
 
-    setAllProjects((prev) => [...prev, newProject]);
+    setAllProjects((prev) => {
+      const updated = [...prev, newProject];
+      console.log("New project created:", newProject);
+      console.log("Updated allProjects:", updated);
+      return updated;
+    });
     setTabs((prev) => [...prev, { id: newId }]);
     setProjectRows((prev) => ({ ...prev, [newId]: [] }));
     setActiveTabId(newId);
@@ -155,6 +160,10 @@ export default function App() {
       )
     );
   };
+
+  useEffect(() => {
+    console.log("folderTree:", folderTree);
+  }, [folderTree]);
 
   const activeTab = tabs.find((t) => t.id === activeTabId);
 

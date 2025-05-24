@@ -27,6 +27,7 @@ export default function Project({
   const datePickerRef = useRef(null);
 
   useEffect(() => {
+    console.log(`Project ${name} (ID: ${projectId}) priority:`, priority);
     if (deadline) {
       try {
         const parsedDate = parseISO(deadline);
@@ -41,7 +42,7 @@ export default function Project({
     } else {
       setSelectedDate(null);
     }
-  }, [deadline]);
+  }, [deadline, name, projectId, priority]);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -106,7 +107,10 @@ export default function Project({
         onContextMenu={handleContextMenu}
       >
         <span>
-          <span className={`priority-indicator ${priority || "none"}`} />
+          <span
+            className={`priority-indicator ${priority || "none"}`}
+            style={priority === null ? { border: "1px solid #ccc" } : {}}
+          />
           {name}
         </span>
         <span className="project-date">
