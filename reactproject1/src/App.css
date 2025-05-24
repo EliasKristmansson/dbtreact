@@ -38,7 +38,7 @@ body {
 }
 
 .topbar-content-right .priority-indicator {
-  margin-right: 10px; /* Ökat avstånd till projektnamn i Topbar */
+  margin-right: 5px; /* Ökat avstånd till projektnamn i Topbar */
 }
 
 .search {
@@ -144,8 +144,8 @@ body {
 }
 
 .project-item .priority-indicator {
-  width: 12px; /* Mindre storlek i Sidebar */
-  height: 12px;
+  width: 8px; /* Mindre storlek i Sidebar */
+  height: 8px;
 }
 
 .delete-icon {
@@ -181,7 +181,13 @@ body {
 
 .priority-indicator.none {
   background-color: transparent;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
+}
+
+.project-item .priority-indicator.none {
+  visibility: visible !important;
+  border: 1px solid #000000 !important;
+  background-color: transparent !important;
 }
 
 .project-other {
