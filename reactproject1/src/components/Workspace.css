@@ -604,6 +604,11 @@
     font-weight: bold;
 }
 
+.project-table th:nth-child(1),
+.project-table td:nth-child(1) {
+    width: 25px;
+}
+
 .project-table th:nth-child(3),
 .project-table td:nth-child(3) {
     width: 80px;
