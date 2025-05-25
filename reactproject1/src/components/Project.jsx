@@ -47,6 +47,7 @@ export default function Project({
 
   const handleContextMenu = (e) => {
     e.preventDefault();
+    console.log("Context menu triggered for project:", { name, projectId, className, isClosingPriorityMenu }); // Loggning
     setSelectedProject(name);
     setContextMenu({ x: e.clientX, y: e.clientY });
   };
@@ -102,9 +103,9 @@ export default function Project({
       priorityMenuRef.current &&
       !priorityMenuRef.current.contains(e.target)
     ) {
-      setIsClosingPriorityMenu(true);
       setShowPriorityMenu(false);
       setContextMenu(null);
+      setIsClosingPriorityMenu(false); // Återställ för att tillåta framtida kontextmenyer
     }
   };
 
@@ -113,6 +114,7 @@ export default function Project({
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
+      setIsClosingPriorityMenu(false); // Säkerställ återställning när menyer stängs
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showDatePicker, showPriorityMenu]);
@@ -205,7 +207,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Hög 🔴
+            🔴 Hög
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -215,7 +217,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Medium 🟡
+            🟡 Medium
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -225,7 +227,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Låg 🟢
+            🟢 Låg
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -235,7 +237,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Ingen ⚪
+            ⚪ Ingen
           </li>
         </div>
       )}
