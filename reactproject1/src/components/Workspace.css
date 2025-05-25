@@ -5,7 +5,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* Ta bort overflow: auto för att förhindra scrollning av hela workspace */
 }
 
 .workspace-header {
@@ -14,11 +13,11 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; /* Förhindra att header krymper */
-    position: sticky; /* Fixera headern överst i workspace */
+    flex-shrink: 0;
+    position: sticky;
     top: 0;
-    background-color: #fafafa; /* Matcha workspace-bakgrunden */
-    z-index: 2; /* Över tabellen */
+    background-color: #fafafa;
+    z-index: 2;
 }
 
 .add-btn,
@@ -49,10 +48,10 @@
 
 .table-container {
     overflow-x: auto;
-    overflow-y: auto; /* Aktivera vertikal scrollning */
+    overflow-y: auto;
     background-color: transparent;
-    max-height: calc(100vh - 80px - 50px); /* Skärmhöjd minus topbar (80px) och workspace-header (ca 50px) */
-    flex-grow: 1; /* Fyller resterande utrymme */
+    max-height: calc(100vh - 80px - 50px);
+    flex-grow: 1;
 }
 
 .project-table {
@@ -65,9 +64,9 @@
 
 .project-table thead {
     position: sticky;
-    top: 0; /* Fäst rubrikerna under workspace-header */
+    top: 0;
     background-color: #fafafa;
-    z-index: 1; /* Över tbody men under workspace-header */
+    z-index: 1;
 }
 
 .project-table th,
@@ -110,15 +109,35 @@
 .project-table textarea {
     height: 25px;
     resize: none;
-    padding: 0.2rem 0.3rem;
+    font-size: 0.75rem;
     line-height: 1.2;
     overflow: hidden;
     margin: 0;
-    vertical-align: middle;
+    display: flex;
+    align-items: center; 
 }
 
 .project-table textarea::placeholder {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
+    padding: 0.2rem 0 !important;
+    color: #888888;
+}
+
+.project-table td:nth-child(14) select {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0 !important;
+}
+
+.project-table td:nth-child(14) select:invalid {
+    color: #888888 !important;
+}
+
+.project-table td:nth-child(14) select option[value=""] {
+    color: #888888 !important;
+}
+
+.project-table td:nth-child(14) select option:not([value=""]) {
+    color: #333 !important;
 }
 
 .project-table td input[type="number"] {
@@ -202,7 +221,7 @@
     font-size: 0.65rem;
     font-weight: 600;
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-    height: 25px; /* Set consistent height */
+    height: 25px;
 }
 
 .filter-buttons button:hover {
@@ -217,7 +236,7 @@
     border: 1px solid #164e86;
     font-weight: 700;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    height: 25px; /* Set consistent height */
+    height: 25px;
 }
 
 .filter-buttons .rensa-filter-btn {
@@ -375,10 +394,6 @@
     width: auto;
 }
 
-.date-picker-cell .calendar-input {
-    box-sizing: border-box;
-}
-
 .react-datepicker-wrapper {
     width: 100% !important;
 }
@@ -390,173 +405,6 @@
 
 .date-picker-cell {
     padding: 0.2rem 6px !important;
-}
-
-.custom-datepicker-header {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-  background: #f0f0f0;
-}
-
-.filter-buttons .active-filter {
-    background-color: #ffffff;
-    font-weight: 700;
-    border: 1px solid #164e86;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    height: 25px; /* Set consistent height */
-}
-
-.filter-buttons .rensa-filter-btn {
-    background-color: #ffecec;
-    border:0px;
-    color: #a10000;
-}
-
-.filter-buttons .rensa-filter-btn:hover {
-    background-color: #f8c9c9;
-    color: #800000;
-    box-shadow:0px;
-}
-
-.new-project {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-}
-
-.new-project-btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-    background-color: rgb(36, 60, 90);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.new-project-btn:hover {
-    background: #164e86;
-}
-
-.flag-button {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #3d3636;
-    cursor: pointer;
-    box-shadow: 0 0 0 1px #ccc;
-    transition: background-color 0.3s, transform 0.2s;
-    margin: 0;
-}
-
-.flag-button:hover {
-    transform: scale(1.2);
-}
-
-.project-table .delete-row-icon-td,
-.project-table .delete-row-icon-th {
-    width: 40px;
-    min-width: 40px;
-    max-width: 40px;
-    padding: 0;
-}
-
-.project-table .delete-row-icon-td button {
-    padding: 0 0 0 0.3rem;
-}
-
-.project-table col.col-kommentar {
-    width: 50px;
-}
-
-.flag-filter-container button {
-    height: 25px;
-}
-
-.flag-filter-container.active-filter button {
-    background-color: #ffffff;
-    max-height: 32px !important;
-    color: #164e86;
-    font-weight: 700;
-    border: none;
-}
-
-.flag-filter-container {
-    position: relative;
-    display: inline-block;
-}
-
-.flag-filter-container.active-filter {
-    background-color: #e0e0e0 !important;
-    border-radius: 6px;
-}
-
-.flag-filter-dropdown {
-    display: none;
-    position: absolute;
-    background-color: white;
-    width: 140%;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    padding: 4px 0;
-    font-size: 12px;
-    border: 1px solid #ddd;
-}
-
-.flag-filter-container:hover .flag-filter-dropdown {
-    display: block;
-}
-
-.flag-filter-option {
-    padding: 4x;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.flag-filter-option:hover {
-    background-color: #f1f1f1;
-}
-
-.flag-filter-option.selected {
-    background-color: #e0e0e0;
-}
-
-.flag-button {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-}
-
-.project-table td.date-picker-cell {
-    padding-right: 4px !important;
-    padding-left: 4px !important;
-    width: auto;
-}
-
-.date-picker-cell .calendar-input {
-    box-sizing: border-box;
-}
-
-.react-datepicker-wrapper {
-    width: 100% !important;
-}
-
-.react-datepicker__input-container {
-    width: 100% !important;
-    display: block !important;
-}
-
-.date-picker-cell {
-    padding: 0.2rem 6px !important;
-    width: 1%;
 }
 
 .custom-datepicker-header {
@@ -567,7 +415,7 @@
 }
 
 .datepicker-title {
-    padding: 5px 10px;
+    padding: 2px 10px;
     text-align: center;
     cursor: pointer;
     color: #90a9c4;
@@ -576,7 +424,6 @@
 }
 
 .datepicker-title:hover {
-    text-decoration: underline;
     background-color: #e9ecef;
     border-radius: 4px;
 }
@@ -591,7 +438,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 4px 10px;
     font-weight: bold;
 }
 

@@ -231,7 +231,7 @@ export default function Workspace({
         boxSizing: "border-box",
         padding: "0 5px",
         fontSize: "12px",
-        color: "#333",
+        color: value ? "#333" : "#888888", // Svart för valt datum, ljusgrå för placeholder
       }}
     >
       <span>{value || "Välj datum"}</span>
@@ -456,7 +456,12 @@ export default function Workspace({
                     </td>
                     <td>
                       <input
-                        style={{ height: "25px", width: "34px", backgroundColor: "white" }}
+                        style={{
+                          height: "25px",
+                          width: "34px",
+                          color: row.antalvialer ? "#333" : "#888888", // Svart för ifyllt värde, ljusgrå om tomt
+                          backgroundColor: "white",
+                        }}
                         type="number"
                         value={row.antalvialer}
                         onChange={(e) => handleChange(index, "antalvialer", e.target.value)}
@@ -678,7 +683,7 @@ export default function Workspace({
                             handleSaveComment(index);
                           }
                         }}
-                        placeholder="Kommentar..."
+                        placeholder="Skriv kommentar..."
                       />
                     </td>
                     <td>
@@ -688,25 +693,25 @@ export default function Workspace({
                         style={{
                           height: "25px",
                           width: "100%",
-                          padding: "0.2rem 0.3rem",
+                          padding: "0.2rem 0",
                           border: "none",
                           boxShadow: "0 0 0 1px #ccc",
                           borderRadius: "4px",
                           backgroundColor: "white",
-                          fontSize: "0.8rem",
-                          color: !row.fel ? "#999" : "#333",
+                          fontSize: "0.75rem",
+                          color: !row.fel ? "#888888" : "#333",
                         }}
                       >
-                        <option value="" style={{ color: "#999" }}>
+                        <option value="">
                           Välj fel...
                         </option>
                         {felAlternativ.map((alternativ) => (
-                          <option key={alternativ} value={alternativ} style={{ color: "#333" }}>
+                          <option key={alternativ} value={alternativ}>
                             {alternativ}
                           </option>
                         ))}
                         {row.fel && !felAlternativ.includes(row.fel) && (
-                          <option value={row.fel} style={{ color: "#333" }}>
+                          <option value={row.fel}>
                             {row.fel}
                           </option>
                         )}
