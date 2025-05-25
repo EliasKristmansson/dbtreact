@@ -205,7 +205,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Hög (röd)
+            Hög 🔴
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -215,7 +215,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Medium (gul)
+            Medium 🟡
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -225,7 +225,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Låg (grön)
+            Låg 🟢
           </li>
           <li
             style={{ padding: "6px 12px", cursor: "pointer" }}
@@ -235,7 +235,7 @@ export default function Project({
               setContextMenu(null);
             }}
           >
-            Ingen (färglös)
+            Ingen ⚪
           </li>
         </div>
       )}
