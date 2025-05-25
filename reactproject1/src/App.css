@@ -160,33 +160,44 @@ body {
 
 /* Priority Indicator Styles */
 .priority-indicator {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 2px;
 }
 
 .priority-indicator.low {
-  background-color: #6cba6d; /* green */
+  background-color: #5bb76a; /* green */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #346434;
 }
 
 .priority-indicator.medium {
-  background-color: #f0c330; /* yellow */
+  background-color: #f9ca24; /* yellow */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ab8c27;
 }
 
 .priority-indicator.high {
-  background-color: #e74c3c; /* red */
+  background-color: #ea3b3b; /* red */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #90352b;
 }
 
 .priority-indicator.none {
   background-color: transparent;
-  border: 1px solid #000000;
+  border: 1px solid #b9becc;
+  width: 10px;
+  height: 10px;
 }
 
 .project-item .priority-indicator.none {
   visibility: visible !important;
-  border: 1px solid #000000 !important;
+  border: 1px solid #5f5f5f !important;
   background-color: transparent !important;
 }
 

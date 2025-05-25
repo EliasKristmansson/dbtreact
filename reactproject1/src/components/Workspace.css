@@ -271,7 +271,7 @@
 }
 
 .flag-button.yellow {
-    background-color: #ffff01;
+    background-color: #ffe418;
 }
 
 .flag-button.red {
@@ -279,7 +279,7 @@
 }
 
 .flag-button.orange {
-    background-color: #ffc000;
+    background-color: #ff8400;
 }
 
 .flag-button.blue {
@@ -369,27 +369,6 @@
     border: 1px solid #ccc;
 }
 
-/* Behåll dina befintliga flaggfärger */
-.flag-button.red {
-    background-color: #ff6b6b;
-}
-
-.flag-button.orange {
-    background-color: #ffa502;
-}
-
-.flag-button.yellow {
-    background-color: #f9ca24;
-}
-
-.flag-button.green {
-    background-color: #51cf66;
-}
-
-.flag-button.blue {
-    background-color: #339af0;
-}
-
 .project-table td.date-picker-cell {
     padding-right: 4px !important;
     padding-left: 4px !important;
@@ -473,27 +452,6 @@
     margin: 0;
 }
 
-.flag-button.green {
-    background-color: #00af52;
-}
-
-.flag-button.yellow {
-    background-color: #ffff01;
-    background-color: #f9ca24;
-}
-
-.flag-button.red {
-    background-color: #fd0002;
-}
-
-.flag-button.orange {
-    background-color: #ffc000;
-}
-
-.flag-button.blue {
-    background-color: #01b0f1;
-}
-
 .flag-button:hover {
     transform: scale(1.2);
 }
@@ -575,27 +533,6 @@
     border-radius: 3px;
     cursor: pointer;
     border: 1px solid #ccc;
-}
-
-/* Behåll dina befintliga flaggfärger */
-.flag-button.red {
-    background-color: #ff6b6b;
-}
-
-.flag-button.orange {
-    background-color: #ffa502;
-}
-
-.flag-button.yellow {
-    background-color: #f9ca24;
-}
-
-.flag-button.green {
-    background-color: #51cf66;
-}
-
-.flag-button.blue {
-    background-color: #339af0;
 }
 
 .project-table td.date-picker-cell {

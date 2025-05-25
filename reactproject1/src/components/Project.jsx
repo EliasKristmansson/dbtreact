@@ -22,12 +22,13 @@ export default function Project({
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+  const [isClosingPriorityMenu, setIsClosingPriorityMenu] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [datePickerPosition, setDatePickerPosition] = useState({ x: 0, y: 0 });
   const datePickerRef = useRef(null);
+  const priorityMenuRef = useRef(null);
 
   useEffect(() => {
-    console.log(`Project ${name} (ID: ${projectId}) priority:`, priority);
     if (deadline) {
       try {
         const parsedDate = parseISO(deadline);
@@ -42,7 +43,7 @@ export default function Project({
     } else {
       setSelectedDate(null);
     }
-  }, [deadline, name, projectId, priority]);
+  }, [deadline]);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -68,7 +69,7 @@ export default function Project({
 
   const handlePriority = () => {
     setShowPriorityMenu(true);
-    setContextMenu(null);
+    // Behåll contextMenu för att använda samma koordinater
   };
 
   const closeRenameModal = () => {
@@ -81,24 +82,40 @@ export default function Project({
   };
 
   const closeContextMenu = () => {
-    setContextMenu(null);
-    setShowPriorityMenu(false);
+    if (showPriorityMenu) {
+      setIsClosingPriorityMenu(true);
+      setShowPriorityMenu(false);
+      setContextMenu(null);
+    } else {
+      setContextMenu(null);
+    }
   };
 
   const handleClickOutside = (e) => {
-    if (datePickerRef.current && !datePickerRef.current.contains(e.target)) {
+    if (
+      datePickerRef.current &&
+      !datePickerRef.current.contains(e.target)
+    ) {
       setShowDatePicker(false);
+    }
+    if (
+      priorityMenuRef.current &&
+      !priorityMenuRef.current.contains(e.target)
+    ) {
+      setIsClosingPriorityMenu(true);
+      setShowPriorityMenu(false);
+      setContextMenu(null);
     }
   };
 
   useEffect(() => {
-    if (showDatePicker) {
+    if (showDatePicker || showPriorityMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showDatePicker]);
+  }, [showDatePicker, showPriorityMenu]);
 
   return (
     <div className={className} id="project-container">
@@ -109,7 +126,7 @@ export default function Project({
         <span>
           <span
             className={`priority-indicator ${priority || "none"}`}
-            style={priority === null ? { border: "1px solid #ccc" } : {}}
+            style={priority === null ? { border: "1px solid #000000" } : {}}
           />
           {name}
         </span>
@@ -120,7 +137,7 @@ export default function Project({
         </span>
       </li>
 
-      {contextMenu && !showPriorityMenu && (
+      {contextMenu && !showPriorityMenu && !isClosingPriorityMenu && (
         <div
           className="context-menu"
           style={{
@@ -165,9 +182,10 @@ export default function Project({
 
       {showPriorityMenu && (
         <div
+          ref={priorityMenuRef}
           className="context-menu"
           style={{
-            marginTop: "100px",
+            top: contextMenu ? contextMenu.y - 95 : 0,
             left: contextMenu ? contextMenu.x : 0,
             position: "absolute",
             zIndex: 1000,
@@ -184,6 +202,7 @@ export default function Project({
             onClick={() => {
               onPriorityChange(projectId, "high");
               setShowPriorityMenu(false);
+              setContextMenu(null);
             }}
           >
             Hög (röd)
@@ -193,6 +212,7 @@ export default function Project({
             onClick={() => {
               onPriorityChange(projectId, "medium");
               setShowPriorityMenu(false);
+              setContextMenu(null);
             }}
           >
             Medium (gul)
@@ -202,6 +222,7 @@ export default function Project({
             onClick={() => {
               onPriorityChange(projectId, "low");
               setShowPriorityMenu(false);
+              setContextMenu(null);
             }}
           >
             Låg (grön)
@@ -211,6 +232,7 @@ export default function Project({
             onClick={() => {
               onPriorityChange(projectId, null);
               setShowPriorityMenu(false);
+              setContextMenu(null);
             }}
           >
             Ingen (färglös)
@@ -218,7 +240,7 @@ export default function Project({
         </div>
       )}
 
-      {contextMenu && (
+      {(contextMenu || showPriorityMenu) && (
         <div className="overlay" onClick={closeContextMenu}></div>
       )}
 
