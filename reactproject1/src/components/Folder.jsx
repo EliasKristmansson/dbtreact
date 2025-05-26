@@ -16,6 +16,7 @@ export default function Folder({
   onDeadlineChange,
   onPriorityChange,
   onFolderDelete,
+  onFolderRename,
 }) {
   const isActive = (projectId) => {
     const tab = tabs.find((t) => t.id === projectId);
@@ -23,6 +24,7 @@ export default function Folder({
   };
 
   const [contextMenu, setContextMenu] = useState(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -38,12 +40,33 @@ export default function Folder({
 
   const handleDeleteFolder = () => {
     console.log(`Attempting to delete folder: ${folder.path}`);
-    if (window.confirm(`Är du säker på att du vill ta bort mappen "${folder.title}" och allt dess innehåll?`)) {
-      console.log(`Confirmed deletion of folder: ${folder.path}`);
-      if (onFolderDelete) {
-        onFolderDelete(folder.path);
+    setShowDeleteDialog(true);
+    setContextMenu(null);
+  };
+
+  const confirmDelete = () => {
+    console.log(`Confirmed deletion of folder: ${folder.path}`);
+    if (onFolderDelete) {
+      onFolderDelete(folder.path);
+    } else {
+      console.warn("onFolderDelete is not defined");
+    }
+    setShowDeleteDialog(false);
+  };
+
+  const cancelDelete = () => {
+    console.log(`Cancelled deletion of folder: ${folder.path}`);
+    setShowDeleteDialog(false);
+  };
+
+  const handleRenameFolder = () => {
+    const newName = prompt(`Ange nytt namn för "${folder.title}":`, folder.title);
+    if (newName && newName.trim()) {
+      console.log(`Attempting to rename folder: ${folder.path} to ${newName}`);
+      if (onFolderRename) {
+        onFolderRename(folder.path, newName.trim());
       } else {
-        console.warn("onFolderDelete is not defined");
+        console.warn("onFolderRename is not defined");
       }
       setContextMenu(null);
     }
@@ -72,8 +95,31 @@ export default function Folder({
           style={{ top: contextMenu.y, left: contextMenu.x }}
           onClick={handleCloseContextMenu}
         >
+          <div className="context-menu-item" onClick={handleRenameFolder}>
+            Byt namn
+          </div>
           <div className="context-menu-item" onClick={handleDeleteFolder}>
             Ta bort
+          </div>
+        </div>
+      )}
+
+      {showDeleteDialog && (
+        <div className="modal-overlay" onClick={cancelDelete}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Bekräfta borttagning</h3>
+            <p>
+              Är du säker på att du vill ta bort mappen "{folder.title}" och allt
+              dess innehåll?
+            </p>
+            <div className="modal-buttons">
+              <button className="modal-button cancel" onClick={cancelDelete}>
+                Avbryt
+              </button>
+              <button className="modal-button delete" onClick={confirmDelete}>
+                Ta bort
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -115,6 +161,7 @@ export default function Folder({
                 onDeadlineChange={onDeadlineChange}
                 onPriorityChange={onPriorityChange}
                 onFolderDelete={onFolderDelete}
+                onFolderRename={onFolderRename}
               />
             ))}
         </div>

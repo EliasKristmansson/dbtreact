@@ -306,16 +306,16 @@
 .context-menu {
   position: fixed;
   background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  min-width: 80px;
+  min-width: 70px;
 }
 
 .context-menu-item {
-  padding: 0px 8px;
-  font-size: 12px;
+  padding: 3px 5px;
+  font-size: 0.75rem;
   color: #000000;
   cursor: pointer;
 }
