@@ -58,19 +58,19 @@ export default function Sidebar({
   };
 
   const addFolder = () => {
-    const newTitle = prompt("Namn på ny mapp:");
+    const newTitle = prompt("Namn på ny mapp (använd / för att skapa submappar, t.ex. Mapp1/Submapp):");
     if (newTitle) {
       handleAddFolder(newTitle);
     }
   };
 
   const addProject = () => {
-    const folderName = prompt("Ange namn på mapp:");
-    if (!folderName) return;
+    const folderPath = prompt("Ange mapp eller mappstruktur (t.ex. Mapp1/Submapp):");
+    if (!folderPath) return;
 
     const projectName = prompt("Namn på nytt projekt:");
     if (projectName) {
-      onProjectCreate(projectName, folderName);
+      onProjectCreate(projectName, folderPath);
     }
   };
 
