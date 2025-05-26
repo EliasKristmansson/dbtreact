@@ -136,6 +136,10 @@ export default function Sidebar({
     });
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   return (
     <div
       className="sidebar"
@@ -154,7 +158,7 @@ export default function Sidebar({
           <div className={`sidebar-icons ${isMinimized ? "minimized" : ""}`}>
             <FaFileAlt title="Lägg till projekt" onClick={addProject} />
             <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
-            <FaSyncAlt title="Uppdatera" />
+            <FaSyncAlt title="Uppdatera" onClick={refreshPage} />
             <FaCompressAlt title="Stäng öppna mappar" onClick={closeAllFolders} />
             <FaRegEye
               title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"}
