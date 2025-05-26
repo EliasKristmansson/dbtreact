@@ -59,19 +59,34 @@ export default function Sidebar({
 
   const addFolder = () => {
     const newTitle = prompt("Namn på ny mapp (använd / för att skapa submappar, t.ex. Mapp1/Submapp):");
-    if (newTitle) {
-      handleAddFolder(newTitle);
+    if (!newTitle || !newTitle.trim()) {
+      alert("Mappnamnet får inte vara tomt!");
+      return;
     }
+    // Validera att sökvägen inte innehåller ogiltiga tecken (t.ex. dubbla //)
+    if (newTitle.includes("//")) {
+      alert("Ogiltig mappstruktur! Använd enkel / för att separera mappar.");
+      return;
+    }
+    handleAddFolder(newTitle.trim());
   };
 
   const addProject = () => {
     const folderPath = prompt("Ange mapp eller mappstruktur (t.ex. Mapp1/Submapp):");
-    if (!folderPath) return;
-
-    const projectName = prompt("Namn på nytt projekt:");
-    if (projectName) {
-      onProjectCreate(projectName, folderPath);
+    if (!folderPath || !folderPath.trim()) {
+      alert("Mappnamnet får inte vara tomt!");
+      return;
     }
+    if (folderPath.includes("//")) {
+      alert("Ogiltig mappstruktur! Använd enkel / för att separera mappar.");
+      return;
+    }
+    const projectName = prompt("Namn på nytt projekt:");
+    if (!projectName || !projectName.trim()) {
+      alert("Projektnamnet får inte vara tomt!");
+      return;
+    }
+    onProjectCreate(projectName.trim(), folderPath.trim());
   };
 
   const toggleFolder = (folderName) => {

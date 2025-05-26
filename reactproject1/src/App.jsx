@@ -16,11 +16,17 @@ export default function App() {
     { id: 6, name: "Projekt 6", folder: "Marint", deadline: null, priority: null },
   ]);
 
-  const folderTree = buildFolderTree(allProjects);
+  const [folders, setFolders] = useState([
+    { id: 100, name: "Prio" },
+    { id: 101, name: "Prio/Sub1" },
+    { id: 102, name: "Sötvatten" },
+    { id: 103, name: "Sötvatten/Undermapp" },
+    { id: 104, name: "Marint" },
+  ]);
 
   const [nextId, setNextId] = useState(7);
+  const [nextFolderId, setNextFolderId] = useState(105);
   const [rowCount, setRowCount] = useState(0);
-  const [folders, setFolders] = useState([]);
   const [tabs, setTabs] = useState([]);
   const [projectRows, setProjectRows] = useState({});
   const [activeTabId, setActiveTabId] = useState(null);
@@ -30,7 +36,7 @@ export default function App() {
   const [greenFlagsCount, setGreenFlagsCount] = useState(0);
   const [deadlines, setDeadlines] = useState({});
 
-  const handleProjectCreate = (projectName, folder = "Okategoriserad") => {
+  const handleProjectCreate = (projectName, folder = "Allmänt") => {
     const newId = nextId;
     const newProject = { id: newId, name: projectName, folder, deadline: null, priority: null };
 
@@ -40,12 +46,46 @@ export default function App() {
       console.log("Updated allProjects:", updated);
       return updated;
     });
-    setTabs((prev) => [...prev, { id: newId }]);
+
+    // Ensure the folder exists in folders state
+    if (!folders.some(f => f.name === folder)) {
+      setFolders((prev) => [
+        ...prev,
+        { id: nextFolderId, name: folder }
+      ]);
+      setNextFolderId((prev) => prev + 1);
+    }
+
+    setTabs((prev) => [...prev, { id: newId, name: projectName }]);
     setProjectRows((prev) => ({ ...prev, [newId]: [] }));
     setActiveTabId(newId);
     setNextId((prev) => prev + 1);
+  };
 
-    setFolders((prev) => (prev.includes(folder) ? prev : [...prev, folder]));
+  const handleAddFolder = (folderPath) => {
+    if (!folderPath || !folderPath.trim()) {
+      console.warn("Folder path cannot be empty");
+      return;
+    }
+
+    // Check if folder already exists
+    if (folders.some(f => f.name === folderPath)) {
+      console.log("Folder already exists:", folderPath);
+      return;
+    }
+
+    const newFolder = {
+      id: nextFolderId,
+      name: folderPath.trim(),
+    };
+
+    setFolders((prev) => {
+      const updated = [...prev, newFolder];
+      console.log("New folder created:", newFolder);
+      console.log("Updated folders:", updated);
+      return updated;
+    });
+    setNextFolderId((prev) => prev + 1);
   };
 
   const handleProjectOpen = (projectName) => {
@@ -56,7 +96,7 @@ export default function App() {
     if (existingTab) {
       setActiveTabId(existingTab.id);
     } else {
-      setTabs((prev) => [...prev, { id: project.id }]);
+      setTabs((prev) => [...prev, { id: project.id, name: project.name }]);
       setActiveTabId(project.id);
     }
 
@@ -77,14 +117,8 @@ export default function App() {
     handleTabClose(projectToDelete.id);
   };
 
-  const handleAddFolder = (newFolderName) => {
-    if (!folders.includes(newFolderName)) {
-      setFolders((prev) => [...prev, newFolderName]);
-    }
-  };
-
   const handleTabClose = (id) => {
-    setTabs((prev) => prev.filter((t) => t.id !== id));
+    setTabs((prev) => prev.filter((tab) => tab.id !== id));
     setProjectRows((prev) => {
       const newRows = { ...prev };
       delete newRows[id];
@@ -97,7 +131,21 @@ export default function App() {
   };
 
   const handleNewProject = () => {
-    handleProjectCreate("Projektnamn");
+    const folderPath = prompt("Ange mapp eller mappstruktur (t.ex. Mapp1/Submapp):");
+    if (!folderPath || !folderPath.trim()) {
+      alert("Mappnamnet får inte vara tomt!");
+      return;
+    }
+    if (folderPath.includes("//")) {
+      alert("Ogiltig mappstruktur! Använd enkel / för att separera mappar.");
+      return;
+    }
+    const projectName = prompt("Namn på nytt projekt:");
+    if (!projectName || !projectName.trim()) {
+      alert("Projektnamnet får inte vara tomt!");
+      return;
+    }
+    handleProjectCreate(projectName.trim(), folderPath.trim());
   };
 
   const handleRowChange = (tabId, newRows) => {
@@ -142,6 +190,13 @@ export default function App() {
           : project
       )
     );
+    setTabs((prev) =>
+      prev.map((tab) =>
+        tab.name === oldName && allProjects.find((p) => p.id === tab.id && p.folder === folder)
+          ? { ...tab, name: newName }
+          : tab
+      )
+    );
   };
 
   const handleDeadlineChange = (projectId, deadline) => {
@@ -160,6 +215,8 @@ export default function App() {
       )
     );
   };
+
+  const folderTree = buildFolderTree(allProjects, folders);
 
   useEffect(() => {
     console.log("folderTree:", folderTree);
