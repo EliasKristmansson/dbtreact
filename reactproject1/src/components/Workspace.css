@@ -123,6 +123,14 @@
     color: #888888;
 }
 
+.project-table textarea:not(:placeholder-shown) {
+  padding-top: 5px; 
+  padding-left: 10px; 
+  padding-left: 5px; 
+  line-height: 1.2;
+  font-size: 0.7rem;
+}
+
 .project-table td:nth-child(14) select {
     font-size: 0.75rem !important;
     padding: 0.2rem 0 !important;
