@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Project from "./Project";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
 export default function Folder({
   folder,
   projects = [],
-  subFolders = [],
-  onProjectDoubleClick,
-  onProjectDelete,
-  onProjectRename,
   activeTabId,
   tabs,
+  isOpen,
+  toggleFolder,
+  openFolders,
   onProjectOpen,
-  handleRename,
+  onProjectDelete,
+  onProjectRename,
   onDeadlineChange,
   onPriorityChange,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleFolder = () => setIsOpen((prev) => !prev);
   const isActive = (projectId) => {
     const tab = tabs.find((t) => t.id === projectId);
     return tab && tab.id === activeTabId;
@@ -25,7 +23,7 @@ export default function Folder({
 
   return (
     <div className="folder">
-      <div className="collapse-container" onClick={toggleFolder}>
+      <div className="collapse-container" onClick={() => toggleFolder(folder.path)}>
         <span>
           {isOpen ? (
             <ChevronDown className="chevron" strokeWidth={0.8} />
@@ -46,7 +44,7 @@ export default function Folder({
               deadline={proj.deadline}
               priority={proj.priority}
               className={`project-item ${isActive(proj.id) ? "active" : ""}`}
-              onDoubleClick={onProjectDoubleClick}
+              onDoubleClick={onProjectOpen}
               onDelete={() => onProjectDelete(proj)}
               onRename={(oldName, newName) =>
                 onProjectRename(folder, oldName, newName)
@@ -59,15 +57,17 @@ export default function Folder({
           {folder.subFolders &&
             folder.subFolders.map((subfolder) => (
               <Folder
-                key={subfolder.title}
+                key={subfolder.path}
                 folder={subfolder}
-                onProjectDoubleClick={onProjectDoubleClick}
-                onProjectDelete={onProjectDelete}
-                onProjectRename={onProjectRename}
-                onProjectOpen={onProjectOpen}
-                handleRename={handleRename}
                 activeTabId={activeTabId}
                 tabs={tabs}
+                isOpen={openFolders[subfolder.path]}
+                toggleFolder={toggleFolder}
+                openFolders={openFolders}
+                projects={projects.filter((p) => p.folder === subfolder.path)}
+                onProjectOpen={onProjectOpen}
+                onProjectDelete={onProjectDelete}
+                onProjectRename={onProjectRename}
                 onDeadlineChange={onDeadlineChange}
                 onPriorityChange={onPriorityChange}
               />

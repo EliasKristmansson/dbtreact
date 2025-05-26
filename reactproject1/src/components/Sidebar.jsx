@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from "react";
+﻿import React, { useState, useRef, useEffect } from "react";
 import Folder from "./Folder";
 import "./sidebar.css";
 import { FaFileAlt, FaFolderPlus, FaSyncAlt, FaCompressAlt, FaRegEye } from "react-icons/fa";
@@ -24,11 +24,36 @@ export default function Sidebar({
   const [sidebarWidth, setSidebarWidth] = useState(250);
   const [isOpen, setIsOpen] = useState(() => {
     const initialState = {};
-    folders.forEach((folder) => {
-      initialState[folder.title] = true;
-    });
+    const collectFolderPaths = (folderList) => {
+      folderList.forEach((folder) => {
+        initialState[folder.path] = false; // Alla mappar stängda initialt
+        if (folder.subFolders) {
+          collectFolderPaths(folder.subFolders);
+        }
+      });
+    };
+    collectFolderPaths(folders);
     return initialState;
   });
+
+  // Synkronisera isOpen med folders när folders ändras, utan att överskriva existerande tillstånd
+  useEffect(() => {
+    setIsOpen((prev) => {
+      const newState = { ...prev };
+      const collectFolderPaths = (folderList) => {
+        folderList.forEach((folder) => {
+          if (!(folder.path in newState)) {
+            newState[folder.path] = false; // Nya mappar stängda initialt
+          }
+          if (folder.subFolders) {
+            collectFolderPaths(folder.subFolders);
+          }
+        });
+      };
+      collectFolderPaths(folders);
+      return newState;
+    });
+  }, [folders]);
 
   const handleRename = (folder, oldName, newName) => {
     onProjectRename(folder.path, oldName, newName);
@@ -63,7 +88,6 @@ export default function Sidebar({
       alert("Mappnamnet får inte vara tomt!");
       return;
     }
-    // Validera att sökvägen inte innehåller ogiltiga tecken (t.ex. dubbla //)
     if (newTitle.includes("//")) {
       alert("Ogiltig mappstruktur! Använd enkel / för att separera mappar.");
       return;
@@ -89,19 +113,27 @@ export default function Sidebar({
     onProjectCreate(projectName.trim(), folderPath.trim());
   };
 
-  const toggleFolder = (folderName) => {
+  const toggleFolder = (folderPath) => {
     setIsOpen((prev) => ({
       ...prev,
-      [folderName]: !prev[folderName],
+      [folderPath]: !prev[folderPath],
     }));
   };
 
   const closeAllFolders = () => {
-    const allClosed = {};
-    folders.forEach((folder) => {
-      allClosed[folder.title] = false;
+    setIsOpen((prev) => {
+      const allClosed = { ...prev };
+      const collectFolderPaths = (folderList) => {
+        folderList.forEach((folder) => {
+          allClosed[folder.path] = false;
+          if (folder.subFolders) {
+            collectFolderPaths(folder.subFolders);
+          }
+        });
+      };
+      collectFolderPaths(folders);
+      return allClosed;
     });
-    setIsOpen(allClosed);
   };
 
   return (
@@ -123,7 +155,7 @@ export default function Sidebar({
             <FaFileAlt title="Lägg till projekt" onClick={addProject} />
             <FaFolderPlus title="Lägg till mapp" onClick={addFolder} />
             <FaSyncAlt title="Uppdatera" />
-            <FaCompressAlt title="Stäng öppna mappar" onClick={() => closeAllFolders()} />
+            <FaCompressAlt title="Stäng öppna mappar" onClick={closeAllFolders} />
             <FaRegEye
               title={isMinimized ? "Återställ projektfönster" : "Minimera projektfönster"}
               onClick={() => {
@@ -162,10 +194,11 @@ export default function Sidebar({
               folder={folder}
               activeTabId={activeTabId}
               tabs={tabs}
-              isOpen={isOpen[folder.title]}
-              toggleFolder={() => toggleFolder(folder.title)}
+              isOpen={isOpen[folder.path]}
+              toggleFolder={toggleFolder}
+              openFolders={isOpen}
               projects={allProjects.filter((p) => p.folder === folder.path)}
-              onProjectDoubleClick={onProjectOpen}
+              onProjectOpen={onProjectOpen}
               onProjectDelete={onProjectDelete}
               onProjectRename={handleRename}
               onDeadlineChange={onDeadlineChange}
