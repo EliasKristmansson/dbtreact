@@ -18,6 +18,7 @@ export default function Sidebar({
   onDeadlineChange,
   onPriorityChange,
   onFolderDelete,
+  onFolderRename,
 }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const sidebarRef = useRef(null);
@@ -27,7 +28,7 @@ export default function Sidebar({
     const initialState = {};
     const collectFolderPaths = (folderList) => {
       folderList.forEach((folder) => {
-        initialState[folder.path] = false; // Alla mappar stängda initialt
+        initialState[folder.path] = false;
         if (folder.subFolders) {
           collectFolderPaths(folder.subFolders);
         }
@@ -37,14 +38,14 @@ export default function Sidebar({
     return initialState;
   });
 
-  // Synkronisera isOpen med folders när folders ändras, utan att överskriva existerande tillstånd
+  // Synkronisera isOpen med folders när folders ändras
   useEffect(() => {
     setIsOpen((prev) => {
       const newState = { ...prev };
       const collectFolderPaths = (folderList) => {
         folderList.forEach((folder) => {
           if (!(folder.path in newState)) {
-            newState[folder.path] = false; // Nya mappar stängda initialt
+            newState[folder.path] = false;
           }
           if (folder.subFolders) {
             collectFolderPaths(folder.subFolders);
@@ -57,6 +58,7 @@ export default function Sidebar({
   }, [folders]);
 
   const handleRename = (folder, oldName, newName) => {
+    console.log(`Sidebar: Handling project rename in folder ${folder.path} from ${oldName} to ${newName}`);
     onProjectRename(folder.path, oldName, newName);
   };
 
@@ -141,6 +143,10 @@ export default function Sidebar({
     window.location.reload();
   };
 
+  useEffect(() => {
+    console.log("Sidebar: onFolderRename prop received:", onFolderRename);
+  }, [onFolderRename]);
+
   return (
     <div
       className="sidebar"
@@ -209,6 +215,7 @@ export default function Sidebar({
               onDeadlineChange={onDeadlineChange}
               onPriorityChange={onPriorityChange}
               onFolderDelete={onFolderDelete}
+              onFolderRename={onFolderRename}
             />
           ))}
         </div>
@@ -230,7 +237,7 @@ export default function Sidebar({
           className={`stats-button ${isMinimized ? "minimized" : ""}`}
           onClick={onShowStatistics}
         >
-          📊 Visa
+          📊 Visa statistik
         </button>
       </div>
     </div>

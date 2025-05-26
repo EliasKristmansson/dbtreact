@@ -27,7 +27,7 @@ export default function App() {
   ]);
 
   const [nextId, setNextId] = useState(7);
-  const [nextFolderId, setNextFolderId] = useState(105);
+  const [nextFolderId, setNextFolderId] = useState(109); // Uppdaterat till 109 för att matcha nästa lediga ID
   const [rowCount, setRowCount] = useState(0);
   const [tabs, setTabs] = useState([]);
   const [projectRows, setProjectRows] = useState({});
@@ -44,12 +44,11 @@ export default function App() {
 
     setAllProjects((prev) => {
       const updated = [...prev, newProject];
-      console.log("New project created:", newProject);
-      console.log("Updated allProjects:", updated);
+      console.log("App: New project created:", newProject);
+      console.log("App: Updated allProjects:", updated);
       return updated;
     });
 
-    // Ensure the folder exists in folders state
     if (!folders.some((f) => f.name === folder)) {
       setFolders((prev) => [
         ...prev,
@@ -66,13 +65,12 @@ export default function App() {
 
   const handleAddFolder = (folderPath) => {
     if (!folderPath || !folderPath.trim()) {
-      console.warn("Folder path cannot be empty");
+      console.warn("App: Folder path cannot be empty");
       return;
     }
 
-    // Check if folder already exists
     if (folders.some((f) => f.name === folderPath)) {
-      console.log("Folder already exists:", folderPath);
+      console.log("App: Folder already exists:", folderPath);
       return;
     }
 
@@ -83,45 +81,40 @@ export default function App() {
 
     setFolders((prev) => {
       const updated = [...prev, newFolder];
-      console.log("New folder created:", newFolder);
-      console.log("Updated folders:", updated);
+      console.log("App: New folder created:", newFolder);
+      console.log("App: Updated folders:", updated);
       return updated;
     });
     setNextFolderId((prev) => prev + 1);
   };
 
   const handleDeleteFolder = (folderPath) => {
-    console.log(`App.jsx: Deleting folder with path: ${folderPath}`);
-    // Remove folder and its subfolders
+    console.log(`App: Deleting folder with path: ${folderPath}`);
     setFolders((prev) => {
       const updated = prev.filter((folder) => {
-        // Remove folder if its path matches or is a subfolder (starts with folderPath + "/")
         return folder.name !== folderPath && !folder.name.startsWith(`${folderPath}/`);
       });
-      console.log("Updated folders:", updated);
+      console.log("App: Updated folders:", updated);
       return updated;
     });
 
-    // Remove projects in the folder or its subfolders
     setAllProjects((prev) => {
       const updated = prev.filter((project) => {
         return project.folder !== folderPath && !project.folder.startsWith(`${folderPath}/`);
       });
-      console.log("Updated allProjects:", updated);
+      console.log("App: Updated allProjects:", updated);
       return updated;
     });
 
-    // Close any tabs associated with deleted projects
     setTabs((prev) => {
       const updated = prev.filter((tab) => {
         const project = allProjects.find((p) => p.id === tab.id);
         return project && (project.folder !== folderPath && !project.folder.startsWith(`${folderPath}/`));
       });
-      console.log("Updated tabs:", updated);
+      console.log("App: Updated tabs:", updated);
       return updated;
     });
 
-    // Update activeTabId if the active tab was removed
     if (tabs.some((tab) => tab.id === activeTabId)) {
       const remaining = tabs.filter((tab) => {
         const project = allProjects.find((p) => p.id === tab.id);
@@ -129,6 +122,67 @@ export default function App() {
       });
       setActiveTabId(remaining[0]?.id || null);
     }
+  };
+
+  const handleFolderRename = (oldPath, newName) => {
+    console.log(`App: Attempting to rename folder from ${oldPath} to ${newName}`);
+
+    if (!newName || !newName.trim()) {
+      console.log("App: Folder name is empty");
+      alert("Mappnamnet får inte vara tomt!");
+      return;
+    }
+
+    if (newName.includes("/") || newName.includes("//")) {
+      console.log("App: Invalid folder name with slashes");
+      alert("Mappnamnet får inte innehålla '/' eller '//'!");
+      return;
+    }
+
+    const pathParts = oldPath.split("/");
+    pathParts[pathParts.length - 1] = newName.trim();
+    const newPath = pathParts.join("/");
+
+    if (folders.some((f) => f.name === newPath)) {
+      console.log("App: Name conflict with", newName);
+      alert(`En mapp med namnet "${newName}" finns redan på denna nivå!`);
+      return;
+    }
+
+    setFolders((prev) => {
+      const updated = prev.map((folder) => {
+        console.log("App: Checking folder:", folder.name);
+        if (folder.name === oldPath) {
+          console.log("App: Updating folder name to:", newPath);
+          return { ...folder, name: newPath };
+        }
+        if (folder.name.startsWith(`${oldPath}/`)) {
+          const newFolderName = newPath + folder.name.slice(oldPath.length);
+          console.log("App: Updating subfolder name to:", newFolderName);
+          return { ...folder, name: newFolderName };
+        }
+        return folder;
+      });
+      console.log("App: Updated folders after rename:", updated);
+      return updated;
+    });
+
+    setAllProjects((prev) => {
+      const updated = prev.map((project) => {
+        if (project.folder === oldPath) {
+          console.log("App: Updating project folder to:", newPath);
+          return { ...project, folder: newPath };
+        }
+        if (project.folder.startsWith(`${oldPath}/`)) {
+          const newFolderPath = newPath + project.folder.slice(oldPath.length);
+          console.log("App: Updating project subfolder to:", newFolderPath);
+          return { ...project, folder: newFolderPath };
+        }
+        return project;
+      });
+      console.log("App: Updated allProjects after rename:", updated);
+      return updated;
+    });
   };
 
   const handleProjectOpen = (projectName) => {
@@ -262,7 +316,7 @@ export default function App() {
   const folderTree = buildFolderTree(allProjects, folders);
 
   useEffect(() => {
-    console.log("folderTree:", folderTree);
+    console.log("App: Folder tree updated:", folderTree);
   }, [folderTree]);
 
   const activeTab = tabs.find((t) => t.id === activeTabId);
@@ -308,6 +362,7 @@ export default function App() {
               onDeadlineChange={handleDeadlineChange}
               onPriorityChange={handlePriorityChange}
               onFolderDelete={handleDeleteFolder}
+              onFolderRename={handleFolderRename}
             />
             <Workspace
               activeTabId={activeTabId}

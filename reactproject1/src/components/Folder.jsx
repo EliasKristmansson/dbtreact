@@ -28,6 +28,7 @@ export default function Folder({
 
   const handleContextMenu = (e) => {
     e.preventDefault();
+    console.log(`Opening context menu for folder: ${folder.path}`);
     setContextMenu({
       x: e.clientX,
       y: e.clientY,
@@ -53,6 +54,7 @@ export default function Folder({
 
   const handleRenameFolder = () => {
     const newName = prompt(`Ange nytt namn för "${folder.title}":`, folder.title);
+    console.log(`Rename prompt returned: ${newName}`);
     if (newName && newName.trim()) {
       console.log(`Attempting to rename folder: ${folder.path} to ${newName}`);
       if (onFolderRename) {
@@ -60,6 +62,8 @@ export default function Folder({
       } else {
         console.warn("onFolderRename is not defined");
       }
+    } else {
+      console.log("Rename cancelled or invalid name");
     }
     setContextMenu(null);
   };
