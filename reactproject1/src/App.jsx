@@ -48,10 +48,10 @@ export default function App() {
     });
 
     // Ensure the folder exists in folders state
-    if (!folders.some(f => f.name === folder)) {
+    if (!folders.some((f) => f.name === folder)) {
       setFolders((prev) => [
         ...prev,
-        { id: nextFolderId, name: folder }
+        { id: nextFolderId, name: folder },
       ]);
       setNextFolderId((prev) => prev + 1);
     }
@@ -69,7 +69,7 @@ export default function App() {
     }
 
     // Check if folder already exists
-    if (folders.some(f => f.name === folderPath)) {
+    if (folders.some((f) => f.name === folderPath)) {
       console.log("Folder already exists:", folderPath);
       return;
     }
@@ -86,6 +86,47 @@ export default function App() {
       return updated;
     });
     setNextFolderId((prev) => prev + 1);
+  };
+
+  const handleDeleteFolder = (folderPath) => {
+    console.log(`App.jsx: Deleting folder with path: ${folderPath}`);
+    // Remove folder and its subfolders
+    setFolders((prev) => {
+      const updated = prev.filter((folder) => {
+        // Remove folder if its path matches or is a subfolder (starts with folderPath + "/")
+        return folder.name !== folderPath && !folder.name.startsWith(`${folderPath}/`);
+      });
+      console.log("Updated folders:", updated);
+      return updated;
+    });
+
+    // Remove projects in the folder or its subfolders
+    setAllProjects((prev) => {
+      const updated = prev.filter((project) => {
+        return project.folder !== folderPath && !project.folder.startsWith(`${folderPath}/`);
+      });
+      console.log("Updated allProjects:", updated);
+      return updated;
+    });
+
+    // Close any tabs associated with deleted projects
+    setTabs((prev) => {
+      const updated = prev.filter((tab) => {
+        const project = allProjects.find((p) => p.id === tab.id);
+        return project && (project.folder !== folderPath && !project.folder.startsWith(`${folderPath}/`));
+      });
+      console.log("Updated tabs:", updated);
+      return updated;
+    });
+
+    // Update activeTabId if the active tab was removed
+    if (tabs.some((tab) => tab.id === activeTabId)) {
+      const remaining = tabs.filter((tab) => {
+        const project = allProjects.find((p) => p.id === tab.id);
+        return project && (project.folder !== folderPath && !project.folder.startsWith(`${folderPath}/`));
+      });
+      setActiveTabId(remaining[0]?.id || null);
+    }
   };
 
   const handleProjectOpen = (projectName) => {
@@ -264,6 +305,7 @@ export default function App() {
               onShowStatistics={() => setViewMode("statistics")}
               onDeadlineChange={handleDeadlineChange}
               onPriorityChange={handlePriorityChange}
+              onFolderDelete={handleDeleteFolder}
             />
             <Workspace
               activeTabId={activeTabId}

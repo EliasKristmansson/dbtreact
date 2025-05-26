@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Project from "./Project";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
@@ -15,15 +15,47 @@ export default function Folder({
   onProjectRename,
   onDeadlineChange,
   onPriorityChange,
+  onFolderDelete,
 }) {
   const isActive = (projectId) => {
     const tab = tabs.find((t) => t.id === projectId);
     return tab && tab.id === activeTabId;
   };
 
+  const [contextMenu, setContextMenu] = useState(null);
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setContextMenu({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenu(null);
+  };
+
+  const handleDeleteFolder = () => {
+    console.log(`Attempting to delete folder: ${folder.path}`);
+    if (window.confirm(`Är du säker på att du vill ta bort mappen "${folder.title}" och allt dess innehåll?`)) {
+      console.log(`Confirmed deletion of folder: ${folder.path}`);
+      if (onFolderDelete) {
+        onFolderDelete(folder.path);
+      } else {
+        console.warn("onFolderDelete is not defined");
+      }
+      setContextMenu(null);
+    }
+  };
+
   return (
     <div className="folder">
-      <div className="collapse-container" onClick={() => toggleFolder(folder.path)}>
+      <div
+        className="collapse-container"
+        onClick={() => toggleFolder(folder.path)}
+        onContextMenu={handleContextMenu}
+      >
         <span>
           {isOpen ? (
             <ChevronDown className="chevron" strokeWidth={0.8} />
@@ -33,6 +65,18 @@ export default function Folder({
         </span>
         <h4 className="folder-title">{folder.title}</h4>
       </div>
+
+      {contextMenu && (
+        <div
+          className="context-menu"
+          style={{ top: contextMenu.y, left: contextMenu.x }}
+          onClick={handleCloseContextMenu}
+        >
+          <div className="context-menu-item" onClick={handleDeleteFolder}>
+            Ta bort
+          </div>
+        </div>
+      )}
 
       {isOpen && (
         <div className="project">
@@ -70,6 +114,7 @@ export default function Folder({
                 onProjectRename={onProjectRename}
                 onDeadlineChange={onDeadlineChange}
                 onPriorityChange={onPriorityChange}
+                onFolderDelete={onFolderDelete}
               />
             ))}
         </div>

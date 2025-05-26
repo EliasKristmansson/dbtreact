@@ -17,6 +17,7 @@ export default function Sidebar({
   handleAddFolder,
   onDeadlineChange,
   onPriorityChange,
+  onFolderDelete,
 }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const sidebarRef = useRef(null);
@@ -207,6 +208,7 @@ export default function Sidebar({
               onProjectRename={handleRename}
               onDeadlineChange={onDeadlineChange}
               onPriorityChange={onPriorityChange}
+              onFolderDelete={onFolderDelete}
             />
           ))}
         </div>
@@ -228,7 +230,7 @@ export default function Sidebar({
           className={`stats-button ${isMinimized ? "minimized" : ""}`}
           onClick={onShowStatistics}
         >
-          📊 Visa statistik
+          📊 Visa
         </button>
       </div>
     </div>
