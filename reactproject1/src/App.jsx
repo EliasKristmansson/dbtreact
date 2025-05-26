@@ -8,20 +8,22 @@ import buildFolderTree from "./components/BuildFolderTree";
 
 export default function App() {
   const [allProjects, setAllProjects] = useState([
-    { id: 1, name: "Projekt 1", folder: "Prio", deadline: null, priority: null },
-    { id: 2, name: "Projekt 2", folder: "Prio/Sub1", deadline: null, priority: null },
-    { id: 3, name: "Projekt 3", folder: "Prio/Sub1", deadline: null, priority: null },
-    { id: 4, name: "Projekt 4", folder: "Sötvatten", deadline: null, priority: null },
-    { id: 5, name: "Projekt 5", folder: "Sötvatten/Undermapp", deadline: null, priority: null },
-    { id: 6, name: "Projekt 6", folder: "Marint", deadline: null, priority: null },
+    { id: 1, name: "Projekt C", folder: "Sötvatten/Kundnamn Z", deadline: null, priority: null },
+    { id: 2, name: "Projekt A", folder: "Bräckt vatten/Kundnamn X", deadline: null, priority: null },
+    { id: 3, name: "Projekt B", folder: "Bräckt vatten/Kundnamn Y", deadline: null, priority: null },
+    { id: 4, name: "Projekt!", folder: "Sötvatten/Kundnamn Z/Sub 3", deadline: null, priority: null },
   ]);
 
   const [folders, setFolders] = useState([
     { id: 100, name: "Prio" },
-    { id: 101, name: "Prio/Sub1" },
-    { id: 102, name: "Sötvatten" },
-    { id: 103, name: "Sötvatten/Undermapp" },
+    { id: 101, name: "Sötvatten" },
+    { id: 102, name: "Sötvatten/Kundnamn Z" },
+    { id: 103, name: "Sötvatten/Kundnamn Z/Sub 3" },
     { id: 104, name: "Marint" },
+    { id: 105, name: "Marint/Kundnamn Ma" },
+    { id: 106, name: "Bräckt vatten" },
+    { id: 107, name: "Bräckt vatten/Kundnamn X" },
+    { id: 108, name: "Bräckt vatten/Kundnamn Y" },
   ]);
 
   const [nextId, setNextId] = useState(7);
