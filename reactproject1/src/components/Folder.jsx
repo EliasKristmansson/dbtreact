@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Project from "./Project";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
@@ -24,7 +24,7 @@ export default function Folder({
   };
 
   const [contextMenu, setContextMenu] = useState(null);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const contextMenuRef = useRef(null);
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -40,23 +40,15 @@ export default function Folder({
 
   const handleDeleteFolder = () => {
     console.log(`Attempting to delete folder: ${folder.path}`);
-    setShowDeleteDialog(true);
-    setContextMenu(null);
-  };
-
-  const confirmDelete = () => {
-    console.log(`Confirmed deletion of folder: ${folder.path}`);
-    if (onFolderDelete) {
-      onFolderDelete(folder.path);
-    } else {
-      console.warn("onFolderDelete is not defined");
+    if (window.confirm(`Är du säker på att du vill ta bort mappen "${folder.title}" och allt dess innehåll?`)) {
+      console.log(`Confirmed deletion of folder: ${folder.path}`);
+      if (onFolderDelete) {
+        onFolderDelete(folder.path);
+      } else {
+        console.warn("onFolderDelete is not defined");
+      }
     }
-    setShowDeleteDialog(false);
-  };
-
-  const cancelDelete = () => {
-    console.log(`Cancelled deletion of folder: ${folder.path}`);
-    setShowDeleteDialog(false);
+    setContextMenu(null);
   };
 
   const handleRenameFolder = () => {
@@ -68,9 +60,36 @@ export default function Folder({
       } else {
         console.warn("onFolderRename is not defined");
       }
-      setContextMenu(null);
     }
+    setContextMenu(null);
   };
+
+  // Close context menu on outside click or Escape key
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
+        console.log("Clicked outside context menu, closing");
+        setContextMenu(null);
+      }
+    };
+
+    const handleEscapeKey = (e) => {
+      if (e.key === "Escape") {
+        console.log("Escape key pressed, closing context menu");
+        setContextMenu(null);
+      }
+    };
+
+    if (contextMenu) {
+      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [contextMenu]);
 
   return (
     <div className="folder">
@@ -93,33 +112,13 @@ export default function Folder({
         <div
           className="context-menu"
           style={{ top: contextMenu.y, left: contextMenu.x }}
-          onClick={handleCloseContextMenu}
+          ref={contextMenuRef}
         >
           <div className="context-menu-item" onClick={handleRenameFolder}>
             Byt namn
           </div>
           <div className="context-menu-item" onClick={handleDeleteFolder}>
             Ta bort
-          </div>
-        </div>
-      )}
-
-      {showDeleteDialog && (
-        <div className="modal-overlay" onClick={cancelDelete}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Bekräfta borttagning</h3>
-            <p>
-              Är du säker på att du vill ta bort mappen "{folder.title}" och allt
-              dess innehåll?
-            </p>
-            <div className="modal-buttons">
-              <button className="modal-button cancel" onClick={cancelDelete}>
-                Avbryt
-              </button>
-              <button className="modal-button delete" onClick={confirmDelete}>
-                Ta bort
-              </button>
-            </div>
           </div>
         </div>
       )}
