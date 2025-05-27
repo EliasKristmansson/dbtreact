@@ -47,7 +47,7 @@ export default function Project({
 
   const handleContextMenu = (e) => {
     e.preventDefault();
-    console.log("Context menu triggered for project:", { name, projectId, className, isClosingPriorityMenu }); // Loggning
+    console.log("Context menu triggered for project:", { name, projectId, className, isClosingPriorityMenu });
     setSelectedProject(name);
     setContextMenu({ x: e.clientX, y: e.clientY });
   };
@@ -70,7 +70,6 @@ export default function Project({
 
   const handlePriority = () => {
     setShowPriorityMenu(true);
-    // Behåll contextMenu för att använda samma koordinater
   };
 
   const closeRenameModal = () => {
@@ -105,7 +104,7 @@ export default function Project({
     ) {
       setShowPriorityMenu(false);
       setContextMenu(null);
-      setIsClosingPriorityMenu(false); // Återställ för att tillåta framtida kontextmenyer
+      setIsClosingPriorityMenu(false);
     }
   };
 
@@ -114,10 +113,16 @@ export default function Project({
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
-      setIsClosingPriorityMenu(false); // Säkerställ återställning när menyer stängs
+      setIsClosingPriorityMenu(false);
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showDatePicker, showPriorityMenu]);
+
+  const handleClearDeadline = () => {
+    setSelectedDate(null);
+    onDeadlineChange(projectId, "");
+    setShowDatePicker(false);
+  };
 
   return (
     <div className={className} id="project-container">
@@ -277,6 +282,42 @@ export default function Project({
             }}
             inline
             dateFormat="yyyy-MM-dd"
+            renderCustomHeader={({
+              monthDate,
+              decreaseMonth,
+              increaseMonth,
+              prevMonthButtonDisabled,
+              nextMonthButtonDisabled,
+            }) => (
+              <div className="custom-datepicker-header">
+                <div
+                  className="datepicker-title"
+                  onClick={handleClearDeadline}
+                >
+                  Ingen deadline
+                </div>
+                <div className="month-navigation">
+                  <button
+                    onClick={decreaseMonth}
+                    disabled={prevMonthButtonDisabled}
+                  >
+                    {"<"}
+                  </button>
+                  <span>
+                    {monthDate.toLocaleString("sv-SE", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </span>
+                  <button
+                    onClick={increaseMonth}
+                    disabled={nextMonthButtonDisabled}
+                  >
+                    {">"}
+                  </button>
+                </div>
+              </div>
+            )}
           />
         </div>
       )}
