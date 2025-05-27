@@ -16,6 +16,7 @@ export default function Project({
   className,
   projectId,
   activeTabId,
+  onMoveItem,
 }) {
   const [contextMenu, setContextMenu] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -44,6 +45,52 @@ export default function Project({
       setSelectedDate(null);
     }
   }, [deadline]);
+
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({
+        id: projectId,
+        type: "project",
+      })
+    );
+    e.currentTarget.classList.add("dragging");
+    console.log(`Project drag start: ${name}, ID: ${projectId}`);
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.classList.remove("dragging");
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.currentTarget.classList.add("drop-target");
+  };
+
+  const handleDragLeave = (e) => {
+    e.currentTarget.classList.remove("drop-target");
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    e.currentTarget.classList.remove("drop-target");
+
+    if (data.id === projectId) {
+      console.log("Cannot drop project on itself");
+      return;
+    }
+
+    // Hitta föräldramappen
+    const parentFolder = e.currentTarget.closest(".folder");
+    const parentPath = parentFolder ? parentFolder.getAttribute("data-path") : "";
+    const siblings = Array.from(e.currentTarget.parentElement.children);
+    const position = siblings.indexOf(e.currentTarget);
+
+    console.log(`Project drop: ${data.type} ID ${data.id} onto ${name} in ${parentPath}, position ${position}`);
+    onMoveItem(data.id, data.type, parentPath, position);
+  };
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -127,6 +174,12 @@ export default function Project({
   return (
     <div className={className} id="project-container">
       <li
+        draggable
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
         onDoubleClick={() => onDoubleClick(name)}
         onContextMenu={handleContextMenu}
       >

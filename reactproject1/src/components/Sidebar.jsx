@@ -19,6 +19,7 @@ export default function Sidebar({
   onPriorityChange,
   onFolderDelete,
   onFolderRename,
+  onMoveItem, // Ny prop
 }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const sidebarRef = useRef(null);
@@ -324,6 +325,8 @@ export default function Sidebar({
                 onPriorityChange={onPriorityChange}
                 onFolderDelete={onFolderDelete}
                 onFolderRename={onFolderRename}
+                onMoveItem={onMoveItem} // Passera onMoveItem
+                allProjects={allProjects} // Passera allProjects för att hitta folder ID
               />
             ))
           ) : (

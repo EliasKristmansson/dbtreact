@@ -319,3 +319,11 @@
   color: #000000;
   cursor: pointer;
 }
+
+.drop-target {
+  border: 2px dashed #888;
+  background-color: #e0e0e0;
+}
+.dragging {
+  opacity: 0.5;
+}

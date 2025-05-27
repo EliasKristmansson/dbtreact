@@ -17,6 +17,8 @@ export default function Folder({
   onPriorityChange,
   onFolderDelete,
   onFolderRename,
+  onMoveItem,
+  allProjects,
 }) {
   const isActive = (projectId) => {
     const tab = tabs.find((t) => t.id === projectId);
@@ -25,6 +27,50 @@ export default function Folder({
 
   const [contextMenu, setContextMenu] = useState(null);
   const contextMenuRef = useRef(null);
+
+  const handleDragStart = (e) => {
+    if (!folder.id) {
+      console.error(`Folder ID is undefined for path: ${folder.path}`);
+      return;
+    }
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({
+        id: folder.id,
+        type: "folder",
+      })
+    );
+    e.currentTarget.classList.add("dragging");
+    console.log(`Folder drag start: ${folder.path}, ID: ${folder.id}`);
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.classList.remove("dragging");
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.currentTarget.classList.add("drop-target");
+  };
+
+  const handleDragLeave = (e) => {
+    e.currentTarget.classList.remove("drop-target");
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+    e.currentTarget.classList.remove("drop-target");
+
+    if (data.id === folder.id) {
+      console.log("Cannot drop folder on itself");
+      return;
+    }
+
+    console.log(`Folder drop: ${data.type} ID ${data.id} onto ${folder.path}`);
+    onMoveItem(data.id, data.type, folder.path);
+  };
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -68,7 +114,6 @@ export default function Folder({
     setContextMenu(null);
   };
 
-  // Close context menu on outside click or Escape key
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
@@ -96,7 +141,16 @@ export default function Folder({
   }, [contextMenu]);
 
   return (
-    <div className="folder">
+    <div
+      className="folder"
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      data-path={folder.path} // Lägg till data-path
+    >
       <div
         className="collapse-container"
         onClick={() => toggleFolder(folder.path)}
@@ -131,7 +185,7 @@ export default function Folder({
         <div className="project">
           {folder.projects.map((proj, idx) => (
             <Project
-              key={idx}
+              key={proj.id} // Använd proj.id som key
               name={proj.name}
               projectId={proj.id}
               deadline={proj.deadline}
@@ -140,17 +194,18 @@ export default function Folder({
               onDoubleClick={onProjectOpen}
               onDelete={() => onProjectDelete(proj)}
               onRename={(oldName, newName) =>
-                onProjectRename(folder, oldName, newName)
+                onProjectRename(folder.path, oldName, newName)
               }
               onDeadlineChange={onDeadlineChange}
               onPriorityChange={onPriorityChange}
               activeTabId={activeTabId}
+              onMoveItem={onMoveItem}
             />
           ))}
           {folder.subFolders &&
-            folder.subFolders.map((subfolder) => (
+            folder.subFolders.map((subfolder, index) => (
               <Folder
-                key={subfolder.path}
+                key={subfolder.id || subfolder.path} // Använd id om tillgängligt
                 folder={subfolder}
                 activeTabId={activeTabId}
                 tabs={tabs}
@@ -165,6 +220,8 @@ export default function Folder({
                 onPriorityChange={onPriorityChange}
                 onFolderDelete={onFolderDelete}
                 onFolderRename={onFolderRename}
+                onMoveItem={onMoveItem}
+                allProjects={allProjects}
               />
             ))}
         </div>

@@ -27,7 +27,7 @@ export default function App() {
   ]);
 
   const [nextId, setNextId] = useState(7);
-  const [nextFolderId, setNextFolderId] = useState(109); // Uppdaterat till 109 för att matcha nästa lediga ID
+  const [nextFolderId, setNextFolderId] = useState(109);
   const [rowCount, setRowCount] = useState(0);
   const [tabs, setTabs] = useState([]);
   const [projectRows, setProjectRows] = useState({});
@@ -37,6 +37,101 @@ export default function App() {
   const [commentCount, setCommentCount] = useState(0);
   const [greenFlagsCount, setGreenFlagsCount] = useState(0);
   const [deadlines, setDeadlines] = useState({});
+
+  const handleMoveItem = (itemId, itemType, newParentPath, position = null) => {
+    console.log(`App: Moving ${itemType} with ID ${itemId} to ${newParentPath || "top level"}, position: ${position}`);
+    
+    if (itemType === "folder") {
+      // Hitta mappen
+      const folder = folders.find((f) => f.id === itemId);
+      if (!folder) {
+        console.error(`App: Folder with ID ${itemId} not found`);
+        return;
+      }
+
+      // Beräkna ny sökväg
+      const folderName = folder.name.split("/").pop();
+      const newPath = newParentPath ? `${newParentPath}/${folderName}` : folderName;
+
+      // Kontrollera att mappen inte flyttas till en egen undermapp
+      if (newPath.startsWith(`${folder.name}/`)) {
+        alert("Kan inte flytta en mapp till dess egen undermapp!");
+        return;
+      }
+
+      // Kontrollera att målmappen inte redan finns
+      if (folders.some((f) => f.name === newPath && f.id !== itemId)) {
+        alert(`En mapp med namnet "${folderName}" finns redan på denna plats!`);
+        return;
+      }
+
+      // Uppdatera folders
+      setFolders((prev) => {
+        // Ta bort mappen från dess nuvarande plats
+        let updatedFolders = prev.filter((f) => f.id !== itemId);
+        // Uppdatera sökvägar för submappar
+        updatedFolders = updatedFolders.map((f) => {
+          if (f.name.startsWith(`${folder.name}/`)) {
+            const newSubPath = newPath + f.name.slice(folder.name.length);
+            return { ...f, name: newSubPath };
+          }
+          return f;
+        });
+        // Lägg till mappen på ny plats
+        const newFolder = { ...folder, name: newPath };
+        if (position !== null) {
+          // Hitta rätt position på toppnivån eller i målmappen
+          const parentFolders = newParentPath
+            ? updatedFolders.filter((f) => f.name.startsWith(newParentPath + "/") && f.name.split("/").length === newParentPath.split("/").length + 1)
+            : updatedFolders.filter((f) => !f.name.includes("/"));
+          updatedFolders = updatedFolders.filter((f) => !parentFolders.includes(f));
+          parentFolders.splice(position, 0, newFolder);
+          updatedFolders = [...updatedFolders, ...parentFolders];
+        } else {
+          updatedFolders.push(newFolder);
+        }
+        console.log("App: Updated folders:", updatedFolders);
+        return updatedFolders;
+      });
+
+      // Uppdatera projekt som ligger i mappen eller dess submappar
+      setAllProjects((prev) => {
+        const updated = prev.map((p) => {
+          if (p.folder === folder.name || p.folder.startsWith(`${folder.name}/`)) {
+            const newProjectPath = newPath + p.folder.slice(folder.name.length);
+            return { ...p, folder: newProjectPath };
+          }
+          return p;
+        });
+        console.log("App: Updated projects:", updated);
+        return updated;
+      });
+    } else if (itemType === "project") {
+      // Hitta projektet
+      const project = allProjects.find((p) => p.id === itemId);
+      if (!project) {
+        console.error(`App: Project with ID ${itemId} not found`);
+        return;
+      }
+
+      // Uppdatera projektets folder
+      setAllProjects((prev) => {
+        let updatedProjects = prev.filter((p) => p.id !== itemId);
+        const updatedProject = { ...project, folder: newParentPath || "" };
+        if (position !== null) {
+          // Hitta projekt i samma mapp och sätt in på rätt position
+          const sameFolderProjects = updatedProjects.filter((p) => p.folder === (newParentPath || ""));
+          const otherProjects = updatedProjects.filter((p) => p.folder !== (newParentPath || ""));
+          sameFolderProjects.splice(position, 0, updatedProject);
+          updatedProjects = [...otherProjects, ...sameFolderProjects];
+        } else {
+          updatedProjects.push(updatedProject);
+        }
+        console.log("App: Updated projects:", updatedProjects);
+        return updatedProjects;
+      });
+    }
+  };
 
   const handleProjectCreate = (projectName, folder = "Allmänt") => {
     const newId = nextId;
@@ -279,17 +374,17 @@ export default function App() {
     }));
   };
 
-  const handleProjectRename = (folder, oldName, newName) => {
+  const handleProjectRename = (folderPath, oldName, newName) => {
     setAllProjects((prevProjects) =>
       prevProjects.map((project) =>
-        project.folder === folder && project.name === oldName
+        project.folder === folderPath && project.name === oldName
           ? { ...project, name: newName }
           : project
       )
     );
     setTabs((prev) =>
       prev.map((tab) =>
-        tab.name === oldName && allProjects.find((p) => p.id === tab.id && p.folder === folder)
+        tab.name === oldName && allProjects.find((p) => p.id === tab.id && p.folder === folderPath)
           ? { ...tab, name: newName }
           : tab
       )
@@ -363,6 +458,7 @@ export default function App() {
               onPriorityChange={handlePriorityChange}
               onFolderDelete={handleDeleteFolder}
               onFolderRename={handleFolderRename}
+              onMoveItem={handleMoveItem}
             />
             <Workspace
               activeTabId={activeTabId}

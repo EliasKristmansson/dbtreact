@@ -5,7 +5,10 @@ export default function BuildFolderTree(projects, folders) {
   const findOrCreateFolder = (path, title, currentLevel) => {
     let existingFolder = currentLevel.find((f) => f.title === title && f.path === path);
     if (!existingFolder) {
+      // Hitta folder ID från folders array
+      const folderData = folders.find((f) => f.name === path);
       existingFolder = {
+        id: folderData ? folderData.id : undefined, // Lägg till ID
         title: title,
         path: path,
         projects: [],
@@ -44,15 +47,6 @@ export default function BuildFolderTree(projects, folders) {
       currentLevel = folder.subFolders;
     });
   });
-
-  // Sort folders alphabetically at each level
-  const sortFolders = (folders) => {
-    folders.sort((a, b) => a.title.localeCompare(b.title));
-    folders.forEach((folder) => {
-      sortFolders(folder.subFolders);
-    });
-  };
-  sortFolders(root);
 
   return root;
 }
