@@ -24,6 +24,7 @@ export default function Sidebar({
   const sidebarRef = useRef(null);
   const isResizing = useRef(false);
   const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(() => {
     const initialState = {};
     const collectFolderPaths = (folderList) => {
@@ -41,12 +42,10 @@ export default function Sidebar({
   // Synkronisera isOpen med folders när folders ändras
   useEffect(() => {
     setIsOpen((prev) => {
-      const newState = { ...prev };
+      const newState = {};
       const collectFolderPaths = (folderList) => {
         folderList.forEach((folder) => {
-          if (!(folder.path in newState)) {
-            newState[folder.path] = false;
-          }
+          newState[folder.path] = prev[folder.path] ?? false;
           if (folder.subFolders) {
             collectFolderPaths(folder.subFolders);
           }
@@ -125,7 +124,7 @@ export default function Sidebar({
 
   const closeAllFolders = () => {
     setIsOpen((prev) => {
-      const allClosed = { ...prev };
+      const allClosed = {};
       const collectFolderPaths = (folderList) => {
         folderList.forEach((folder) => {
           allClosed[folder.path] = false;
@@ -141,6 +140,112 @@ export default function Sidebar({
 
   const refreshPage = () => {
     window.location.reload();
+  };
+
+  // Hantera sökning
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    console.log("Sidebar: Search query updated:", query);
+  };
+
+  // Filtrera mappar och projekt baserat på söksträngen
+  const getFilteredFolders = () => {
+    if (!searchQuery.trim()) {
+      console.log("Sidebar: No search query, returning all folders");
+      return { folders, openPaths: new Set() };
+    }
+
+    const queryLower = searchQuery.toLowerCase();
+    const filteredFolders = [];
+    const includedFolderPaths = new Set();
+    const openPaths = new Set();
+
+    // Hitta matchande projekt och deras mappar
+    allProjects.forEach((project) => {
+      if (project.name.toLowerCase().includes(queryLower)) {
+        const folderPath = project.folder;
+        console.log(`Sidebar: Project match: ${project.name} in ${folderPath}`);
+        includedFolderPaths.add(folderPath);
+        // Lägg till alla föräldramappar och markera dem som öppna
+        let path = folderPath;
+        while (path) {
+          includedFolderPaths.add(path);
+          openPaths.add(path);
+          path = path.includes("/") ? path.substring(0, path.lastIndexOf("/")) : "";
+        }
+      }
+    });
+
+    // Lägg till mappar som matchar söksträngen
+    const collectMatchingFolders = (folderList, parentFilteredFolders) => {
+      folderList.forEach((folder) => {
+        const folderMatches = folder.path.toLowerCase().includes(queryLower);
+        const pathMatches = includedFolderPaths.has(folder.path);
+
+        if (folderMatches || pathMatches) {
+          console.log(`Sidebar: Folder match: ${folder.path}`);
+          const filteredFolder = { ...folder };
+          includedFolderPaths.add(folder.path);
+          if (folderMatches) {
+            openPaths.add(folder.path);
+          }
+          if (folder.subFolders) {
+            filteredFolder.subFolders = [];
+            collectMatchingFolders(folder.subFolders, filteredFolder.subFolders);
+          }
+          parentFilteredFolders.push(filteredFolder);
+        } else if (folder.subFolders) {
+          // Kontrollera submappar rekursivt
+          const subFolders = [];
+          collectMatchingFolders(folder.subFolders, subFolders);
+          if (subFolders.length > 0) {
+            const filteredFolder = { ...folder, subFolders };
+            parentFilteredFolders.push(filteredFolder);
+          }
+        }
+      });
+    };
+
+    collectMatchingFolders(folders, filteredFolders);
+    console.log("Sidebar: Filtered folders:", filteredFolders);
+    console.log("Sidebar: Included folder paths:", Array.from(includedFolderPaths));
+    console.log("Sidebar: Folders to open:", Array.from(openPaths));
+    return { folders: filteredFolders, openPaths };
+  };
+
+  const { folders: filteredFolders, openPaths } = getFilteredFolders();
+
+  // Öppna mappar baserat på sökresultat
+  useEffect(() => {
+    if (openPaths.size > 0) {
+      setIsOpen((prev) => {
+        const newOpen = { ...prev };
+        openPaths.forEach((path) => {
+          newOpen[path] = true;
+        });
+        console.log("Sidebar: Updated isOpen:", newOpen);
+        return newOpen;
+      });
+    }
+  }, [searchQuery, folders, allProjects]);
+
+  // Filtrera projekt för varje mapp
+  const getFilteredProjects = (folderPath) => {
+    if (!searchQuery.trim()) {
+      const projects = allProjects.filter((p) => p.folder === folderPath);
+      console.log(`Sidebar: All projects for ${folderPath}:`, projects);
+      return projects;
+    }
+
+    const queryLower = searchQuery.toLowerCase();
+    const filteredProjects = allProjects.filter(
+      (project) =>
+        project.folder === folderPath &&
+        project.name.toLowerCase().includes(queryLower)
+    );
+    console.log(`Sidebar: Filtered projects for ${folderPath}:`, filteredProjects);
+    return filteredProjects;
   };
 
   useEffect(() => {
@@ -186,6 +291,8 @@ export default function Sidebar({
             type="text"
             placeholder="Sök..."
             className={`search ${isMinimized ? "minimized" : ""}`}
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
           <button
             className={`filter-btn ${isMinimized ? "minimized" : ""}`}
@@ -199,25 +306,29 @@ export default function Sidebar({
 
       <div className="folder-container">
         <div className={`folders-container ${isMinimized ? "minimized" : ""}`}>
-          {folders.map((folder, i) => (
-            <Folder
-              key={i}
-              folder={folder}
-              activeTabId={activeTabId}
-              tabs={tabs}
-              isOpen={isOpen[folder.path]}
-              toggleFolder={toggleFolder}
-              openFolders={isOpen}
-              projects={allProjects.filter((p) => p.folder === folder.path)}
-              onProjectOpen={onProjectOpen}
-              onProjectDelete={onProjectDelete}
-              onProjectRename={handleRename}
-              onDeadlineChange={onDeadlineChange}
-              onPriorityChange={onPriorityChange}
-              onFolderDelete={onFolderDelete}
-              onFolderRename={onFolderRename}
-            />
-          ))}
+          {filteredFolders.length > 0 ? (
+            filteredFolders.map((folder, i) => (
+              <Folder
+                key={i}
+                folder={folder}
+                activeTabId={activeTabId}
+                tabs={tabs}
+                isOpen={isOpen[folder.path]}
+                toggleFolder={toggleFolder}
+                openFolders={isOpen}
+                projects={getFilteredProjects(folder.path)}
+                onProjectOpen={onProjectOpen}
+                onProjectDelete={onProjectDelete}
+                onProjectRename={handleRename}
+                onDeadlineChange={onDeadlineChange}
+                onPriorityChange={onPriorityChange}
+                onFolderDelete={onFolderDelete}
+                onFolderRename={onFolderRename}
+              />
+            ))
+          ) : (
+            <p className="no-results">Inga resultat hittades</p>
+          )}
         </div>
       </div>
 
