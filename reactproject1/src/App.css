@@ -444,3 +444,30 @@ body {
   padding: 4px 8px;
   width: 200px;
 }
+
+
+
+
+/* PAGELOADER CSS*/
+
+/* I din CSS-fil t.ex. App.css */
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#page-loader p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+

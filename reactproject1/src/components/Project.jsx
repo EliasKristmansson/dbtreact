@@ -36,14 +36,13 @@ export default function Project({ name, onDoubleClick, onDelete, onRename, class
     };
 
     return (
-        <div className={className} id="project-container">
-         <li
-            onDoubleClick={() => onDoubleClick(name)}
-            onContextMenu={handleContextMenu}
-        >
-            <span>{name}</span>
-            <span className="project-date">2024-10-01</span> {/* hårdkodat datum */}
-        </li>
+        <div className={className}>
+            <li
+                onDoubleClick={() => onDoubleClick(name)}
+                onContextMenu={handleContextMenu}
+            >
+                {name}
+            </li>
 
             {contextMenu && (
                 <div
