@@ -1,235 +1,270 @@
 body {
-    font-family: "Figtree", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    margin: 0;
-    color: white;
-    
+  font-family: "Figtree", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin: 0;
+  color: white;
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .topbar {
-    background-color: #F8F8F8;
-    height: 80px;
-    display: flex;
-    border-bottom: 1px solid #888686;
-    box-sizing: border-box;
+  background-color: #F8F8F8;
+  height: 80px;
+  min-height: 80px;
+  max-height: 80px;
+  display: flex;
+  border-bottom: 1px solid #888686;
+  box-sizing: border-box;
 }
 
 .topbar-content {
-    align-items: flex-end;
-    display: flex;
-    gap: 1px;
-    flex-grow: 1;
+  align-items: flex-end;
+  display: flex;
+  gap: 1px;
+  flex-grow: 1;
 }
 
 .topbar-content-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-right: 1rem;
 }
 
+.topbar-content-right .priority-indicator {
+  margin-right: 5px; /* Ökat avstånd till projektnamn i Topbar */
+}
 
 .search {
-    flex: 1;
-    padding: 5px;
-    background-color: #eaeaea;
-    border: none;
-    border-radius: 4px;
-    color: rgb(28, 28, 28);
+  flex: 1;
+  padding: 5px;
+  background-color: #eaeaea;
+  border: none;
+  border-radius: 4px;
+  color: rgb(28, 28, 28);
 }
-
 
 .sidebar-header {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
-    color: black;
-    
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  color: black;
 }
 
-.sidebar-title{
-    max-width: 230px;
-    justify-content: space-between;
-    gap: 5px;
-    display:flex;
-    flex-wrap: wrap;
+.sidebar-title {
+  max-width: 230px;
+  justify-content: space-between;
+  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
 }
-.sidebar-title p{
-    margin: 0;
 
+.sidebar-title p {
+  margin: 0;
 }
-.sidebar-search{
-    max-width: 230px;
-    display:flex;
-    gap:5px;
-    flex-wrap: wrap;
+
+.sidebar-search {
+  max-width: 230px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
 }
+
 .sidebar-icons {
-    display: flex;
-    gap: 10px;
-    margin-left: 0;
-    cursor: pointer;
-   
+  display: flex;
+  gap: 10px;
+  margin-left: 0;
+  cursor: pointer;
 }
 
 .tab {
-    background-color: #e4e4e4;
-    padding: 6px 10px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
-    margin-right: 4px;
-    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
-    border: 1px solid #ccc;
-    border-bottom: 0px solid #e4e4e4;
+  background-color: #e4e4e4;
+  padding: 6px 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 4px;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
+    border-bottom 0.2s ease-in-out;
+  border: 1px solid #ccc;
+  border-bottom: 0px solid #e4e4e4;
 }
 
-    .tab:hover {
-        background-color: #d8d8d8;
-        box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.08);
-        cursor: pointer;
-    }
+.tab:hover {
+  background-color: #d8d8d8;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
 
-    .tab.active-tab {
-        background-color: #ffffff;
-        font-weight: 600;
-        border-bottom: 2px solid white;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
-        color: #000;
-    }
-
+.tab.active-tab {
+  background-color: #ffffff;
+  font-weight: 600;
+  border-bottom: 2px solid white;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
+  color: #000;
+}
 
 .project-name {
-    color: black;
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    white-space: nowrap;
+  color: black;
+  margin: 0;
+  margin-right: 40px;
+  margin-bottom: 2px;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-    .project-name:hover {
-        cursor: pointer;
-    }
+.project-name:hover {
+  cursor: pointer;
+}
 
 .project-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px 6px;
-    width: 99%;
-    transition: background-color 0.2s;
-  }
-  
-  .project-item:hover {
-    background-color: #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 6px;
+  width: 99%;
+  transition: background-color 0.2s;
+}
 
-  }
-  
-  .delete-icon {
-    color: rgb(24, 24, 24);
-    cursor: pointer;
-    margin-left: 100px;
-  }
-  
-  .delete-icon:hover {
-    color: rgb(24, 24, 24);
-  }
+.project-item:hover {
+  background-color: #eee;
+}
 
+.project-item .priority-indicator {
+  width: 8px; /* Mindre storlek i Sidebar */
+  height: 8px;
+}
+
+.delete-icon {
+  color: rgb(24, 24, 24);
+  cursor: pointer;
+  margin-left: 100px;
+}
+
+.delete-icon:hover {
+  color: rgb(24, 24, 24);
+}
 
 /* Priority Indicator Styles */
 .priority-indicator {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 2px;
 }
 
-    .priority-indicator.low {
-        background-color: #6cba6d; /* green */
-    }
+.priority-indicator.low {
+  background-color: #5bb76a; /* green */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #346434;
+}
 
-    .priority-indicator.medium {
-        background-color: #f0c330; /* yellow */
-    }
+.priority-indicator.medium {
+  background-color: #f9ca24; /* yellow */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ab8c27;
+}
 
-    .priority-indicator.high {
-        background-color: #e74c3c; /* red */
-    }
+.priority-indicator.high {
+  background-color: #ea3b3b; /* red */
+  width: 10px;
+  height: 10px;
+  border: 1px solid #90352b;
+}
+
+.priority-indicator.none {
+  background-color: transparent;
+  border: 1px solid #b9becc;
+  width: 10px;
+  height: 10px;
+}
+
+.project-item .priority-indicator.none {
+  visibility: visible !important;
+  border: 1px solid #5f5f5f !important;
+  background-color: transparent !important;
+}
+
+.topbar-content-right .priority-indicator {
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+}
 
 .project-other {
-    color: black;
-    font-size: 0.85rem;
-    margin: 10px;
-    white-space: nowrap;
+  color: black;
+  font-size: 0.85rem;
+  margin: 10px;
+  white-space: nowrap;
 }
 
 .project-meta {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; /* optional if screen gets small */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .close-button {
-    color: black;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 2px;
-    transition: color 0.2s;
+  color: black;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: color 0.2s;
 }
 
-    .close-button:hover {
-        color: grey;
-    }
-
-
+.close-button:hover {
+  color: grey;
+}
 
 .main-content {
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
 
 .divider-line {
   border-top: 0.3px solid grey;
   width: 100%;
   margin: 0.3rem 0;
-  
-  
 }
 
 .filter-btn {
-    background-color: #243c5a;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+  background-color: #243c5a;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-    .filter-btn:hover {
-        background-color: #164e86;
-    }
+.filter-btn:hover {
+  background-color: #164e86;
+}
 
 .folder {
-    color: black;
+  color: black;
 }
 
 .folder h4 {
@@ -244,46 +279,46 @@ body {
 }
 
 .folder li {
-    margin-left: 10px;
-    cursor: pointer;
-    list-style: none;
+  margin-left: 10px;
+  cursor: pointer;
+  list-style: none;
 }
 
 .add-btn {
-    padding: 5px 15px;
-    background-color: #305780;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
+  padding: 5px 15px;
+  background-color: #305780;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .empty-workspace {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 80px); /* Tar upp hela höjden utom topbaren */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
 }
 
 .new-project-btn {
-    padding: 1rem 2rem;
-    background-color: #3c70a4;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 1rem 2rem;
+  background-color: #3c70a4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-    .new-project-btn:hover {
-        background-color: #2d4a6d;
-    }
+.new-project-btn:hover {
+  background-color: #2d4a6d;
+}
 
 .collapse-container {
   margin: 0;
-  display:flex;
+  display: flex;
   align-items: center;
 }
 
@@ -293,80 +328,72 @@ body {
   cursor: pointer;
 }
 
-/* Add these styles to your App.css */
 .logo-container {
-    width:250px;
-    display: flex;
-    align-items: center;
-    filter: invert(0%) sepia(95%) saturate(21%) hue-rotate(2deg) brightness(92%) contrast(108%);
+  width: 250px;
+  display: flex;
+  align-items: center;
+  filter: invert(0%) sepia(95%) saturate(21%) hue-rotate(2deg) brightness(92%)
+    contrast(108%);
 }
 
 .topbar-logo {
-    height: 40px; /* Adjust based on your logo's aspect ratio */
-    width: auto;
-    margin:auto;
-    object-fit: contain;
-    filter: invert(100%);
+  height: 40px;
+  width: auto;
+  margin: auto;
+  object-fit: contain;
+  filter: invert(100%);
 }
 
-/* Adjust the topbar-content padding to accommodate the logo */
-.topbar-content {
-    /* Reduced from 270px to account for logo */
-}
-
-.folder{
-  color:black;
+.folder {
+  color: black;
   font-size: 0.8rem;
 }
 
 .project {
-  border-left: 0.5px solid #555454; 
-  margin-left: 10px;           
-      
+  border-left: 0.5px solid #555454;
+  margin-left: 10px;
 }
 
-.project li{
-    
+.project li {
   padding: 3px;
-  width:100%;
+  width: 100%;
   border-start-start-radius: 3px;
   border-end-start-radius: 3px;
 }
 
-
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    columns: 1;
-    border-right: 1px solid #888686;
-    box-sizing: border-box;
-    width: 250px; /* Default width */
-    padding: 10px;
-    position: relative;
-    background-color: #E0E0E0;
-    transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  columns: 1;
+  border-right: 1px solid #888686;
+  box-sizing: border-box;
+  width: 250px;
+  padding: 10px;
+  position: relative;
+  background-color: #E0E0E0;
+  transition: width 0.3s ease;
 }
 
 .resizer {
-    width: 5px;
-    cursor: ew-resize;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    z-index: 10;
+  width: 5px;
+  cursor: ew-resize;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-Index: 10;
 }
 
 .sidebar-title,
 .sidebar-icons,
 .sidebar-header,
 .folders-container {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .sidebar.minimized {
-    width: 50px; /* Adjust width for minimized state */
+  width: 50px;
 }
 
 .sidebar-title,
@@ -374,75 +401,75 @@ body {
 .sidebar-header,
 .sidebar-search,
 .folders-container,
-.stats-button{
-    opacity: 1;
-    visibility: visible;
+.stats-button {
+  opacity: 1;
+  visibility: visible;
 }
 
-    .sidebar-search.minimized,
-    .sidebar-title.minimized,
-    .sidebar-icons.minimized,
-    .sidebar-header.minimized,
-    .folders-container.minimized,
-    .stats-button.minimized {
-        opacity: 0;
-        visibility: hidden; /* Hide content when minimized */
-    }
+.sidebar-search.minimized,
+.sidebar-title.minimized,
+.sidebar-icons.minimized,
+.sidebar-header.minimized,
+.folders-container.minimized,
+.stats-button.minimized {
+  opacity: 0;
+  visibility: hidden;
+}
 
 .folders-container {
-    margin-top: 0.2rem;
+  margin-top: 0.2rem;
 }
 
 .resizer {
-    width: 5px;
-    cursor: ew-resize;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    z-index: 10;
+  width: 5px;
+  cursor: ew-resize;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-Index: 10;
 }
-.context-menu {
-    position: fixed;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
 
+.context-menu {
+  position: fixed;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-Index: 1000;
 }
 
 .context-menu button {
-    background-color: #ff6666;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .context-menu button:hover {
-    background-color: #ff4444;
+  background-color: #ff4444;
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-Index: 999;
 }
 
 .rename-input {
-  font-size: 0.5 rem;
+  font-size: 0.75rem;
   font-weight: bold;
   border: 1px solid #ccc;
   border-radius: 1px;
   padding: 4px 8px;
   width: 200px;
+
 }
 
 
@@ -470,4 +497,5 @@ body {
   font-size: 1.2rem;
   color: #333;
 }
+
 

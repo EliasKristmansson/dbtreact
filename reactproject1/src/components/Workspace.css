@@ -3,7 +3,8 @@
     background-color: #fafafa;
     color: #333;
     flex: 1;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .workspace-header {
@@ -12,6 +13,11 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    background-color: #fafafa;
+    z-index: 2;
 }
 
 .add-btn,
@@ -27,22 +33,25 @@
     margin-left: auto;
 }
 
-    .add-btn:hover {
-        background-color: #111;
-    }
+.add-btn:hover {
+    background-color: #111;
+}
 
 .complete-project-btn {
     background-color: #4caf50;
     margin-left: 0.5rem;
 }
 
-    .complete-project-btn:hover {
-        background-color: #388e3c;
-    }
+.complete-project-btn:hover {
+    background-color: #388e3c;
+}
 
 .table-container {
     overflow-x: auto;
+    overflow-y: auto;
     background-color: transparent;
+    max-height: calc(100vh - 80px - 50px);
+    flex-grow: 1;
 }
 
 .project-table {
@@ -53,87 +62,122 @@
     font-size: 0.7rem;
 }
 
-    .project-table th,
-    .project-table td {
-        padding: 0.1rem 4px;
-        text-align: left;
-        word-break: break-word;
-        white-space: nowrap;
-        border-right: 1px solid #ddd;
-    }
+.project-table thead {
+    position: sticky;
+    top: 0;
+    background-color: #fafafa;
+    z-index: 1;
+}
 
-    .project-table th {
-        font-weight: 600;
-    }
+.project-table th,
+.project-table td {
+    padding: 0.1rem 4px;
+    text-align: left;
+    word-break: break-word;
+    white-space: nowrap;
+    border-right: 1px solid #ddd;
+}
 
-        .project-table th:last-child,
-        .project-table td:last-child {
-            border-right: none;
-        }
+.project-table th {
+    font-weight: 600;
+}
 
-    .project-table input,
-    .project-table textarea {
-        width: 100%;
-        padding: 0.2rem 0.3rem;
-        border: none;
-        box-shadow: 0 0 0 1px #ccc;
-        background-color: white;
-        box-sizing: border-box;
-        border-radius: 4px;
-        font: inherit;
-    }
+.project-table th:last-child,
+.project-table td:last-child {
+    border-right: none;
+}
 
-        .project-table input:focus,
-        .project-table textarea:focus {
-            outline: none;
-            background-color: white;
-            box-shadow: 0 0 1px 1px #d3d3d3;
-        }
+.project-table input,
+.project-table textarea {
+    width: 100%;
+    padding: 0.2rem 0.3rem;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font: inherit;
+}
 
-    .project-table textarea {
-        height: 25px;
-        resize: none;
-        padding: 0.2rem 0.3rem;
-        line-height: 1.2;
-        overflow: hidden;
-        margin: 0;
-        vertical-align: middle;
-    }
+.project-table input:focus,
+.project-table textarea:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 1px 1px #d3d3d3;
+}
 
-        .project-table textarea::placeholder {
-            font-size: 0.65rem;
-        }
+.project-table textarea {
+    height: 25px;
+    resize: none;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    align-items: center; 
+}
 
-    .project-table td input[type="number"] {
-        padding: 0.15rem;
-        font-size: 0.75rem;
-        border: none;
-        background-color: transparent;
-        border-radius: 3px;
-    }
+.project-table textarea::placeholder {
+    font-size: 0.75rem;
+    padding: 0.2rem 0 !important;
+    color: #888888;
+}
 
-    .project-table button {
-        padding: 0.2rem 0.3rem;
-        background: none;
-        color: #666;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: color 0.2s;
-    }
+.project-table textarea:not(:placeholder-shown) {
+  padding-top: 5px; 
+  padding-left: 10px; 
+  padding-left: 5px; 
+  line-height: 1.2;
+  font-size: 0.7rem;
+}
 
-        .project-table button:hover {
-            color: #111;
-        }
+.project-table td:nth-child(14) select {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0 !important;
+}
 
-    .project-table .antal-djur-inputs {
-        display: flex;
-        align-items: center;
-        gap: 0.2rem;
-        width: 100%;
-        min-width: 0;
-    }
+.project-table td:nth-child(14) select:invalid {
+    color: #888888 !important;
+}
+
+.project-table td:nth-child(14) select option[value=""] {
+    color: #888888 !important;
+}
+
+.project-table td:nth-child(14) select option:not([value=""]) {
+    color: #333 !important;
+}
+
+.project-table td input[type="number"] {
+    padding: 0.15rem;
+    font-size: 0.75rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 3px;
+}
+
+.project-table button {
+    padding: 0.2rem 0.3rem;
+    background: none;
+    color: #666;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.project-table button:hover {
+    color: #111;
+}
+
+.project-table .antal-djur-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    width: 100%;
+    min-width: 0;
+}
 
 .antal-djur-inputs input {
     width: 30px !important;
@@ -149,11 +193,11 @@
     font: inherit;
 }
 
-    .antal-djur-inputs input:focus {
-        outline: none;
-        background-color: white;
-        box-shadow: 0 0 1px 1px #d3d3d3;
-    }
+.antal-djur-inputs input:focus {
+    outline: none;
+    background-color: white;
+    box-shadow: 0 0 1px 1px #d3d3d3;
+}
 
 .antal-djur-inputs span {
     white-space: nowrap;
@@ -174,45 +218,46 @@
     width: 100%;
 }
 
-    .filter-buttons button {
-        padding: 0.2rem 0.6rem;
-        background-color: #e6e6e6;
-        color: #333;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.65rem;
-        font-weight: 600;
-        transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-        height: 25px; /* Set consistent height */
-    }
+.filter-buttons button {
+    font: inherit;
+    padding: 0.2rem 0.6rem;
+    background-color: #e6e6e6;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    height: 25px;
+}
 
-        .filter-buttons button:hover {
-            background-color: #d0d0d0;
-            color: #111;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
+.filter-buttons button:hover {
+    background-color: #d0d0d0;
+    color: #111;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
 
-    .filter-buttons .active-filter {
-        background-color: #ffffff;
-        color: #164e86;
-        border: 1px solid #164e86;
-        font-weight: 700;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-        height: 25px; /* Set consistent height */
-    }
+.filter-buttons .active-filter {
+    background-color: #ffffff;
+    color: #164e86;
+    border: 1px solid #164e86;
+    font-weight: 700;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    height: 25px;
+}
 
-    .filter-buttons .rensa-filter-btn {
-        background-color: #ffecec;
-        border: 1px solid #e0b4b4;
-        color: #a10000;
-    }
+.filter-buttons .rensa-filter-btn {
+    background-color: #ffecec;
+    border: 1px solid #e0b4b4;
+    color: #a10000;
+}
 
-        .filter-buttons .rensa-filter-btn:hover {
-            background-color: #f8c9c9;
-            color: #800000;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-        }
+.filter-buttons .rensa-filter-btn:hover {
+    background-color: #f8c9c9;
+    color: #800000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
 
 .new-project {
     display: flex;
@@ -233,9 +278,9 @@
     transition: background-color 0.3s;
 }
 
-    .new-project-btn:hover {
-        background-color: #164e86;
-    }
+.new-project-btn:hover {
+    background-color: #164e86;
+}
 
 .flag-button {
     width: 16px;
@@ -248,31 +293,29 @@
     margin: 0;
 }
 
-    .flag-button.green {
-        background-color: #00af52;
-    }
+.flag-button.green {
+    background-color: #00af52;
+}
 
-    .flag-button.yellow {
-        background-color: #ffff01;
-    }
+.flag-button.yellow {
+    background-color: #ffe418;
+}
 
-    .flag-button.red {
-        background-color: #fd0002;
-    }
+.flag-button.red {
+    background-color: #fd0002;
+}
 
-    .flag-button.orange {
-        background-color: #ffc000;
-    }
+.flag-button.orange {
+    background-color: #ff8400;
+}
 
-    .flag-button.blue {
-        background-color: #01b0f1;
-    }
+.flag-button.blue {
+    background-color: #01b0f1;
+}
 
-    .flag-button:hover {
-        transform: scale(1.2);
-    }
-
-
+.flag-button:hover {
+    transform: scale(1.2);
+}
 
 .project-table .delete-row-icon-td,
 .project-table .delete-row-icon-th {
@@ -286,30 +329,12 @@
     padding: 0 0 0 0.3rem;
 }
 
-
 .project-table col.col-kommentar {
     width: 50px;
 }
 
-.project-table th:nth-child(5),
-.project-table td:nth-child(5) {
-    width: 5px;
-}
-
-.project-table th:nth-child(10),
-.project-table td:nth-child(10) {
-    width: 5px;
-    /* gör kolumnen för vialer smalare */
-}
-
-.project-table th:nth-child(14),
-.project-table td:nth-child(14) {
-    width: 100px;
-    /* gör kolumnen för vialer smalare */
-}
-
 .flag-filter-container button {
-    height: 25px; /* Set consistent height */
+    height: 25px;
 }
 
 .flag-filter-container.active-filter button {
@@ -371,40 +396,12 @@
     border: 1px solid #ccc;
 }
 
-/* Behåll dina befintliga flaggfärger */
-.flag-button.red {
-    background-color: #ff6b6b;
-}
-
-.flag-button.orange {
-    background-color: #ffa502;
-}
-
-.flag-button.yellow {
-    background-color: #f9ca24;
-}
-
-.flag-button.green {
-    background-color: #51cf66;
-}
-
-.flag-button.blue {
-    background-color: #339af0;
-}
-
 .project-table td.date-picker-cell {
     padding-right: 4px !important;
     padding-left: 4px !important;
-    /* Samma som dina andra celler */
     width: auto;
-    /* Eller en specifik bredd om du vill */
 }
 
-.date-picker-cell .calendar-input {
-    box-sizing: border-box;
-}
-
-/* Lägg till dessa regler i din CSS-fil */
 .react-datepicker-wrapper {
     width: 100% !important;
 }
@@ -416,7 +413,105 @@
 
 .date-picker-cell {
     padding: 0.2rem 6px !important;
-    /* Matchar dina andra celler */
-    width: 1%;
-    /* Låter cellen anpassa sig efter innehållet */
+}
+
+.custom-datepicker-header {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    background: #f0f0f0;
+}
+
+.datepicker-title {
+    padding: 2px 10px;
+    text-align: center;
+    cursor: pointer;
+    color: #5c6c7e;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.custom-datepicker-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.datepicker-title:hover {
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.month-navigation button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    font-weight: bold;
+}
+
+.month-navigation button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.month-navigation span {
+    font-weight: bold;
+}
+
+.project-table th:nth-child(1),
+.project-table td:nth-child(1) {
+    width: 25px;
+}
+
+.project-table th:nth-child(3),
+.project-table td:nth-child(3) {
+    width: 80px;
+}
+
+.project-table th:nth-child(4),
+.project-table td:nth-child(4) {
+    width: 80px;
+}
+
+.project-table th:nth-child(5),
+.project-table td:nth-child(5) {
+    width: 5px;
+}
+
+.project-table th:nth-child(6),
+.project-table td:nth-child(6) {
+    width: 80px;
+}
+
+.project-table th:nth-child(9),
+.project-table td:nth-child(9) {
+    width: 80px;
+}
+
+.project-table th:nth-child(10),
+.project-table td:nth-child(10) {
+    width: 5px;
+}
+
+.project-table th:nth-child(11),
+.project-table td:nth-child(11) {
+    width: 80px;
+}
+
+.project-table th:nth-child(12),
+.project-table td:nth-child(12) {
+    width: 80px;
+}
+
+.project-table th:nth-child(14),
+.project-table td:nth-child(14) {
+    width: 100px;
 }
