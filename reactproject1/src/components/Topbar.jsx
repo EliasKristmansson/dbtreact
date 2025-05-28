@@ -149,7 +149,7 @@ export default function Topbar({
             Deadline: <span>{deadline}</span>
           </p>
           <p className="project-other">
-            {greenFlagsCount}/{rowCount} prover klara
+            {greenFlagsCount}/<span style={{ fontWeight: 'bold' }}>{rowCount}</span> prover klara
           </p>
           <p className="project-other">{commentCount} Kommentarer</p>
         </div>
